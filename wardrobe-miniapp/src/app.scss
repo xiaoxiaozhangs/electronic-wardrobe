@@ -19,6 +19,14 @@ page {
   --color-warning: #f59e0b;
   --color-info: #3b82f6;
 
+  /* ---- 安全区 / 状态栏（由 src/utils/adapter.ts 在启动时注入真实像素值）---- */
+  /* 默认值兜底；H5 端可被 env(safe-area-inset-*) 覆盖；小程序端在 app.tsx 启动时被 JS 改写 */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --status-bar-height: 20px;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 28px;
@@ -107,7 +115,40 @@ page {
 /* ---- 通用布局 ---- */
 .container {
   padding: 24px;
-  padding-bottom: 120px;
+  /* 120px = BottomNav 高度，再叠加底部安全区，避免内容被 Home Indicator 遮挡 */
+  padding-bottom: calc(120px + var(--safe-area-inset-bottom));
+}
+
+/* ---- 安全区工具类 ---- */
+/* 顶部贴状态栏的元素：custom 导航栏 / 全屏页面 */
+.safe-top {
+  padding-top: var(--safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+.safe-left {
+  padding-left: var(--safe-area-inset-left);
+}
+.safe-right {
+  padding-right: var(--safe-area-inset-right);
+}
+
+/* ---- 低端设备降级：关闭模糊 / 阴影 / 复杂动画 ---- */
+page[data-device-tier='low'] {
+  /* 关闭毛玻璃 */
+  --backdrop-blur: none;
+}
+page[data-device-tier='low'] .blur,
+page[data-device-tier='low'] .blur-bg {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: var(--color-white) !important;
+}
+page[data-device-tier='low'] .animated {
+  /* 低端机关闭过渡动画，减小渲染压力 */
+  transition: none !important;
+  animation: none !important;
 }
 
 .section-title {
@@ -162,4 +203,73 @@ page {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+ * 安全区 / 多机型适配工具类
+ * 通过 src/utils/adapter.ts 在启动时注入实际像素值（H5 端）
+ * 小程序端通过 inline style 消费，这里仅提供 H5 / devtools 与
+ * 通用边距类
+ * ============================================================ */
+
+.safe-top {
+  padding-top: var(--safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+.safe-left {
+  padding-left: var(--safe-area-inset-left);
+}
+.safe-right {
+  padding-right: var(--safe-area-inset-right);
+}
+.safe-x {
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+}
+.safe-y {
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* 固定底部容器（如 BottomNav / FAB / ActionSheet）通用安全区 */
+.fixed-bottom-safe {
+  padding-bottom: calc(var(--safe-area-inset-bottom) + 16px);
+}
+
+/* 状态栏高度占位（自定义 navigationBar 时用） */
+.status-bar-spacer {
+  height: var(--status-bar-height);
+}
+
+/* ============================================================
+ * 设备分级降级（由 adapter 在 <html> 上写 data-device-tier）
+ *  - high : 默认全功能
+ *  - mid  : 默认全功能（与 high 一致）
+ *  - low  : 关闭模糊、关闭过渡动画、双列回退单列
+ * ============================================================ */
+
+[data-device-tier='low'] .blur-bg {
+  /* 低端机关闭毛玻璃 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: var(--color-white) !important;
+}
+
+[data-device-tier='low'] .anim-fade,
+[data-device-tier='low'] .anim-slide,
+[data-device-tier='low'] .anim-scale {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* 双列网格 → 低端机自动塌陷为单列 */
+.grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+[data-device-tier='low'] .grid-2col {
+  grid-template-columns: 1fr;
 }

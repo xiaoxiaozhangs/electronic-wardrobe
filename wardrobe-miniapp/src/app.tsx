@@ -1,5 +1,6 @@
 import { Component, PropsWithChildren } from 'react';
 import { initCloud, performLogin, isLoggedIn, clearToken } from './cloud';
+import { getDeviceInfo, getSafeAreaInsets, injectSafeAreaCssVars } from './utils/adapter';
 import './app.scss';
 
 class App extends Component<PropsWithChildren> {
@@ -10,6 +11,20 @@ class App extends Component<PropsWithChildren> {
 
   componentDidMount() {
     console.log('智搭衣橱 小程序启动');
+
+    // 0. 预热设备 / 安全区信息（缓存 systemInfo，注入 H5 CSS 变量）
+    try {
+      const device = getDeviceInfo();
+      const insets = getSafeAreaInsets();
+      injectSafeAreaCssVars();
+      console.log(
+        `[App] 设备适配: ${device.platform}/${device.brand} ${device.model} ` +
+          `tier=${device.tier} fullScreen=${device.isFullScreen} ` +
+          `safeArea=top:${insets.top} bottom:${insets.bottom}`
+      );
+    } catch (err) {
+      console.warn('[App] 设备适配初始化失败:', err);
+    }
 
     // 1. 初始化 CloudBase SDK（用于图片上传等需要 SDK 的场景）
     initCloud()

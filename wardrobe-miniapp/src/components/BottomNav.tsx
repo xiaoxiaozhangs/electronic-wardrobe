@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { useSafeArea } from '../hooks/useDeviceAdapter';
 
 interface NavItem {
   key: string;
@@ -20,16 +21,21 @@ interface BottomNavProps {
 }
 
 export default function BottomNav({ activeKey }: BottomNavProps) {
+  const insets = useSafeArea();
+
   const navigate = (item: NavItem) => {
     Taro.redirectTo({ url: item.pagePath });
   };
+
+  // 优先用真实 inset 像素值；env() 仍保留作为 H5 / 浏览器降级
+  const bottomInset = insets.bottom > 0 ? `${insets.bottom}px` : 'env(safe-area-inset-bottom)';
 
   return (
     <View style={{
       position: 'fixed', bottom: 0, left: 0, right: 0,
       backgroundColor: '#ffffff', borderTop: '1px solid #e5e7eb',
       display: 'flex', justifyContent: 'space-around',
-      paddingBottom: 'env(safe-area-inset-bottom)',
+      paddingBottom: bottomInset,
       zIndex: 100,
     }}>
       {navItems.map((item) => (
