@@ -1,0 +1,10 @@
+{
+  "name": "ew-wardrobe",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 衣物CRUD + 品类/标签字典",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

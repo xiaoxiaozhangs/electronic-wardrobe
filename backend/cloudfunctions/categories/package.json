@@ -1,0 +1,9 @@
+{
+  "name": "ew-categories",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 品类字典",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

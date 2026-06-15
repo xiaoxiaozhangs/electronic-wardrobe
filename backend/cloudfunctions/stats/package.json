@@ -1,0 +1,10 @@
+{
+  "name": "ew-stats",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 衣橱统计概览",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "version": "2.0",
+  "envId": "cloud1-d4g6cb3nyf821a7a0",
+  "functionRoot": "./backend/cloudfunctions",
+  "functions": [
+    {
+      "name": "auth",
+      "timeout": 10,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026",
+        "WX_APP_SECRET": "your-app-secret-here"
+      }
+    },
+    {
+      "name": "categories",
+      "timeout": 5,
+      "runtime": "Nodejs18.15",
+      "envVariables": {}
+    },
+    {
+      "name": "tags",
+      "timeout": 5,
+      "runtime": "Nodejs18.15",
+      "envVariables": {}
+    },
+    {
+      "name": "wardrobe",
+      "timeout": 15,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "outfit",
+      "timeout": 30,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "stats",
+      "timeout": 10,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "upload",
+      "timeout": 10,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "aiTag",
+      "timeout": 15,
+      "runtime": "Nodejs18.15",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "db_init",
+      "timeout": 30,
+      "runtime": "Nodejs18.15",
+      "envVariables": {}
+    }
+  ]
+}

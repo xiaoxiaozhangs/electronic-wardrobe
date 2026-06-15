@@ -1,0 +1,10 @@
+{
+  "name": "ew-upload",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 图片上传凭证 + 预处理",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

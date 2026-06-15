@@ -1,0 +1,11 @@
+{
+  "name": "ew-auth",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 认证云函数（微信登录 + JWT签发）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2",
+    "axios": "^1.7.2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ew-seed",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 数据库初始化及种子数据",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

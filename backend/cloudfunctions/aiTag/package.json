@@ -1,0 +1,10 @@
+{
+  "name": "ew-aiTag",
+  "version": "1.0.0",
+  "description": "电子衣橱 - AI标签识别（预留接口）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

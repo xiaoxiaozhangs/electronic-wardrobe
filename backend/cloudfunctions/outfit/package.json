@@ -1,0 +1,10 @@
+{
+  "name": "ew-outfit",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 智能搭配生成 + 列表/详情 + 反馈",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

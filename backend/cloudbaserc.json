@@ -1,0 +1,100 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "version": "2.0",
+  "envId": "cloud1-d4g6cb3nyf821a7a0",
+  "region": "ap-shanghai",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    {
+      "name": "auth",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 15,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "微信登录 + JWT 签发",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026",
+        "WX_APP_SECRET": "68e8a9b5bdf75fd8eaa987b275c4ca45"
+      }
+    },
+    {
+      "name": "wardrobe",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 15,
+      "memorySize": 512,
+      "handler": "index.main",
+      "description": "衣物CRUD + 品类字典 + 标签字典",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "categories",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 15,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "品类字典（wardrobe副本）"
+    },
+    {
+      "name": "tags",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 15,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "标签字典（wardrobe副本）"
+    },
+    {
+      "name": "outfit",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 20,
+      "memorySize": 512,
+      "handler": "index.main",
+      "description": "智能搭配生成 + 列表/详情 + 反馈",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "stats",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 10,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "衣橱统计概览",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "upload",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 10,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "图片上传凭证",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    },
+    {
+      "name": "aiTag",
+      "type": "Event",
+      "runtime": "Nodejs18.15",
+      "timeout": 10,
+      "memorySize": 256,
+      "handler": "index.main",
+      "description": "AI标签识别（预留接口）",
+      "envVariables": {
+        "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.taro-cache/
+.temp/
+.rn_temp/
+.DS_Store
+*.log
+.cloudbase/

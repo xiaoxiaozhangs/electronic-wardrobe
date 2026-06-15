@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "timeout": 10,
+  "envVariables": {
+    "JWT_SECRET": "electronic-wardrobe-jwt-secret-2026",
+    "WX_APP_SECRET": "your-app-secret-here"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ew-tags",
+  "version": "1.0.0",
+  "description": "电子衣橱 - 标签字典",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
