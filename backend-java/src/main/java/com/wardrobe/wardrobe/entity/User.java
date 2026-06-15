@@ -16,6 +16,12 @@ public class User {
     private String unionid;
     private String nickname;
     private String avatarUrl;
+    /** 手机号(微信授权获取) */
+    private String phone;
+    /** 区号 */
+    private String countryCode;
+    /** 手机号绑定时间 */
+    private LocalDateTime phoneBindAt;
     private String stylePreferences;
     private String commonScenarios;
     private String city;
