@@ -8,6 +8,7 @@ import {
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import OutfitCard from '../../components/OutfitCard';
 import EmptyState from '../../components/EmptyState';
+import ECButton from '../../components/ECButton';
 import BottomNav from '../../components/BottomNav';
 
 /** 根据当前月份推断季节 */
@@ -211,19 +212,20 @@ export default function OutfitPage() {
             </View>
 
             {/* Generate button */}
-            <View
-              className="btn-primary"
-              style={{ width: '100%', padding: '24px', fontSize: '30px' }}
+            <ECButton
+              variant="primary"
+              size="large"
+              block
+              loading={generating}
+              disabled={availableItems.length < 3}
               onClick={handleGenerate}
             >
-              {generating ? (
-                <Text>⏳ 正在生成搭配...</Text>
-              ) : availableItems.length < 3 ? (
-                <Text>至少需要3件可用衣物才能生成搭配</Text>
-              ) : (
-                <Text>✨ 生成搭配方案</Text>
-              )}
-            </View>
+              {generating
+                ? '正在生成搭配...'
+                : availableItems.length < 3
+                  ? '至少需要3件可用衣物才能生成搭配'
+                  : '✨ 生成搭配方案'}
+            </ECButton>
           </View>
 
           {/* Results */}

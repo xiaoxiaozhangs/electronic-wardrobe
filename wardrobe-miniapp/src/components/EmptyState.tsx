@@ -1,4 +1,5 @@
 import { View, Text } from '@tarojs/components';
+import ECButton from './ECButton';
 
 interface EmptyStateProps {
   icon: string;
@@ -24,9 +25,9 @@ export default function EmptyState({
         <Text className="empty-state-desc">{description}</Text>
       )}
       {action && (
-        <View className="btn-primary" style={{ marginTop: '32px' }} onClick={action.onClick}>
+        <ECButton variant="primary" onClick={action.onClick} style={{ marginTop: '32px' }}>
           {action.label}
-        </View>
+        </ECButton>
       )}
     </View>
   );

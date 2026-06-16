@@ -1,10 +1,16 @@
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { useState } from 'react';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
+import { useToast } from '../../components/ECToast';
+import ECModal from '../../components/ECModal';
+import ECButton from '../../components/ECButton';
 import BottomNav from '../../components/BottomNav';
 
 export default function SettingsPage() {
   const { items, outfits, loading, onlineMode, resetAllData } = useWardrobeStore();
+  const toast = useToast();
+  const [showResetModal, setShowResetModal] = useState(false);
   const availableItems = items.filter((i) => i.status === '正常');
 
   // 品类分布统计
@@ -31,19 +37,13 @@ export default function SettingsPage() {
   const idleItems = availableItems.filter((i) => i.wearCount === 0);
 
   const handleReset = () => {
-    Taro.showModal({
-      title: '重置数据',
-      content: '确定要重置所有数据吗？这将删除你添加的所有衣物和搭配，恢复为示例数据。此操作不可撤销！',
-      confirmText: '确定重置',
-      cancelText: '取消',
-      confirmColor: '#ef4444',
-      success: (res) => {
-        if (res.confirm) {
-          resetAllData();
-          Taro.showToast({ title: '数据已重置', icon: 'success' });
-        }
-      },
-    });
+    setShowResetModal(true);
+  };
+
+  const confirmReset = () => {
+    resetAllData();
+    toast.success('数据已重置');
+    setShowResetModal(false);
   };
 
   if (loading) {
@@ -207,18 +207,22 @@ export default function SettingsPage() {
         <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '16px', display: 'block' }}>
           重置将删除所有数据并恢复示例数据
         </Text>
-        <View
-          onClick={handleReset}
-          style={{
-            padding: '18px', textAlign: 'center',
-            border: '1px solid #fecaca', borderRadius: '12px',
-            fontSize: '26px', fontWeight: 500, color: '#ef4444',
-          }}
-        >
-          <Text>重置所有数据</Text>
-        </View>
+        <ECButton variant="ghost" block onClick={handleReset} style={{ color: '#ef4444', border: '1px solid #fecaca', borderRadius: '12px' }}>
+          重置所有数据
+        </ECButton>
       </View>
       <BottomNav activeKey="settings" />
+
+      {/* Reset data confirmation modal */}
+      <ECModal
+        visible={showResetModal}
+        title="重置数据"
+        content="确定要重置所有数据吗？这将删除你添加的所有衣物和搭配，恢复为示例数据。此操作不可撤销！"
+        confirmText="确定重置"
+        cancelText="取消"
+        onConfirm={confirmReset}
+        onCancel={() => setShowResetModal(false)}
+      />
     </View>
   );
 }

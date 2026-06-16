@@ -1,5 +1,6 @@
 import { Component, PropsWithChildren } from 'react';
 import { initCloud, performLogin, isLoggedIn, clearToken } from './cloud';
+import { ToastProvider } from './components/ECToast';
 import './app.scss';
 
 class App extends Component<PropsWithChildren> {
@@ -71,7 +72,7 @@ class App extends Component<PropsWithChildren> {
   }
 
   render() {
-    return this.props.children;
+    return <ToastProvider>{this.props.children}</ToastProvider>;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { View, Text, Image, Input, Picker, Textarea } from '@tarojs/components';
+import { View, Text, Image, Picker, Textarea } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import type {
   WardrobeItem, Category, SubCategory, ColorLabel,
@@ -8,6 +8,9 @@ import type {
 import {
   ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS, ALL_STYLES, COLOR_MAP,
 } from '../types';
+import { useToast } from './ECToast';
+import ECInput from './ECInput';
+import ECButton from './ECButton';
 
 // ---- 子品类映射 ----
 const SUB_CATEGORY_MAP: Record<Category, SubCategory[]> = {
@@ -34,6 +37,7 @@ interface ClothingFormProps {
 }
 
 export default function ClothingForm({ initialData, onSubmit, onCancel }: ClothingFormProps) {
+  const toast = useToast();
   const [imageBase64, setImageBase64] = useState(initialData?.imageBase64 ?? '');
   const [category, setCategory] = useState<Category>(initialData?.category ?? '上衣');
   const [subCategory, setSubCategory] = useState<SubCategory>(initialData?.subCategory ?? 'T恤');
@@ -68,7 +72,7 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
           },
           fail: () => {
             // 如果读取失败，临时使用文件路径
-            Taro.showToast({ title: '图片读取失败，请重试', icon: 'none' });
+            toast.error('图片读取失败，请重试');
           },
         });
       },
@@ -87,7 +91,7 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
   // 提交
   const handleSubmit = () => {
     if (!imageBase64) {
-      Taro.showToast({ title: '请上传衣物图片', icon: 'none' });
+      toast.warn('请上传衣物图片');
       return;
     }
     onSubmit({
@@ -303,24 +307,24 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
           适合温度区间：{temperatureMin}°C — {temperatureMax}°C
         </Text>
         <View style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '12px' }}>
-          <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
-            type="number"
+          <ECInput
             value={String(temperatureMin)}
-            onInput={(e) => {
-              const v = Number(e.detail.value);
-              setTemperatureMin(Math.min(v, temperatureMax));
+            onChange={(v) => {
+              const val = Number(v);
+              if (!isNaN(val)) setTemperatureMin(Math.min(val, temperatureMax));
             }}
-          />
-          <Text style={{ fontSize: '24px', color: '#9ca3af' }}>至</Text>
-          <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
             type="number"
+            placeholder="最低温度"
+          />
+          <Text style={{ fontSize: '24px', color: '#9ca3af', flexShrink: 0 }}>至</Text>
+          <ECInput
             value={String(temperatureMax)}
-            onInput={(e) => {
-              const v = Number(e.detail.value);
-              setTemperatureMax(Math.max(v, temperatureMin));
+            onChange={(v) => {
+              const val = Number(v);
+              if (!isNaN(val)) setTemperatureMax(Math.max(val, temperatureMin));
             }}
+            type="number"
+            placeholder="最高温度"
           />
         </View>
       </View>
@@ -362,12 +366,12 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
 
       {/* Buttons */}
       <View style={{ display: 'flex', gap: '16px', paddingTop: '24px', borderTop: '1px solid #f3f4f6' }}>
-        <View className="btn-outline" style={{ flex: 1 }} onClick={onCancel}>
+        <ECButton variant="secondary" style={{ flex: 1 }} onClick={onCancel}>
           取消
-        </View>
-        <View className="btn-primary" style={{ flex: 1 }} onClick={handleSubmit}>
+        </ECButton>
+        <ECButton variant="primary" style={{ flex: 1 }} onClick={handleSubmit}>
           保存衣物
-        </View>
+        </ECButton>
       </View>
     </View>
   );

@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import OutfitCard from '../../components/OutfitCard';
 import EmptyState from '../../components/EmptyState';
+import ECButton from '../../components/ECButton';
 import BottomNav from '../../components/BottomNav';
 
 export default function HomePage() {
@@ -113,10 +114,9 @@ export default function HomePage() {
           <View style={{ backgroundColor: '#f9fafb', borderRadius: '20px', padding: '40px', textAlign: 'center' }}>
             <Text style={{ fontSize: '56px', display: 'block', marginBottom: '12px' }}>👗</Text>
             <Text style={{ fontSize: '26px', color: '#6b7280', display: 'block', marginBottom: '20px' }}>还没有衣物，去添加吧</Text>
-            <View className="btn-primary" style={{ display: 'inline-flex' }}
-              onClick={() => goToPage('wardrobe')}>
+            <ECButton variant="primary" onClick={() => goToPage('wardrobe')}>
               添加第一件衣物
-            </View>
+            </ECButton>
           </View>
         )}
       </View>

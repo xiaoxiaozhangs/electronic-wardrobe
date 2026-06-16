@@ -4,6 +4,9 @@ import Taro from '@tarojs/taro';
 import type { WardrobeItem, WardrobeFilter, Category, ColorLabel, Season, Scenario, Style, ItemStatus } from '../../types';
 import { ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS } from '../../types';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
+import { useToast } from '../../components/ECToast';
+import ECModal from '../../components/ECModal';
+import ECButton from '../../components/ECButton';
 import ClothingCard from '../../components/ClothingCard';
 import ClothingForm from '../../components/ClothingForm';
 import FilterBar from '../../components/FilterBar';
@@ -23,11 +26,13 @@ const DEFAULT_FILTER: WardrobeFilter = {
 
 export default function WardrobePage() {
   const { items, addItem, updateItem, deleteItem, toggleFavorite, loading } = useWardrobeStore();
+  const toast = useToast();
 
   const [filter, setFilter] = useState<WardrobeFilter>(DEFAULT_FILTER);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<WardrobeItem | null>(null);
   const [selectedItem, setSelectedItem] = useState<WardrobeItem | null>(null);
+  const [deleteModalItem, setDeleteModalItem] = useState<WardrobeItem | null>(null);
 
   // Filter logic
   const filteredItems = useMemo(() => {
@@ -71,16 +76,15 @@ export default function WardrobePage() {
   };
 
   const handleDeleteItem = (item: WardrobeItem) => {
-    Taro.showModal({
-      title: '确认删除',
-      content: '确定删除这件衣物吗？',
-      success: (res) => {
-        if (res.confirm) {
-          deleteItem(item.id);
-          if (selectedItem?.id === item.id) setSelectedItem(null);
-        }
-      },
-    });
+    setDeleteModalItem(item);
+  };
+
+  const confirmDeleteItem = () => {
+    if (deleteModalItem) {
+      deleteItem(deleteModalItem.id);
+      if (selectedItem?.id === deleteModalItem.id) setSelectedItem(null);
+      setDeleteModalItem(null);
+    }
   };
 
   if (loading) {
@@ -174,18 +178,18 @@ export default function WardrobePage() {
           </View>
 
           <View style={{ display: 'flex', gap: '12px', paddingTop: '20px', borderTop: '1px solid #f3f4f6' }}>
-            <View className="btn-outline" style={{ flex: 1 }}
+            <ECButton variant="secondary" icon="✏️" style={{ flex: 1 }}
               onClick={() => {
                 setEditingItem(selectedItem);
                 setShowForm(true);
                 setSelectedItem(null);
               }}>
-              ✏️ 编辑
-            </View>
-            <View className="btn-outline" style={{ flex: 1, color: '#ef4444', borderColor: '#fecaca' }}
+              编辑
+            </ECButton>
+            <ECButton variant="secondary" icon="🗑️" style={{ flex: 1, color: '#ef4444', borderColor: '#fecaca' }}
               onClick={() => handleDeleteItem(selectedItem)}>
-              🗑️ 删除
-            </View>
+              删除
+            </ECButton>
           </View>
         </View>
       </View>
@@ -219,10 +223,9 @@ export default function WardrobePage() {
     <View className="container">
       <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <Text className="section-title" style={{ marginBottom: 0 }}>我的衣橱</Text>
-        <View className="btn-primary" style={{ padding: '12px 24px', fontSize: '26px' }}
-          onClick={() => setShowForm(true)}>
-          + 添加衣物
-        </View>
+        <ECButton variant="primary" size="small" icon="+" onClick={() => setShowForm(true)}>
+          添加衣物
+        </ECButton>
       </View>
 
       <FilterBar
@@ -262,6 +265,17 @@ export default function WardrobePage() {
         />
       )}
       <BottomNav activeKey="wardrobe" />
+
+      {/* Delete confirmation modal */}
+      <ECModal
+        visible={deleteModalItem !== null}
+        title="确认删除"
+        content="确定删除这件衣物吗？"
+        confirmText="删除"
+        cancelText="取消"
+        onConfirm={confirmDeleteItem}
+        onCancel={() => setDeleteModalItem(null)}
+      />
     </View>
   );
 }
