@@ -163,3 +163,66 @@ page {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ---- 骨架屏脉冲动画 ---- */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.skeleton-block {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* ---- 渐入动效 ---- */
+.fade-in {
+  animation: fadeIn 300ms ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- 瀑布流网格 ---- */
+.waterfall-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 2px;
+}
+
+.waterfall-col {
+  width: calc(50% - 6px);
+  flex-shrink: 0;
+}
+
+.waterfall-card {
+  transition: transform 0.2s ease;
+}
+
+.waterfall-card:active {
+  transform: scale(0.97);
+}
+
+.waterfall-card-img {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---- 瀑布流容器（scroll-view 包裹层） ---- */
+.waterfall-scroll {
+  height: 100vh;
+  padding-top: 4px;
+}
+
+/* ---- 加载更多提示 ---- */
+.load-more-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  gap: 8px;
+  font-size: 24px;
+  color: #9ca3af;
+}
