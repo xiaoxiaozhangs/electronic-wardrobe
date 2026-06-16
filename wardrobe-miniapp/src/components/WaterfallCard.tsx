@@ -63,8 +63,8 @@ export default function WaterfallCard({ item, onClick, onToggleFavorite }: Water
           overflow: 'hidden',
         }}
       >
-        {/* 骨架屏占位（图片未加载时显示） */}
-        {!imageLoaded && (
+        {/* 骨架屏占位（仅图片未加载且未失败时显示） */}
+        {!imageLoaded && !imageError && (
           <View
             className="skeleton-block"
             style={{

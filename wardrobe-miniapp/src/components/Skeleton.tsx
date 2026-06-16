@@ -5,6 +5,8 @@
  * 支持两种模式：
  *  - waterfall: 两列瀑布流骨架（默认 6 个卡片）
  *  - card: 单个卡片骨架
+ *
+ * 骨架屏高度与 WaterfallCard 真实卡片匹配，避免布局跳动。
  */
 
 import { View } from '@tarojs/components';
@@ -16,7 +18,7 @@ interface SkeletonProps {
   count?: number;
 }
 
-/** 单个骨架卡片 */
+/** 单个骨架卡片 — 高度与 WaterfallCard 真实卡片匹配 */
 function SkeletonCard() {
   return (
     <View
@@ -38,8 +40,9 @@ function SkeletonCard() {
           animation: 'skeleton-pulse 1.5s ease-in-out infinite',
         }}
       />
-      {/* 文字占位 */}
+      {/* 文字占位 — 匹配 WaterfallCard 信息区高度 */}
       <View style={{ padding: '12px' }}>
+        {/* 品类名 */}
         <View
           className="skeleton-block"
           style={{
@@ -51,6 +54,7 @@ function SkeletonCard() {
             animation: 'skeleton-pulse 1.5s ease-in-out infinite',
           }}
         />
+        {/* 颜色行 */}
         <View
           className="skeleton-block"
           style={{
@@ -58,9 +62,33 @@ function SkeletonCard() {
             height: '20px',
             borderRadius: '6px',
             backgroundColor: '#e5e7eb',
+            marginBottom: '8px',
             animation: 'skeleton-pulse 1.5s ease-in-out infinite',
           }}
         />
+        {/* 标签行 — 匹配真实卡片的季节/场景标签 */}
+        <View style={{ display: 'flex', gap: '4px' }}>
+          <View
+            className="skeleton-block"
+            style={{
+              width: '36px',
+              height: '22px',
+              borderRadius: '6px',
+              backgroundColor: '#e5e7eb',
+              animation: 'skeleton-pulse 1.5s ease-in-out infinite',
+            }}
+          />
+          <View
+            className="skeleton-block"
+            style={{
+              width: '36px',
+              height: '22px',
+              borderRadius: '6px',
+              backgroundColor: '#e5e7eb',
+              animation: 'skeleton-pulse 1.5s ease-in-out infinite',
+            }}
+          />
+        </View>
       </View>
     </View>
   );

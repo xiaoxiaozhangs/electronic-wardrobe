@@ -46,6 +46,7 @@ export default function WardrobePage() {
     deleteItem,
     toggleFavorite,
     loading,
+    reinitialize,
   } = useWardrobeStore();
 
   const [filter, setFilter] = useState<WardrobeFilter>(DEFAULT_FILTER);
@@ -56,6 +57,7 @@ export default function WardrobePage() {
   // ---- 分页状态 ----
   const [displayCount, setDisplayCount] = useState(PAGE_SIZE);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const firstLoadDone = useRef(false);
 
   // ---- 筛选逻辑 ----
@@ -83,6 +85,7 @@ export default function WardrobePage() {
   }, [items, filter]);
 
   // 当前展示的数据
+  // TODO: 接入真实后端分页（当前全量加载后前端 slice）
   const displayedItems = useMemo(() => {
     return filteredItems.slice(0, displayCount);
   }, [filteredItems, displayCount]);
@@ -141,15 +144,18 @@ export default function WardrobePage() {
   );
 
   // ---- 下拉刷新 ----
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
     // 重置分页计数
     setDisplayCount(PAGE_SIZE);
-    // 触发 store 刷新
-    // useWardrobeStore 的 reinitialize 可以重新拉数据
-    setTimeout(() => {
-      Taro.stopPullDownRefresh();
-    }, 500);
-  }, []);
+    // 调用 store 重新从云端/本地拉取数据
+    try {
+      await reinitialize();
+    } catch (err) {
+      console.warn('[Wardrobe] 刷新失败:', err);
+    }
+    setRefreshing(false);
+  }, [reinitialize]);
 
   // ---- 上拉加载更多 ----
   const handleScrollToLower = useCallback(() => {
@@ -452,12 +458,14 @@ export default function WardrobePage() {
         )
       ) : (
         /* 瀑布流滚动视图 */
+        {/* 注意：当前为等高等宽两列栅格布局（非真实瀑布流），卡片内容高度基本一致。
+            如需真实高度自适应瀑布流，后续改用 CSS column-count 或 JS 两列高度差分配方案。 */}
         <ScrollView
           className="waterfall-scroll"
           scrollY
           enableBackToTop
           refresherEnabled
-          refresherTriggered={false}
+          refresherTriggered={refreshing}
           refresherThreshold={50}
           onRefresherRefresh={handleRefresh}
           onScrollToLower={handleScrollToLower}

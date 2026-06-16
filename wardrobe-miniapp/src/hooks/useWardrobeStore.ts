@@ -360,7 +360,9 @@ export function useWardrobeStore() {
 
       // 异步同步到云端
       if (onlineMode && !id.startsWith('local_')) {
-        apiUpdateItem(id, {}).catch((err) =>
+        const item = items.find((i) => i.id === id);
+        const newFavorite = item ? !item.isFavorite : false;
+        apiUpdateItem(id, { isFavorite: newFavorite }).catch((err) =>
           console.warn('[Store] 云端收藏更新失败:', err)
         );
       }

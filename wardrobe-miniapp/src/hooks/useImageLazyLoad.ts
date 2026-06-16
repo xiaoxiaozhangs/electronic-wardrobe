@@ -7,6 +7,8 @@
  * 用法：
  *   const { observerRef, isVisible } = useImageLazyLoad({ threshold: 0.1 });
  *   // 将 observerRef 绑定到图片容器，isVisible 为 true 时渲染 <Image>
+ *
+ * 注意：每个 Hook 实例独立管理触发状态，多个卡片同时使用时互不干扰。
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -32,12 +34,13 @@ export function useImageLazyLoad(options: LazyLoadOptions = {}): LazyLoadResult 
   const { threshold = 0.1, initialVisible = false, margins } = options;
   const [isVisible, setIsVisible] = useState(initialVisible);
   const observerRef = useRef<Taro.IntersectionObserver | null>(null);
-  const triggeredRef = useRef(false);
+  // 每个 hook 实例用自己的局部变量管理触发状态，通过闭包隔离
+  const localTriggered = useRef(false);
 
   const setNodeRef = useCallback(
     (node: any) => {
-      // 如果已经触发过加载，不再重复创建观察器
-      if (triggeredRef.current) return;
+      // 如果当前实例已触发，不再重复创建观察器
+      if (localTriggered.current) return;
 
       // 断开旧的观察器
       if (observerRef.current) {
@@ -62,8 +65,10 @@ export function useImageLazyLoad(options: LazyLoadOptions = {}): LazyLoadResult 
               top: margins?.top ?? 0,
             })
             .observe('.lazy-img-target', (res) => {
-              if (res.intersectionRatio > 0 && !triggeredRef.current) {
-                triggeredRef.current = true;
+              // 使用闭包中的 localTriggered，而非外部共享状态
+              // 每个 hook 实例的回调只影响自己的 isVisible
+              if (res.intersectionRatio > 0 && !localTriggered.current) {
+                localTriggered.current = true;
                 setIsVisible(true);
                 // 触发后立即断开，释放资源
                 if (observerRef.current) {
@@ -75,12 +80,12 @@ export function useImageLazyLoad(options: LazyLoadOptions = {}): LazyLoadResult 
         } catch (err) {
           // 降级：直接标记为可见
           console.warn('[LazyLoad] IntersectionObserver 创建失败，降级为立即加载:', err);
-          triggeredRef.current = true;
+          localTriggered.current = true;
           setIsVisible(true);
         }
       } else {
         // H5 环境降级：直接加载
-        triggeredRef.current = true;
+        localTriggered.current = true;
         setIsVisible(true);
       }
     },
