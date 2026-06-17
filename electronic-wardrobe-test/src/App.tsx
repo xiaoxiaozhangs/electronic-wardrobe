@@ -27,8 +27,8 @@ export default function App() {
     return (
       <div className="mobile-container flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin text-5xl mb-4">👗</div>
-          <p className="text-gray-500 text-sm">加载中...</p>
+          <div className="animate-spin text-3xl mb-3">👗</div>
+          <p className="text-gray-500 text-[13px]">加载中...</p>
         </div>
       </div>
     );

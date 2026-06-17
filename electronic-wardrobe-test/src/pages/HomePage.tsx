@@ -32,27 +32,27 @@ export default function HomePage({
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* 欢迎区域 */}
-      <div className="bg-gradient-to-br from-primary-500 to-orange-400 rounded-2xl p-5 text-white shadow-lg">
-        <h2 className="text-xl font-bold mb-1">智搭衣橱</h2>
-        <p className="text-sm text-white/80">
+      <div className="bg-gradient-to-br from-[#0071e3] to-[#5e5ce6] rounded-2xl p-4 text-white shadow-sm">
+        <h2 className="text-lg font-bold mb-0.5 tracking-tight">智搭衣橱</h2>
+        <p className="text-[13px] text-white/80">
           {stats.total > 0
             ? `你有 ${stats.total} 件衣物，今天穿什么？`
             : "开始添加你的第一件衣物吧"}
         </p>
 
         {/* 快捷入口 */}
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-3">
           <button
             onClick={() => onTabChange("outfit")}
-            className="flex-1 bg-white/20 backdrop-blur rounded-xl py-3 px-4 text-sm font-medium hover:bg-white/30 transition-colors text-center"
+            className="flex-1 bg-white/15 backdrop-blur rounded-xl py-2.5 px-3 text-[13px] font-medium hover:bg-white/25 transition-colors text-center"
           >
             ✨ 生成今日搭配
           </button>
           <button
             onClick={() => onTabChange("wardrobe")}
-            className="bg-white/20 backdrop-blur rounded-xl py-3 px-4 text-sm font-medium hover:bg-white/30 transition-colors"
+            className="bg-white/15 backdrop-blur rounded-xl py-2.5 px-3 text-[13px] font-medium hover:bg-white/25 transition-colors"
           >
             📷 添加衣物
           </button>
@@ -61,11 +61,11 @@ export default function HomePage({
 
       {/* 衣橱概览 */}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-base font-semibold text-gray-900">衣橱概览</h3>
+        <div className="flex items-center justify-between mb-2.5">
+          <h3 className="text-[15px] font-semibold text-gray-900 tracking-tight">衣橱概览</h3>
           <button
             onClick={() => onTabChange("wardrobe")}
-            className="text-xs text-primary-500 font-medium"
+            className="text-xs text-[#0071e3] font-medium"
           >
             查看全部 →
           </button>
@@ -83,21 +83,21 @@ export default function HomePage({
             ].map((cat) => (
               <div
                 key={cat.label}
-                className="bg-gray-50 rounded-xl p-3 text-center"
+                className="bg-white rounded-xl p-2.5 text-center border border-gray-100"
               >
-                <span className="text-2xl">{cat.icon}</span>
-                <p className="text-xs text-gray-500 mt-1">{cat.label}</p>
+                <span className="text-lg">{cat.icon}</span>
+                <p className="text-[10px] text-gray-500 mt-0.5 tracking-tight">{cat.label}</p>
                 <p className="text-sm font-semibold text-gray-900">{cat.value}</p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="bg-gray-50 rounded-xl p-6 text-center">
-            <p className="text-3xl mb-2">👗</p>
-            <p className="text-sm text-gray-500">还没有衣物，去添加吧</p>
+          <div className="bg-white rounded-xl p-5 text-center border border-gray-100">
+            <p className="text-2xl mb-1.5">👗</p>
+            <p className="text-[13px] text-gray-500">还没有衣物，去添加吧</p>
             <button
               onClick={() => onTabChange("wardrobe")}
-              className="btn-primary mt-3 text-sm"
+              className="btn-primary mt-2.5 text-xs"
             >
               添加第一件衣物
             </button>
@@ -108,18 +108,18 @@ export default function HomePage({
       {/* 最近搭配 */}
       {recentOutfits.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-base font-semibold text-gray-900">
+          <div className="flex items-center justify-between mb-2.5">
+            <h3 className="text-[15px] font-semibold text-gray-900 tracking-tight">
               最近搭配
             </h3>
             <button
               onClick={() => onTabChange("outfit")}
-              className="text-xs text-primary-500 font-medium"
+              className="text-xs text-[#0071e3] font-medium"
             >
               更多搭配 →
             </button>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {recentOutfits.map((outfit) => (
               <OutfitCard
                 key={outfit.id}
@@ -136,12 +136,12 @@ export default function HomePage({
       {/* 收藏搭配 */}
       {favoriteOutfits.length > 0 && (
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-base font-semibold text-gray-900">
+          <div className="flex items-center justify-between mb-2.5">
+            <h3 className="text-[15px] font-semibold text-gray-900">
               ❤️ 收藏搭配
             </h3>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {favoriteOutfits.slice(0, 2).map((outfit) => (
               <OutfitCard
                 key={outfit.id}
@@ -156,8 +156,8 @@ export default function HomePage({
 
       {/* 上传引导 */}
       {stats.total > 0 && stats.total < 10 && (
-        <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
-          <p className="text-sm text-blue-700">
+        <div className="bg-blue-50 rounded-xl p-3.5 border border-blue-100">
+          <p className="text-[13px] text-blue-700">
             💡 你只有 {stats.total} 件衣物，建议至少添加 10 件以获得更好的搭配推荐效果。
           </p>
         </div>

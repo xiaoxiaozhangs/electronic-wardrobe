@@ -18,11 +18,11 @@ export default function ClothingCard({
 }: ClothingCardProps) {
   return (
     <div
-      className="relative bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
+      className="relative bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
       onClick={onClick}
     >
       {/* Image */}
-      <div className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden">
+      <div className="aspect-square bg-[#f5f5f7] flex items-center justify-center overflow-hidden">
         <img
           src={item.imageBase64}
           alt={item.subCategory}
@@ -32,34 +32,34 @@ export default function ClothingCard({
       </div>
 
       {/* Info */}
-      <div className={`${compact ? "p-2" : "p-3"}`}>
-        <div className="flex items-center gap-1.5 mb-1">
-          <span className="text-xs">{CATEGORY_ICONS[item.category]}</span>
-          <span className={`font-medium truncate ${compact ? "text-xs" : "text-sm"}`}>
+      <div className={`${compact ? "p-2" : "p-2.5"}`}>
+        <div className="flex items-center gap-1 mb-0.5">
+          <span className="text-[10px]">{CATEGORY_ICONS[item.category]}</span>
+          <span className={`font-medium truncate tracking-tight ${compact ? "text-xs" : "text-[13px]"}`}>
             {item.subCategory}
           </span>
           {item.isFavorite && (
-            <span className="text-red-400 text-xs">❤️</span>
+            <span className="text-red-400 text-[10px] flex-shrink-0">❤️</span>
           )}
         </div>
 
         {!compact && (
           <>
-            <div className="flex items-center gap-1 mb-1.5">
+            <div className="flex items-center gap-1 mb-1">
               {/* Color dot */}
               <span
-                className="inline-block w-3 h-3 rounded-full border border-gray-300"
+                className="inline-block w-2.5 h-2.5 rounded-full border border-gray-300/70"
                 style={{ backgroundColor: COLOR_MAP[item.primaryColor] }}
                 title={item.primaryColor}
               />
-              <span className="text-xs text-gray-500">{item.primaryColor}</span>
+              <span className="text-[11px] text-gray-500">{item.primaryColor}</span>
               {item.secondaryColors.length > 0 && (
                 <>
-                  <span className="text-gray-300">+</span>
+                  <span className="text-gray-300 text-[10px]">+</span>
                   {item.secondaryColors.map((c) => (
                     <span
                       key={c}
-                      className="inline-block w-3 h-3 rounded-full border border-gray-300"
+                      className="inline-block w-2.5 h-2.5 rounded-full border border-gray-300/70"
                       style={{ backgroundColor: COLOR_MAP[c] }}
                       title={c}
                     />
@@ -71,7 +71,7 @@ export default function ClothingCard({
               {item.seasons.slice(0, 2).map((s) => (
                 <span
                   key={s}
-                  className="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 rounded"
+                  className="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 rounded-md"
                 >
                   {s}
                 </span>
@@ -79,7 +79,7 @@ export default function ClothingCard({
               {item.scenarios.slice(0, 1).map((s) => (
                 <span
                   key={s}
-                  className="text-[10px] px-1.5 py-0.5 bg-green-50 text-green-600 rounded"
+                  className="text-[10px] px-1.5 py-0.5 bg-green-50 text-green-600 rounded-md"
                 >
                   {s}
                 </span>
@@ -97,7 +97,7 @@ export default function ClothingCard({
               e.stopPropagation();
               onToggleFavorite();
             }}
-            className="w-7 h-7 flex items-center justify-center bg-white/90 rounded-full shadow text-sm hover:bg-white"
+            className="w-6 h-6 flex items-center justify-center bg-white/90 rounded-full shadow text-xs hover:bg-white"
             title={item.isFavorite ? "取消收藏" : "收藏"}
           >
             {item.isFavorite ? "❤️" : "🤍"}
@@ -109,7 +109,7 @@ export default function ClothingCard({
               e.stopPropagation();
               if (window.confirm("确定删除这件衣物吗？")) onDelete();
             }}
-            className="w-7 h-7 flex items-center justify-center bg-white/90 rounded-full shadow text-sm hover:bg-white"
+            className="w-6 h-6 flex items-center justify-center bg-white/90 rounded-full shadow text-xs hover:bg-white"
             title="删除"
           >
             🗑️

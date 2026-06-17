@@ -141,14 +141,14 @@ export default function ClothingForm({
       )}`;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {/* Image Upload */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1.5">
           衣物图片 <span className="text-red-500">*</span>
         </label>
         <div
-          className="w-full aspect-square rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center cursor-pointer hover:border-primary-400 transition-colors overflow-hidden"
+          className="w-full aspect-square rounded-2xl border-2 border-dashed border-gray-300 bg-[#f5f5f7] flex items-center justify-center cursor-pointer hover:border-[#0071e3]/50 transition-colors overflow-hidden"
           onClick={() => fileInputRef.current?.click()}
         >
           <img
@@ -165,13 +165,13 @@ export default function ClothingForm({
           onChange={handleImageUpload}
           className="hidden"
         />
-        <p className="text-xs text-gray-400 mt-1">支持拍照或相册选择，最大5MB</p>
+        <p className="text-[11px] text-gray-400 mt-1">支持拍照或相册选择，最大5MB</p>
       </div>
 
       {/* Category & SubCategory */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-[13px] font-medium text-gray-700 mb-1">
             品类
           </label>
           <select
@@ -181,7 +181,7 @@ export default function ClothingForm({
               setCategory(cat);
               setSubCategory(SUB_CATEGORY_MAP[cat][0]);
             }}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-[13px] bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3]"
           >
             {ALL_CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -191,13 +191,13 @@ export default function ClothingForm({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-[13px] font-medium text-gray-700 mb-1">
             子品类
           </label>
           <select
             value={subCategory}
             onChange={(e) => setSubCategory(e.target.value as SubCategory)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-[13px] bg-white focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3]"
           >
             {SUB_CATEGORY_MAP[category].map((sc) => (
               <option key={sc} value={sc}>
@@ -210,7 +210,7 @@ export default function ClothingForm({
 
       {/* Primary Color */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1.5">
           主色
         </label>
         <div className="flex flex-wrap gap-2">
@@ -219,15 +219,15 @@ export default function ClothingForm({
               key={c}
               type="button"
               onClick={() => setPrimaryColor(c)}
-              className={`w-9 h-9 rounded-full border-2 transition-all flex items-center justify-center ${
+              className={`w-8 h-8 rounded-full border-2 transition-all flex items-center justify-center ${
                 primaryColor === c
-                  ? "border-primary-500 scale-110 shadow-md"
+                  ? "border-[#0071e3] scale-110 shadow-md"
                   : "border-gray-200 hover:border-gray-400"
               }`}
               title={c}
             >
               <span
-                className="w-6 h-6 rounded-full"
+                className="w-5 h-5 rounded-full"
                 style={{ backgroundColor: COLOR_MAP[c] }}
               />
             </button>
@@ -237,7 +237,7 @@ export default function ClothingForm({
 
       {/* Secondary Colors */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1.5">
           辅色（可选）
         </label>
         <div className="flex flex-wrap gap-2">
@@ -246,9 +246,9 @@ export default function ClothingForm({
               key={c}
               type="button"
               onClick={() => toggleArrayItem(secondaryColors, c, setSecondaryColors)}
-              className={`w-8 h-8 rounded-full border-2 transition-all ${
+              className={`w-7 h-7 rounded-full border-2 transition-all ${
                 secondaryColors.includes(c)
-                  ? "border-primary-500 scale-110"
+                  ? "border-[#0071e3] scale-110"
                   : "border-gray-200 opacity-60 hover:opacity-100"
               }`}
               title={c}
@@ -263,9 +263,9 @@ export default function ClothingForm({
       </div>
 
       {/* Pattern & Thickness */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-[13px] font-medium text-gray-700 mb-1">
             花纹
           </label>
           <div className="flex flex-wrap gap-1.5">
@@ -274,10 +274,10 @@ export default function ClothingForm({
                 key={p}
                 type="button"
                 onClick={() => setPattern(p)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                   pattern === p
-                    ? "bg-primary-500 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-[#0071e3] text-white"
+                    : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 {p}
@@ -286,7 +286,7 @@ export default function ClothingForm({
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-[13px] font-medium text-gray-700 mb-1">
             厚薄
           </label>
           <div className="flex flex-wrap gap-1.5">
@@ -295,10 +295,10 @@ export default function ClothingForm({
                 key={t}
                 type="button"
                 onClick={() => setThickness(t)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                   thickness === t
-                    ? "bg-primary-500 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-[#0071e3] text-white"
+                    : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 {t}
@@ -310,19 +310,19 @@ export default function ClothingForm({
 
       {/* Seasons */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           适用季节
         </label>
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {ALL_SEASONS.map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => toggleArrayItem(seasons, s, setSeasons)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
                 seasons.includes(s)
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-[#0071e3] text-white"
+                  : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
               }`}
             >
               {s}
@@ -333,7 +333,7 @@ export default function ClothingForm({
 
       {/* Scenarios */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           适用场景
         </label>
         <div className="flex flex-wrap gap-1.5">
@@ -342,10 +342,10 @@ export default function ClothingForm({
               key={s}
               type="button"
               onClick={() => toggleArrayItem(scenarios, s, setScenarios)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                 scenarios.includes(s)
                   ? "bg-green-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
               }`}
             >
               {s}
@@ -356,7 +356,7 @@ export default function ClothingForm({
 
       {/* Styles */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           风格
         </label>
         <div className="flex flex-wrap gap-1.5">
@@ -365,10 +365,10 @@ export default function ClothingForm({
               key={s}
               type="button"
               onClick={() => toggleArrayItem(styles, s, setStyles)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                 styles.includes(s)
-                  ? "bg-purple-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-[#5e5ce6] text-white"
+                  : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
               }`}
             >
               {s}
@@ -379,10 +379,10 @@ export default function ClothingForm({
 
       {/* Temperature Range */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           适合温度区间：{temperatureMin}°C — {temperatureMax}°C
         </label>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-2.5 items-center">
           <input
             type="range"
             min="-10"
@@ -392,9 +392,9 @@ export default function ClothingForm({
               const v = Number(e.target.value);
               setTemperatureMin(Math.min(v, temperatureMax));
             }}
-            className="flex-1 accent-primary-500"
+            className="flex-1 accent-[#0071e3]"
           />
-          <span className="text-xs text-gray-400 w-8">至</span>
+          <span className="text-[11px] text-gray-400 w-7">至</span>
           <input
             type="range"
             min="-10"
@@ -404,26 +404,26 @@ export default function ClothingForm({
               const v = Number(e.target.value);
               setTemperatureMax(Math.max(v, temperatureMin));
             }}
-            className="flex-1 accent-primary-500"
+            className="flex-1 accent-[#0071e3]"
           />
         </div>
       </div>
 
       {/* Status */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           状态
         </label>
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {STATUSES.map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => setStatus(s)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors ${
                 status === s
                   ? "bg-gray-800 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  : "bg-[#e8e8ed] text-gray-600 hover:bg-gray-200"
               }`}
             >
               {s}
@@ -434,7 +434,7 @@ export default function ClothingForm({
 
       {/* Note */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-[13px] font-medium text-gray-700 mb-1">
           备注
         </label>
         <textarea
@@ -442,12 +442,12 @@ export default function ClothingForm({
           onChange={(e) => setNote(e.target.value)}
           placeholder="例如：优衣库购入、适合通勤..."
           rows={2}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+          className="w-full rounded-xl border border-gray-200 px-3 py-2 text-[13px] focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3] resize-none"
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-3 pt-4 border-t border-gray-100">
+      <div className="flex gap-2.5 pt-3.5 border-t border-gray-100">
         <button type="button" onClick={onCancel} className="btn-outline flex-1">
           取消
         </button>

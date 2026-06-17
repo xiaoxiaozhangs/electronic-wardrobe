@@ -84,16 +84,16 @@ export default function WardrobePage({
   // Detail modal for selected item
   if (selectedItem) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-3">
         <button
           onClick={() => setSelectedItem(null)}
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-[13px] text-[#0071e3] font-medium hover:text-[#0077ed]"
         >
           ← 返回列表
         </button>
 
         {/* Large image */}
-        <div className="rounded-xl overflow-hidden bg-gray-50 aspect-square">
+        <div className="rounded-2xl overflow-hidden bg-[#f5f5f7] aspect-square">
           <img
             src={selectedItem.imageBase64}
             alt={selectedItem.subCategory}
@@ -102,66 +102,66 @@ export default function WardrobePage({
         </div>
 
         {/* Info */}
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">{selectedItem.subCategory}</h2>
+            <h2 className="text-lg font-bold tracking-tight">{selectedItem.subCategory}</h2>
             <button
               onClick={() => onToggleFavorite(selectedItem.id)}
-              className="text-2xl"
+              className="text-xl"
             >
               {selectedItem.isFavorite ? "❤️" : "🤍"}
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="bg-gray-50 rounded-lg p-2.5">
-              <span className="text-gray-400 text-xs">品类</span>
-              <p className="font-medium">{selectedItem.category} · {selectedItem.subCategory}</p>
+            <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+              <span className="text-gray-400 text-[11px]">品类</span>
+              <p className="font-medium text-[13px]">{selectedItem.category} · {selectedItem.subCategory}</p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-2.5">
-              <span className="text-gray-400 text-xs">主色</span>
-              <p className="font-medium">{selectedItem.primaryColor}</p>
+            <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+              <span className="text-gray-400 text-[11px]">主色</span>
+              <p className="font-medium text-[13px]">{selectedItem.primaryColor}</p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-2.5">
-              <span className="text-gray-400 text-xs">季节</span>
-              <p className="font-medium">{selectedItem.seasons.join("、")}</p>
+            <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+              <span className="text-gray-400 text-[11px]">季节</span>
+              <p className="font-medium text-[13px]">{selectedItem.seasons.join("、")}</p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-2.5">
-              <span className="text-gray-400 text-xs">厚薄</span>
-              <p className="font-medium">{selectedItem.thickness}</p>
+            <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+              <span className="text-gray-400 text-[11px]">厚薄</span>
+              <p className="font-medium text-[13px]">{selectedItem.thickness}</p>
             </div>
           </div>
 
           <div className="flex flex-wrap gap-1">
             {selectedItem.scenarios.map((s) => (
-              <span key={s} className="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-xs">{s}</span>
+              <span key={s} className="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-[11px]">{s}</span>
             ))}
             {selectedItem.styles.map((s) => (
-              <span key={s} className="px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full text-xs">{s}</span>
+              <span key={s} className="px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full text-[11px]">{s}</span>
             ))}
           </div>
 
           {selectedItem.note && (
-            <p className="text-sm text-gray-500 bg-gray-50 rounded-lg p-3">
+            <p className="text-[13px] text-gray-500 bg-[#f5f5f7] rounded-xl p-3">
               📝 {selectedItem.note}
             </p>
           )}
 
-          <div className="text-xs text-gray-400">
+          <div className="text-[11px] text-gray-400">
             <p>穿着 {selectedItem.wearCount} 次</p>
             {selectedItem.lastWornAt && (
               <p>最近穿着：{new Date(selectedItem.lastWornAt).toLocaleDateString("zh-CN")}</p>
             )}
           </div>
 
-          <div className="flex gap-2 pt-3 border-t border-gray-100">
+          <div className="flex gap-2 pt-2.5 border-t border-gray-100">
             <button
               onClick={() => {
                 setEditingItem(selectedItem);
                 setShowForm(true);
                 setSelectedItem(null);
               }}
-              className="btn-outline flex-1 text-sm"
+              className="btn-outline flex-1 text-xs"
             >
               ✏️ 编辑
             </button>
@@ -172,7 +172,7 @@ export default function WardrobePage({
                   setSelectedItem(null);
                 }
               }}
-              className="btn-outline flex-1 text-sm text-red-500 border-red-200 hover:bg-red-50"
+              className="btn-outline flex-1 text-xs text-red-500 border-red-200 hover:bg-red-50"
             >
               🗑️ 删除
             </button>
@@ -186,20 +186,20 @@ export default function WardrobePage({
   if (showForm) {
     return (
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3">
           <button
             onClick={() => {
               setShowForm(false);
               setEditingItem(null);
             }}
-            className="text-sm text-gray-500 hover:text-gray-700"
+            className="text-[13px] text-[#0071e3] font-medium hover:text-[#0077ed]"
           >
             ← 取消
           </button>
-          <h2 className="text-lg font-bold">
+          <h2 className="text-base font-bold tracking-tight">
             {editingItem ? "编辑衣物" : "添加衣物"}
           </h2>
-          <div className="w-12" />
+          <div className="w-10" />
         </div>
         <ClothingForm
           initialData={editingItem ?? undefined}
@@ -215,13 +215,13 @@ export default function WardrobePage({
 
   // List view
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Header with add button */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-gray-900">我的衣橱</h2>
+        <h2 className="text-[17px] font-bold text-gray-900 tracking-tight">我的衣橱</h2>
         <button
           onClick={() => setShowForm(true)}
-          className="btn-primary text-sm"
+          className="btn-primary text-xs"
         >
           + 添加衣物
         </button>
@@ -238,7 +238,7 @@ export default function WardrobePage({
 
       {/* Items grid or empty state */}
       {filteredItems.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2.5">
           {filteredItems.map((item) => (
             <ClothingCard
               key={item.id}

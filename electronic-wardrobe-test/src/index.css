@@ -5,53 +5,55 @@
 @layer base {
   body {
     @apply text-gray-900 antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+      "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
   .mobile-container {
-    @apply max-w-md mx-auto min-h-screen bg-white shadow-sm;
+    @apply max-w-md mx-auto min-h-screen bg-[#f5f5f7];
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white px-4 py-2 rounded-lg font-medium
-           hover:bg-primary-600 active:bg-primary-700 transition-colors
-           disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-[#0071e3] text-white px-3.5 py-2 rounded-full text-sm font-medium
+           hover:bg-[#0077ed] active:bg-[#006edb] transition-colors
+           disabled:opacity-40 disabled:cursor-not-allowed;
   }
 
   .btn-outline {
-    @apply border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium
+    @apply border border-gray-200 text-gray-700 px-3.5 py-2 rounded-full text-sm font-medium
            hover:bg-gray-50 active:bg-gray-100 transition-colors
-           disabled:opacity-50 disabled:cursor-not-allowed;
+           disabled:opacity-40 disabled:cursor-not-allowed;
   }
 
   .btn-ghost {
-    @apply text-gray-500 px-3 py-1.5 rounded-lg text-sm
-           hover:bg-gray-100 active:bg-gray-200 transition-colors;
+    @apply text-[#0071e3] px-2.5 py-1 rounded-full text-xs font-medium
+           hover:bg-[#0071e3]/8 active:bg-[#0071e3]/12 transition-colors;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 2px;
+  background: #c7c7cc;
+  border-radius: 1.5px;
 }
 
 /* Smooth transitions for tab switching */
 .page-enter {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(6px);
 }
 .page-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
+  transition: opacity 180ms ease-out, transform 180ms ease-out;
 }

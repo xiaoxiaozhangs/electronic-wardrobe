@@ -73,16 +73,14 @@ export default function OutfitPage({
     : null;
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-gray-900">智能搭配</h2>
-      </div>
+    <div className="space-y-3">
+      <h2 className="text-[17px] font-bold text-gray-900 tracking-tight">智能搭配</h2>
 
       {/* Tab switcher */}
-      <div className="flex bg-gray-100 rounded-lg p-1">
+      <div className="flex bg-[#e8e8ed] rounded-xl p-1">
         <button
           onClick={() => setTab("generate")}
-          className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
+          className={`flex-1 py-2 text-[13px] font-medium rounded-[10px] transition-colors ${
             tab === "generate"
               ? "bg-white text-gray-900 shadow-sm"
               : "text-gray-500"
@@ -92,7 +90,7 @@ export default function OutfitPage({
         </button>
         <button
           onClick={() => setTab("history")}
-          className={`flex-1 py-2 text-sm font-medium rounded-md transition-colors ${
+          className={`flex-1 py-2 text-[13px] font-medium rounded-[10px] transition-colors ${
             tab === "history"
               ? "bg-white text-gray-900 shadow-sm"
               : "text-gray-500"
@@ -107,21 +105,21 @@ export default function OutfitPage({
 
       {/* Generate tab */}
       {tab === "generate" && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Params form */}
-          <div className="bg-gray-50 rounded-xl p-4 space-y-3">
+          <div className="bg-[#f5f5f7] rounded-2xl p-4 space-y-2.5">
             {/* Scenario */}
             <div>
-              <label className="text-xs text-gray-500 mb-1.5 block">场景</label>
+              <label className="text-[11px] text-gray-500 mb-1.5 block">场景</label>
               <div className="flex flex-wrap gap-1.5">
                 {ALL_SCENARIOS.map((s) => (
                   <button
                     key={s}
                     onClick={() => setScenario(s)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded-full text-[11px] font-medium transition-colors ${
                       scenario === s
-                        ? "bg-primary-500 text-white"
-                        : "bg-white text-gray-600 border border-gray-200 hover:border-primary-300"
+                        ? "bg-[#0071e3] text-white"
+                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#0071e3]/40"
                     }`}
                   >
                     {SCENARIO_LABELS[s]}
@@ -132,16 +130,16 @@ export default function OutfitPage({
 
             {/* Season */}
             <div>
-              <label className="text-xs text-gray-500 mb-1.5 block">季节</label>
+              <label className="text-[11px] text-gray-500 mb-1.5 block">季节</label>
               <div className="flex gap-2">
                 {ALL_SEASONS.map((s) => (
                   <button
                     key={s}
                     onClick={() => setSeason(s)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                    className={`px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
                       season === s
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+                        ? "bg-[#0071e3] text-white"
+                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#0071e3]/40"
                     }`}
                   >
                     {SEASON_LABELS[s]}
@@ -152,16 +150,16 @@ export default function OutfitPage({
 
             {/* Style */}
             <div>
-              <label className="text-xs text-gray-500 mb-1.5 block">风格</label>
+              <label className="text-[11px] text-gray-500 mb-1.5 block">风格</label>
               <div className="flex flex-wrap gap-1.5">
                 {ALL_STYLES.map((s) => (
                   <button
                     key={s}
                     onClick={() => setStyle(s)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    className={`px-3 py-1 rounded-full text-[11px] font-medium transition-colors ${
                       style === s
-                        ? "bg-purple-500 text-white"
-                        : "bg-white text-gray-600 border border-gray-200 hover:border-purple-300"
+                        ? "bg-[#5e5ce6] text-white"
+                        : "bg-white text-gray-600 border border-gray-200 hover:border-[#5e5ce6]/40"
                     }`}
                   >
                     {STYLE_LABELS[s]}
@@ -172,27 +170,27 @@ export default function OutfitPage({
 
             {/* Specify item (optional) */}
             <div>
-              <label className="text-xs text-gray-500 mb-1.5 block">
+              <label className="text-[11px] text-gray-500 mb-1.5 block">
                 指定单品（可选）
               </label>
               {mustIncludeItem ? (
-                <div className="flex items-center gap-2 bg-white rounded-lg p-2 border border-gray-200">
+                <div className="flex items-center gap-2 bg-white rounded-xl p-2 border border-gray-200">
                   <img
                     src={mustIncludeItem.imageBase64}
                     alt={mustIncludeItem.subCategory}
-                    className="w-10 h-10 rounded object-contain bg-gray-50"
+                    className="w-9 h-9 rounded-lg object-contain bg-[#f5f5f7]"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">
+                    <p className="text-[13px] font-medium truncate">
                       {mustIncludeItem.subCategory}
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-[11px] text-gray-400">
                       {mustIncludeItem.category} · {mustIncludeItem.primaryColor}
                     </p>
                   </div>
                   <button
                     onClick={() => setMustIncludeItemId(null)}
-                    className="text-gray-400 hover:text-gray-600 text-sm"
+                    className="text-gray-400 hover:text-gray-600 text-xs"
                   >
                     ✕
                   </button>
@@ -200,7 +198,7 @@ export default function OutfitPage({
               ) : (
                 <button
                   onClick={() => setShowItemPicker(!showItemPicker)}
-                  className="w-full bg-white border border-dashed border-gray-300 rounded-lg py-3 text-sm text-gray-400 hover:border-primary-300 hover:text-primary-500 transition-colors"
+                  className="w-full bg-white border border-dashed border-gray-300 rounded-xl py-2.5 text-[13px] text-gray-400 hover:border-[#0071e3]/40 hover:text-[#0071e3] transition-colors"
                 >
                   + 选择一件单品
                 </button>
@@ -208,7 +206,7 @@ export default function OutfitPage({
 
               {/* Item picker */}
               {showItemPicker && (
-                <div className="mt-2 grid grid-cols-3 gap-2 max-h-40 overflow-y-auto">
+                <div className="mt-2 grid grid-cols-3 gap-2 max-h-36 overflow-y-auto">
                   {availableItems.map((item) => (
                     <button
                       key={item.id}
@@ -216,12 +214,12 @@ export default function OutfitPage({
                         setMustIncludeItemId(item.id);
                         setShowItemPicker(false);
                       }}
-                      className="bg-white rounded-lg border border-gray-200 p-2 text-center hover:border-primary-300 transition-colors"
+                      className="bg-white rounded-xl border border-gray-200 p-2 text-center hover:border-[#0071e3]/40 transition-colors"
                     >
                       <img
                         src={item.imageBase64}
                         alt={item.subCategory}
-                        className="w-full aspect-square object-contain rounded mb-1"
+                        className="w-full aspect-square object-contain rounded-lg mb-1"
                       />
                       <p className="text-[10px] text-gray-600 truncate">
                         {item.subCategory}
@@ -236,7 +234,7 @@ export default function OutfitPage({
             <button
               onClick={handleGenerate}
               disabled={generating || availableItems.length < 3}
-              className="btn-primary w-full py-3 text-base"
+              className="btn-primary w-full py-2.5 text-[15px]"
             >
               {generating ? (
                 <span className="flex items-center justify-center gap-2">
@@ -254,19 +252,19 @@ export default function OutfitPage({
           {generating && (
             <div className="flex items-center justify-center py-8">
               <div className="text-center">
-                <div className="animate-spin text-4xl mb-3">⏳</div>
-                <p className="text-sm text-gray-500">正在分析你的衣橱...</p>
-                <p className="text-xs text-gray-400 mt-1">根据场景、季节和风格匹配合适组合</p>
+                <div className="animate-spin text-3xl mb-2">⏳</div>
+                <p className="text-[13px] text-gray-500">正在分析你的衣橱...</p>
+                <p className="text-xs text-gray-400 mt-0.5">根据场景、季节和风格匹配合适组合</p>
               </div>
             </div>
           )}
 
           {!generating && currentResults.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">
+              <h3 className="text-sm font-semibold text-gray-900 mb-2.5 tracking-tight">
                 为你生成 {currentResults.length} 套搭配
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {currentResults.map((outfit) => (
                   <OutfitCard
                     key={outfit.id}
@@ -281,8 +279,8 @@ export default function OutfitPage({
           )}
 
           {!generating && currentResults.length === 0 && (
-            <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
-              <p className="text-sm text-yellow-700">
+            <div className="bg-yellow-50 rounded-2xl p-3.5 border border-yellow-100">
+              <p className="text-[13px] text-yellow-700">
                 💡 还没有生成搭配。选择场景、季节和风格，点击"生成搭配方案"开始。
               </p>
             </div>
@@ -294,7 +292,7 @@ export default function OutfitPage({
       {tab === "history" && (
         <div>
           {outfits.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {outfits.map((outfit) => (
                 <OutfitCard
                   key={outfit.id}
