@@ -88,7 +88,7 @@ export default function WardrobePage() {
       <View className="container">
         <View className="loading-spinner">
           <Text className="loading-spinner-icon">⏳</Text>
-          <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px' }}>加载中...</Text>
+          <Text style={{ fontSize: '24px', color: '#9ca3af', marginTop: '12px' }}>加载中...</Text>
         </View>
       </View>
     );
@@ -99,14 +99,14 @@ export default function WardrobePage() {
     return (
       <View className="container">
         <View onClick={() => setSelectedItem(null)}
-          style={{ marginBottom: '24px', padding: '8px 0' }}>
-          <Text style={{ fontSize: '26px', color: '#6b7280' }}>← 返回列表</Text>
+          style={{ marginBottom: '20px', padding: '6px 0' }}>
+          <Text style={{ fontSize: '24px', color: '#6b7280' }}>← 返回列表</Text>
         </View>
 
         {/* Large image */}
         <View style={{
-          borderRadius: '20px', overflow: 'hidden', backgroundColor: '#f9fafb',
-          aspectRatio: '1', marginBottom: '20px',
+          borderRadius: '24px', overflow: 'hidden', backgroundColor: '#f5f5f7',
+          aspectRatio: '1', marginBottom: '16px',
         }}>
           <Image
             src={selectedItem.imageBase64}
@@ -116,34 +116,34 @@ export default function WardrobePage() {
         </View>
 
         {/* Info */}
-        <View style={{ marginBottom: '24px' }}>
-          <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <Text style={{ fontSize: '36px', fontWeight: 700 }}>{selectedItem.subCategory}</Text>
-            <View onClick={() => toggleFavorite(selectedItem.id)} style={{ fontSize: '40px', padding: '8px' }}>
+        <View style={{ marginBottom: '20px' }}>
+          <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <Text style={{ fontSize: '32px', fontWeight: 700 }}>{selectedItem.subCategory}</Text>
+            <View onClick={() => toggleFavorite(selectedItem.id)} style={{ fontSize: '36px', padding: '6px' }}>
               <Text>{selectedItem.isFavorite ? '❤️' : '🤍'}</Text>
             </View>
           </View>
 
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
             <View style={detailBadgeStyle}>
-              <Text style={{ fontSize: '20px', color: '#9ca3af' }}>品类</Text>
-              <Text style={{ fontSize: '24px', fontWeight: 500 }}>{selectedItem.category} · {selectedItem.subCategory}</Text>
+              <Text style={{ fontSize: '18px', color: '#9ca3af' }}>品类</Text>
+              <Text style={{ fontSize: '22px', fontWeight: 500 }}>{selectedItem.category} · {selectedItem.subCategory}</Text>
             </View>
             <View style={detailBadgeStyle}>
-              <Text style={{ fontSize: '20px', color: '#9ca3af' }}>主色</Text>
-              <Text style={{ fontSize: '24px', fontWeight: 500 }}>{selectedItem.primaryColor}</Text>
+              <Text style={{ fontSize: '18px', color: '#9ca3af' }}>主色</Text>
+              <Text style={{ fontSize: '22px', fontWeight: 500 }}>{selectedItem.primaryColor}</Text>
             </View>
             <View style={detailBadgeStyle}>
-              <Text style={{ fontSize: '20px', color: '#9ca3af' }}>季节</Text>
-              <Text style={{ fontSize: '24px', fontWeight: 500 }}>{selectedItem.seasons.join('、')}</Text>
+              <Text style={{ fontSize: '18px', color: '#9ca3af' }}>季节</Text>
+              <Text style={{ fontSize: '22px', fontWeight: 500 }}>{selectedItem.seasons.join('、')}</Text>
             </View>
             <View style={detailBadgeStyle}>
-              <Text style={{ fontSize: '20px', color: '#9ca3af' }}>厚薄</Text>
-              <Text style={{ fontSize: '24px', fontWeight: 500 }}>{selectedItem.thickness}</Text>
+              <Text style={{ fontSize: '18px', color: '#9ca3af' }}>厚薄</Text>
+              <Text style={{ fontSize: '22px', fontWeight: 500 }}>{selectedItem.thickness}</Text>
             </View>
           </View>
 
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
             {selectedItem.scenarios.map((s) => (
               <Text key={s} className="tag tag-green">{s}</Text>
             ))}
@@ -154,26 +154,26 @@ export default function WardrobePage() {
 
           {selectedItem.note && (
             <Text style={{
-              fontSize: '26px', color: '#6b7280',
-              backgroundColor: '#f9fafb', borderRadius: '12px', padding: '16px',
-              display: 'block', marginBottom: '12px',
+              fontSize: '24px', color: '#6b7280',
+              backgroundColor: '#f5f5f7', borderRadius: '12px', padding: '14px',
+              display: 'block', marginBottom: '10px',
             }}>
               📝 {selectedItem.note}
             </Text>
           )}
 
-          <View style={{ marginBottom: '12px' }}>
-            <Text style={{ fontSize: '22px', color: '#9ca3af', display: 'block' }}>
+          <View style={{ marginBottom: '10px' }}>
+            <Text style={{ fontSize: '20px', color: '#9ca3af', display: 'block' }}>
               穿着 {selectedItem.wearCount} 次
             </Text>
             {selectedItem.lastWornAt && (
-              <Text style={{ fontSize: '22px', color: '#9ca3af', display: 'block' }}>
+              <Text style={{ fontSize: '20px', color: '#9ca3af', display: 'block' }}>
                 最近穿着：{new Date(selectedItem.lastWornAt).toLocaleDateString('zh-CN')}
               </Text>
             )}
           </View>
 
-          <View style={{ display: 'flex', gap: '12px', paddingTop: '20px', borderTop: '1px solid #f3f4f6' }}>
+          <View style={{ display: 'flex', gap: '10px', paddingTop: '16px', borderTop: '1px solid #e8e8ed' }}>
             <View className="btn-outline" style={{ flex: 1 }}
               onClick={() => {
                 setEditingItem(selectedItem);
@@ -196,11 +196,11 @@ export default function WardrobePage() {
   if (showForm) {
     return (
       <View className="container">
-        <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <View onClick={() => { setShowForm(false); setEditingItem(null); }}>
-            <Text style={{ fontSize: '26px', color: '#6b7280' }}>← 取消</Text>
+            <Text style={{ fontSize: '24px', color: '#6b7280' }}>← 取消</Text>
           </View>
-          <Text style={{ fontSize: '32px', fontWeight: 700 }}>
+          <Text style={{ fontSize: '30px', fontWeight: 700 }}>
             {editingItem ? '编辑衣物' : '添加衣物'}
           </Text>
           <View style={{ width: '60px' }} />
@@ -217,9 +217,9 @@ export default function WardrobePage() {
   // List view
   return (
     <View className="container">
-      <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <Text className="section-title" style={{ marginBottom: 0 }}>我的衣橱</Text>
-        <View className="btn-primary" style={{ padding: '12px 24px', fontSize: '26px' }}
+        <View className="btn-primary" style={{ padding: '10px 20px', fontSize: '24px' }}
           onClick={() => setShowForm(true)}>
           + 添加衣物
         </View>
@@ -234,7 +234,7 @@ export default function WardrobePage() {
       />
 
       {filteredItems.length > 0 ? (
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
           {filteredItems.map((item) => (
             <View key={item.id} style={{ width: '47%', flexGrow: 1 }}>
               <ClothingCard
@@ -267,6 +267,6 @@ export default function WardrobePage() {
 }
 
 const detailBadgeStyle: React.CSSProperties = {
-  backgroundColor: '#f9fafb', borderRadius: '12px',
-  padding: '16px', width: '45%', flexGrow: 1,
+  backgroundColor: '#f5f5f7', borderRadius: '12px',
+  padding: '14px', width: '45%', flexGrow: 1,
 };

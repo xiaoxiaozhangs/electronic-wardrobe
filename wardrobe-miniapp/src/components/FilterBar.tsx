@@ -29,38 +29,38 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
     filter.favoriteOnly;
 
   return (
-    <View style={{ marginBottom: '20px' }}>
+    <View style={{ marginBottom: '16px' }}>
       {/* Search */}
       <View style={{
         position: 'relative',
-        backgroundColor: '#f3f4f6',
-        borderRadius: '12px',
-        padding: '0 16px',
+        backgroundColor: '#f5f5f7',
+        borderRadius: '16px',
+        padding: '0 14px',
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '16px',
+        marginBottom: '12px',
       }}>
-        <Text style={{ fontSize: '28px', color: '#9ca3af', marginRight: '8px' }}>🔍</Text>
+        <Text style={{ fontSize: '24px', color: '#9ca3af', marginRight: '6px' }}>🔍</Text>
         <Input
           style={{
-            flex: 1, height: '72px', fontSize: '28px',
+            flex: 1, height: '64px', fontSize: '26px',
             backgroundColor: 'transparent',
           }}
           value={filter.search}
           onInput={(e) => onChange({ search: e.detail.value })}
           placeholder="搜索衣物名称、品类..."
-          placeholderStyle="color: #9ca3af; font-size: 26px"
+          placeholderStyle="color: #9ca3af; font-size: 24px"
         />
         {filter.search && (
           <View onClick={() => onChange({ search: '' })}
-            style={{ padding: '8px' }}>
-            <Text style={{ fontSize: '24px', color: '#9ca3af' }}>✕</Text>
+            style={{ padding: '6px' }}>
+            <Text style={{ fontSize: '22px', color: '#9ca3af' }}>✕</Text>
           </View>
         )}
       </View>
 
       {/* Quick filters */}
-      <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
+      <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '10px' }}>
         {/* Category */}
         <Picker
           mode="selector"
@@ -72,9 +72,9 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
           }}
         >
           <View style={{
-            padding: '10px 20px', borderRadius: '20px',
+            padding: '8px 16px', borderRadius: '20px',
             border: '1px solid #e5e7eb', backgroundColor: '#fff',
-            fontSize: '24px', color: '#6b7280',
+            fontSize: '22px', color: '#6b7280',
           }}>
             <Text>📂 {filter.category === '全部' ? '全部品类' : filter.category}</Text>
           </View>
@@ -91,9 +91,9 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
           }}
         >
           <View style={{
-            padding: '10px 20px', borderRadius: '20px',
+            padding: '8px 16px', borderRadius: '20px',
             border: '1px solid #e5e7eb', backgroundColor: '#fff',
-            fontSize: '24px', color: '#6b7280',
+            fontSize: '22px', color: '#6b7280',
           }}>
             <Text>🎨 {filter.primaryColor === '全部' ? '全部颜色' : filter.primaryColor}</Text>
           </View>
@@ -110,9 +110,9 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
           }}
         >
           <View style={{
-            padding: '10px 20px', borderRadius: '20px',
+            padding: '8px 16px', borderRadius: '20px',
             border: '1px solid #e5e7eb', backgroundColor: '#fff',
-            fontSize: '24px', color: '#6b7280',
+            fontSize: '22px', color: '#6b7280',
           }}>
             <Text>📅 {filter.season === '全部' ? '全部季节' : filter.season}</Text>
           </View>
@@ -129,9 +129,9 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
           }}
         >
           <View style={{
-            padding: '10px 20px', borderRadius: '20px',
+            padding: '8px 16px', borderRadius: '20px',
             border: '1px solid #e5e7eb', backgroundColor: '#fff',
-            fontSize: '24px', color: '#6b7280',
+            fontSize: '22px', color: '#6b7280',
           }}>
             <Text>🏷️ {filter.scenario === '全部' ? '全部场景' : filter.scenario}</Text>
           </View>
@@ -141,10 +141,10 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
         <View
           onClick={() => onChange({ favoriteOnly: !filter.favoriteOnly })}
           style={{
-            padding: '10px 20px', borderRadius: '20px',
+            padding: '8px 16px', borderRadius: '20px',
             border: filter.favoriteOnly ? '1px solid #fca5a5' : '1px solid #e5e7eb',
             backgroundColor: filter.favoriteOnly ? '#fef2f2' : '#fff',
-            fontSize: '24px', fontWeight: 500,
+            fontSize: '22px', fontWeight: 500,
             color: filter.favoriteOnly ? '#ef4444' : '#6b7280',
           }}
         >
@@ -154,15 +154,15 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
 
       {/* Count & Clear */}
       <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ fontSize: '22px', color: '#9ca3af' }}>
+        <Text style={{ fontSize: '20px', color: '#9ca3af' }}>
           {filteredCount === totalCount
             ? `共 ${totalCount} 件衣物`
             : `${filteredCount} / ${totalCount} 件衣物`}
         </Text>
         {hasActiveFilters && (
           <View onClick={onClear}
-            style={{ padding: '8px 12px' }}>
-            <Text style={{ fontSize: '24px', color: '#f97316', fontWeight: 500 }}>清除筛选</Text>
+            style={{ padding: '6px 10px' }}>
+            <Text style={{ fontSize: '22px', color: '#0071e3', fontWeight: 500 }}>清除筛选</Text>
           </View>
         )}
       </View>

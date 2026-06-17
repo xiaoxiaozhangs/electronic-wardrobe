@@ -21,24 +21,24 @@ export default function OutfitCard({
     .filter(Boolean) as WardrobeItem[];
 
   return (
-    <View className="card" style={{ marginBottom: '20px' }}>
+    <View className="card" style={{ marginBottom: '16px' }}>
       {/* Header */}
-      <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px 12px' }}>
+      <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px 10px' }}>
         <View>
-          <Text style={{ fontSize: '30px', fontWeight: 700, color: '#111827' }}>{outfit.title}</Text>
-          <View style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
-            <Text style={{ fontSize: '22px', color: '#9ca3af' }}>{outfit.scenario}</Text>
-            <Text style={{ fontSize: '22px', color: '#d1d5db' }}>·</Text>
-            <Text style={{ fontSize: '22px', color: '#9ca3af' }}>{outfit.season}</Text>
-            <Text style={{ fontSize: '22px', color: '#d1d5db' }}>·</Text>
-            <Text style={{ fontSize: '22px', color: '#9ca3af' }}>{outfit.style}</Text>
+          <Text style={{ fontSize: '28px', fontWeight: 600, color: '#111827' }}>{outfit.title}</Text>
+          <View style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
+            <Text style={{ fontSize: '20px', color: '#9ca3af' }}>{outfit.scenario}</Text>
+            <Text style={{ fontSize: '20px', color: '#d1d5db' }}>·</Text>
+            <Text style={{ fontSize: '20px', color: '#9ca3af' }}>{outfit.season}</Text>
+            <Text style={{ fontSize: '20px', color: '#d1d5db' }}>·</Text>
+            <Text style={{ fontSize: '20px', color: '#9ca3af' }}>{outfit.style}</Text>
           </View>
         </View>
-        <View style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <View style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           {onToggleFavorite && (
             <View
               onClick={onToggleFavorite}
-              style={{ fontSize: '32px', padding: '4px' }}
+              style={{ fontSize: '28px', padding: '4px' }}
             >
               <Text>{outfit.isFavorite ? '❤️' : '🤍'}</Text>
             </View>
@@ -46,7 +46,7 @@ export default function OutfitCard({
           {onDelete && (
             <View
               onClick={onDelete}
-              style={{ fontSize: '28px', color: '#9ca3af', padding: '4px' }}
+              style={{ fontSize: '24px', color: '#9ca3af', padding: '4px' }}
             >
               <Text>🗑️</Text>
             </View>
@@ -55,13 +55,13 @@ export default function OutfitCard({
       </View>
 
       {/* Items grid */}
-      <View style={{ padding: '0 24px 12px' }}>
-        <View style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '12px' }}>
+      <View style={{ padding: '0 20px 10px' }}>
+        <View style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '10px' }}>
           {outfitItems.map((item) => (
-            <View key={item.id} style={{ flexShrink: 0, width: '120px', textAlign: 'center' }}>
+            <View key={item.id} style={{ flexShrink: 0, width: '110px', textAlign: 'center' }}>
               <View style={{
-                width: '120px', height: '120px', borderRadius: '12px',
-                backgroundColor: '#f9fafb', overflow: 'hidden', border: '1px solid #f3f4f6',
+                width: '110px', height: '110px', borderRadius: '16px',
+                backgroundColor: '#f5f5f7', overflow: 'hidden', border: '1px solid #f3f4f6',
               }}>
                 <Image
                   src={item.imageBase64}
@@ -69,7 +69,7 @@ export default function OutfitCard({
                   style={{ width: '100%', height: '100%' }}
                 />
               </View>
-              <Text style={{ fontSize: '20px', color: '#6b7280', marginTop: '4px', display: 'block' }}
+              <Text style={{ fontSize: '18px', color: '#6b7280', marginTop: '2px', display: 'block' }}
                 className="text-ellipsis"
               >
                 {item.subCategory}
@@ -77,7 +77,7 @@ export default function OutfitCard({
             </View>
           ))}
           {outfitItems.length === 0 && (
-            <Text style={{ fontSize: '24px', color: '#9ca3af', padding: '24px 0' }}>
+            <Text style={{ fontSize: '22px', color: '#9ca3af', padding: '20px 0' }}>
               衣物已被删除，搭配失效
             </Text>
           )}
@@ -86,10 +86,10 @@ export default function OutfitCard({
 
       {/* Reason */}
       {outfit.reason && (
-        <View style={{ padding: '0 24px 16px' }}>
+        <View style={{ padding: '0 20px 14px' }}>
           <Text style={{
-            fontSize: '24px', color: '#6b7280', lineHeight: '1.6',
-            backgroundColor: '#f9fafb', borderRadius: '12px', padding: '12px 16px',
+            fontSize: '22px', color: '#6b7280', lineHeight: '1.6',
+            backgroundColor: '#f5f5f7', borderRadius: '12px', padding: '10px 14px',
             display: 'block',
           }}>
             💡 {outfit.reason}
@@ -99,16 +99,16 @@ export default function OutfitCard({
 
       {/* Feedback */}
       {onFeedback && outfitItems.length > 0 && (
-        <View style={{ display: 'flex', borderTop: '1px solid #f9fafb' }}>
+        <View style={{ display: 'flex', borderTop: '1px solid #f3f4f6' }}>
           {(['喜欢', '一般', '不合适'] as Feedback[]).map((fb) => (
             <View
               key={fb}
               onClick={() => onFeedback(fb)}
               style={{
-                flex: 1, padding: '16px 0', textAlign: 'center',
-                fontSize: '24px', fontWeight: 500,
-                backgroundColor: outfit.feedback === fb ? '#fff7ed' : 'transparent',
-                color: outfit.feedback === fb ? '#f97316' : '#6b7280',
+                flex: 1, padding: '14px 0', textAlign: 'center',
+                fontSize: '22px', fontWeight: 500,
+                backgroundColor: outfit.feedback === fb ? 'rgba(0,113,227,0.06)' : 'transparent',
+                color: outfit.feedback === fb ? '#0071e3' : '#6b7280',
               }}
             >
               <Text>{fb === '喜欢' ? '👍 ' : fb === '一般' ? '👌 ' : '👎 '}{fb}</Text>

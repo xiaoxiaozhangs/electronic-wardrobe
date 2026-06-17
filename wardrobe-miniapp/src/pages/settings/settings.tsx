@@ -51,7 +51,7 @@ export default function SettingsPage() {
       <View className="container">
         <View className="loading-spinner">
           <Text className="loading-spinner-icon">⏳</Text>
-          <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px' }}>加载中...</Text>
+          <Text style={{ fontSize: '24px', color: '#9ca3af', marginTop: '12px' }}>加载中...</Text>
         </View>
       </View>
     );
@@ -62,49 +62,49 @@ export default function SettingsPage() {
       <Text className="section-title">我的</Text>
 
       {/* Stats */}
-      <View className="card" style={{ padding: '24px', marginBottom: '20px' }}>
-        <Text style={{ fontSize: '28px', fontWeight: 700, color: '#111827', marginBottom: '20px', display: 'block' }}>
+      <View className="card" style={{ padding: '20px', marginBottom: '16px' }}>
+        <Text style={{ fontSize: '26px', fontWeight: 700, color: '#111827', marginBottom: '16px', display: 'block' }}>
           📊 衣橱统计
         </Text>
 
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '24px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
           <View style={statBoxStyle}>
-            <Text style={{ fontSize: '40px', fontWeight: 700, color: '#111827', display: 'block' }}>{availableItems.length}</Text>
-            <Text style={{ fontSize: '22px', color: '#6b7280', display: 'block' }}>总衣物数</Text>
+            <Text style={{ fontSize: '36px', fontWeight: 700, color: '#111827', display: 'block' }}>{availableItems.length}</Text>
+            <Text style={{ fontSize: '20px', color: '#6b7280', display: 'block' }}>总衣物数</Text>
           </View>
           <View style={statBoxStyle}>
-            <Text style={{ fontSize: '40px', fontWeight: 700, color: '#111827', display: 'block' }}>{outfits.length}</Text>
-            <Text style={{ fontSize: '22px', color: '#6b7280', display: 'block' }}>搭配方案数</Text>
+            <Text style={{ fontSize: '36px', fontWeight: 700, color: '#111827', display: 'block' }}>{outfits.length}</Text>
+            <Text style={{ fontSize: '20px', color: '#6b7280', display: 'block' }}>搭配方案数</Text>
           </View>
           <View style={statBoxStyle}>
-            <Text style={{ fontSize: '40px', fontWeight: 700, color: '#111827', display: 'block' }}>
+            <Text style={{ fontSize: '36px', fontWeight: 700, color: '#111827', display: 'block' }}>
               {availableItems.filter((i) => i.isFavorite).length}
             </Text>
-            <Text style={{ fontSize: '22px', color: '#6b7280', display: 'block' }}>收藏衣物</Text>
+            <Text style={{ fontSize: '20px', color: '#6b7280', display: 'block' }}>收藏衣物</Text>
           </View>
           <View style={statBoxStyle}>
-            <Text style={{ fontSize: '40px', fontWeight: 700, color: '#111827', display: 'block' }}>
+            <Text style={{ fontSize: '36px', fontWeight: 700, color: '#111827', display: 'block' }}>
               {outfits.filter((o) => o.isFavorite).length}
             </Text>
-            <Text style={{ fontSize: '22px', color: '#6b7280', display: 'block' }}>收藏搭配</Text>
+            <Text style={{ fontSize: '20px', color: '#6b7280', display: 'block' }}>收藏搭配</Text>
           </View>
         </View>
 
         {/* Category distribution */}
         {Object.keys(byCategory).length > 0 && (
-          <View style={{ marginBottom: '20px' }}>
-            <Text style={{ fontSize: '24px', fontWeight: 500, color: '#6b7280', marginBottom: '12px', display: 'block' }}>品类分布</Text>
+          <View style={{ marginBottom: '16px' }}>
+            <Text style={{ fontSize: '22px', fontWeight: 500, color: '#6b7280', marginBottom: '10px', display: 'block' }}>品类分布</Text>
             {Object.entries(byCategory).map(([cat, count]) => (
-              <View key={cat} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                <Text style={{ fontSize: '24px', color: '#6b7280', width: '100px' }}>{cat}</Text>
-                <View style={{ flex: 1, height: '12px', backgroundColor: '#f3f4f6', borderRadius: '6px', overflow: 'hidden' }}>
+              <View key={cat} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                <Text style={{ fontSize: '22px', color: '#6b7280', width: '100px' }}>{cat}</Text>
+                <View style={{ flex: 1, height: '10px', backgroundColor: '#e8e8ed', borderRadius: '5px', overflow: 'hidden' }}>
                   <View style={{
-                    height: '100%', borderRadius: '6px',
-                    backgroundColor: '#f97316',
+                    height: '100%', borderRadius: '5px',
+                    backgroundColor: '#0071e3',
                     width: `${Math.round((count / availableItems.length) * 100)}%`,
                   }} />
                 </View>
-                <Text style={{ fontSize: '22px', color: '#6b7280', width: '50px', textAlign: 'right' }}>{count}</Text>
+                <Text style={{ fontSize: '20px', color: '#6b7280', width: '50px', textAlign: 'right' }}>{count}</Text>
               </View>
             ))}
           </View>
@@ -113,14 +113,14 @@ export default function SettingsPage() {
         {/* Color distribution */}
         {topColors.length > 0 && (
           <View>
-            <Text style={{ fontSize: '24px', fontWeight: 500, color: '#6b7280', marginBottom: '12px', display: 'block' }}>常用颜色</Text>
-            <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <Text style={{ fontSize: '22px', fontWeight: 500, color: '#6b7280', marginBottom: '10px', display: 'block' }}>常用颜色</Text>
+            <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {topColors.map(([color, count]) => (
                 <View key={color} style={{
-                  padding: '6px 14px', borderRadius: '20px',
-                  backgroundColor: '#f3f4f6',
+                  padding: '4px 12px', borderRadius: '20px',
+                  backgroundColor: '#e8e8ed',
                 }}>
-                  <Text style={{ fontSize: '22px', color: '#6b7280' }}>{color} ({count})</Text>
+                  <Text style={{ fontSize: '20px', color: '#6b7280' }}>{color} ({count})</Text>
                 </View>
               ))}
             </View>
@@ -130,21 +130,21 @@ export default function SettingsPage() {
 
       {/* Top worn */}
       {topWorn.filter((i) => i.wearCount > 0).length > 0 && (
-        <View className="card" style={{ padding: '24px', marginBottom: '20px' }}>
-          <Text style={{ fontSize: '28px', fontWeight: 700, color: '#111827', marginBottom: '16px', display: 'block' }}>
+        <View className="card" style={{ padding: '20px', marginBottom: '16px' }}>
+          <Text style={{ fontSize: '26px', fontWeight: 700, color: '#111827', marginBottom: '12px', display: 'block' }}>
             👑 高频穿着
           </Text>
           {topWorn.filter((i) => i.wearCount > 0).map((item) => (
-            <View key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+            <View key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
               <Image src={item.imageBase64} mode="aspectFit"
-                style={{ width: '56px', height: '56px', borderRadius: '8px', backgroundColor: '#f9fafb' }} />
+                style={{ width: '50px', height: '50px', borderRadius: '8px', backgroundColor: '#f5f5f7' }} />
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: '26px', fontWeight: 500, display: 'block' }}>{item.subCategory}</Text>
-                <Text style={{ fontSize: '22px', color: '#9ca3af', display: 'block' }}>
+                <Text style={{ fontSize: '24px', fontWeight: 500, display: 'block' }}>{item.subCategory}</Text>
+                <Text style={{ fontSize: '20px', color: '#9ca3af', display: 'block' }}>
                   {item.primaryColor} · {item.category}
                 </Text>
               </View>
-              <Text style={{ fontSize: '22px', color: '#6b7280' }}>穿{item.wearCount}次</Text>
+              <Text style={{ fontSize: '20px', color: '#6b7280' }}>穿{item.wearCount}次</Text>
             </View>
           ))}
         </View>
@@ -153,23 +153,23 @@ export default function SettingsPage() {
       {/* Idle items */}
       {idleItems.length > 0 && (
         <View style={{
-          backgroundColor: '#fff7ed', borderRadius: '20px',
-          padding: '24px', marginBottom: '20px',
+          backgroundColor: '#fff7ed', borderRadius: '24px',
+          padding: '20px', marginBottom: '16px',
           border: '1px solid #fed7aa',
         }}>
-          <Text style={{ fontSize: '28px', fontWeight: 700, color: '#c2410c', marginBottom: '12px', display: 'block' }}>
+          <Text style={{ fontSize: '26px', fontWeight: 700, color: '#c2410c', marginBottom: '10px', display: 'block' }}>
             💤 闲置衣物（{idleItems.length}件）
           </Text>
-          <Text style={{ fontSize: '24px', color: '#c2410c', marginBottom: '12px', display: 'block' }}>
+          <Text style={{ fontSize: '22px', color: '#c2410c', marginBottom: '10px', display: 'block' }}>
             以下衣物尚未穿着过，考虑搭配使用或断舍离
           </Text>
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {idleItems.map((item) => (
               <View key={item.id} style={{
-                padding: '6px 14px', borderRadius: '20px',
+                padding: '4px 12px', borderRadius: '20px',
                 backgroundColor: '#fff', border: '1px solid #fed7aa',
               }}>
-                <Text style={{ fontSize: '22px', color: '#c2410c' }}>{item.subCategory}</Text>
+                <Text style={{ fontSize: '20px', color: '#c2410c' }}>{item.subCategory}</Text>
               </View>
             ))}
           </View>
@@ -177,21 +177,21 @@ export default function SettingsPage() {
       )}
 
       {/* About */}
-      <View className="card" style={{ padding: '24px', marginBottom: '20px' }}>
-        <Text style={{ fontSize: '28px', fontWeight: 700, color: '#111827', marginBottom: '16px', display: 'block' }}>
+      <View className="card" style={{ padding: '20px', marginBottom: '16px' }}>
+        <Text style={{ fontSize: '26px', fontWeight: 700, color: '#111827', marginBottom: '12px', display: 'block' }}>
           ℹ️ 关于
         </Text>
-        <Text style={{ fontSize: '26px', color: '#6b7280', lineHeight: '1.6', display: 'block', marginBottom: '8px' }}>
+        <Text style={{ fontSize: '24px', color: '#6b7280', lineHeight: '1.6', display: 'block', marginBottom: '6px' }}>
           智搭衣橱 · 电子衣橱 v0.1
         </Text>
-        <Text style={{ fontSize: '26px', color: '#6b7280', lineHeight: '1.6', display: 'block', marginBottom: '16px' }}>
+        <Text style={{ fontSize: '24px', color: '#6b7280', lineHeight: '1.6', display: 'block', marginBottom: '12px' }}>
           基于 Taro 构建的微信小程序版本，使用 CloudBase 云开发提供数据存储和云函数支持。
         </Text>
         <View style={{
-          backgroundColor: '#f9fafb', borderRadius: '12px',
-          padding: '16px',
+          backgroundColor: '#f5f5f7', borderRadius: '12px',
+          padding: '14px',
         }}>
-          <Text style={{ fontSize: '22px', color: '#9ca3af', lineHeight: '1.6', display: 'block' }}>
+          <Text style={{ fontSize: '20px', color: '#9ca3af', lineHeight: '1.6', display: 'block' }}>
             {onlineMode
               ? '☁️ 当前使用 CloudBase 云端存储模式，数据将同步到云端数据库。'
               : '💡 当前使用本地存储模式。配置 CloudBase 环境 ID 并登录后，可启用云端数据同步。'}
@@ -200,19 +200,19 @@ export default function SettingsPage() {
       </View>
 
       {/* Danger Zone */}
-      <View className="card" style={{ padding: '24px', marginBottom: '20px', border: '1px solid #fecaca' }}>
-        <Text style={{ fontSize: '28px', fontWeight: 700, color: '#ef4444', marginBottom: '12px', display: 'block' }}>
+      <View className="card" style={{ padding: '20px', marginBottom: '16px', border: '1px solid #fecaca' }}>
+        <Text style={{ fontSize: '26px', fontWeight: 700, color: '#ef4444', marginBottom: '10px', display: 'block' }}>
           ⚠️ 数据管理
         </Text>
-        <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '16px', display: 'block' }}>
+        <Text style={{ fontSize: '22px', color: '#6b7280', marginBottom: '12px', display: 'block' }}>
           重置将删除所有数据并恢复示例数据
         </Text>
         <View
           onClick={handleReset}
           style={{
-            padding: '18px', textAlign: 'center',
+            padding: '16px', textAlign: 'center',
             border: '1px solid #fecaca', borderRadius: '12px',
-            fontSize: '26px', fontWeight: 500, color: '#ef4444',
+            fontSize: '24px', fontWeight: 500, color: '#ef4444',
           }}
         >
           <Text>重置所有数据</Text>
@@ -224,9 +224,9 @@ export default function SettingsPage() {
 }
 
 const statBoxStyle: React.CSSProperties = {
-  backgroundColor: '#f9fafb',
+  backgroundColor: '#f5f5f7',
   borderRadius: '12px',
-  padding: '20px',
+  padding: '16px',
   textAlign: 'center',
   width: '45%',
   flexGrow: 1,

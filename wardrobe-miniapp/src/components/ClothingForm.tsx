@@ -112,15 +112,15 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
   return (
     <View style={{ padding: '0 0 120px' }}>
       {/* Image Upload */}
-      <View style={{ marginBottom: '32px' }}>
-        <Text style={{ fontSize: '28px', fontWeight: 500, color: '#374151', marginBottom: '16px', display: 'block' }}>
+      <View style={{ marginBottom: '28px' }}>
+        <Text style={{ fontSize: '26px', fontWeight: 500, color: '#374151', marginBottom: '12px', display: 'block' }}>
           衣物图片 <Text style={{ color: '#ef4444' }}>*</Text>
         </Text>
         <View
           onClick={handleChooseImage}
           style={{
-            width: '100%', aspectRatio: '1', borderRadius: '20px',
-            border: '2px dashed #d1d5db', backgroundColor: '#f9fafb',
+            width: '100%', aspectRatio: '1', borderRadius: '24px',
+            border: '2px dashed #d1d5db', backgroundColor: '#f5f5f7',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             overflow: 'hidden',
           }}
@@ -129,18 +129,18 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
             <Image src={imageBase64} mode="aspectFit" style={{ width: '100%', height: '100%' }} />
           ) : (
             <View style={{ textAlign: 'center', color: '#9ca3af' }}>
-              <Text style={{ fontSize: '64px', display: 'block', marginBottom: '12px' }}>📷</Text>
-              <Text style={{ fontSize: '26px', display: 'block' }}>点击拍照或选择图片</Text>
+              <Text style={{ fontSize: '56px', display: 'block', marginBottom: '10px' }}>📷</Text>
+              <Text style={{ fontSize: '24px', display: 'block' }}>点击拍照或选择图片</Text>
             </View>
           )}
         </View>
-        <Text style={{ fontSize: '22px', color: '#9ca3af', marginTop: '8px', display: 'block' }}>
+        <Text style={{ fontSize: '20px', color: '#9ca3af', marginTop: '6px', display: 'block' }}>
           支持拍照或相册选择
         </Text>
       </View>
 
       {/* Category & SubCategory */}
-      <View style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+      <View style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
         <View style={{ flex: 1 }}>
           <Text style={labelStyle}>品类</Text>
           <Picker
@@ -170,22 +170,22 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Primary Color */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>主色</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
           {ALL_COLORS.map((c) => (
             <View
               key={c}
               onClick={() => setPrimaryColor(c)}
               style={{
-                width: '56px', height: '56px', borderRadius: '50%',
-                border: primaryColor === c ? '3px solid #f97316' : '2px solid #e5e7eb',
+                width: '52px', height: '52px', borderRadius: '50%',
+                border: primaryColor === c ? '3px solid #0071e3' : '2px solid #e5e7eb',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transform: primaryColor === c ? 'scale(1.1)' : 'scale(1)',
               }}
             >
               <View style={{
-                width: '40px', height: '40px', borderRadius: '50%',
+                width: '36px', height: '36px', borderRadius: '50%',
                 backgroundColor: COLOR_MAP[c],
               }} />
             </View>
@@ -194,22 +194,22 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Secondary Colors */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>辅色（可选）</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
           {ALL_COLORS.filter((c) => c !== primaryColor).map((c) => (
             <View
               key={c}
               onClick={() => toggleArrayItem(secondaryColors, c, setSecondaryColors)}
               style={{
-                width: '48px', height: '48px', borderRadius: '50%',
-                border: secondaryColors.includes(c) ? '3px solid #f97316' : '2px solid #e5e7eb',
+                width: '44px', height: '44px', borderRadius: '50%',
+                border: secondaryColors.includes(c) ? '3px solid #0071e3' : '2px solid #e5e7eb',
                 opacity: secondaryColors.includes(c) ? 1 : 0.5,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}
             >
               <View style={{
-                width: '34px', height: '34px', borderRadius: '50%',
+                width: '30px', height: '30px', borderRadius: '50%',
                 backgroundColor: COLOR_MAP[c],
               }} />
             </View>
@@ -218,25 +218,25 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Pattern & Thickness */}
-      <View style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+      <View style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
         <View style={{ flex: 1 }}>
           <Text style={labelStyle}>花纹</Text>
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {PATTERNS.map((p) => (
               <View key={p} onClick={() => setPattern(p)}
                 style={chipStyle(pattern === p)}>
-                <Text style={{ fontSize: '22px' }}>{p}</Text>
+                <Text style={{ fontSize: '20px' }}>{p}</Text>
               </View>
             ))}
           </View>
         </View>
         <View style={{ flex: 1 }}>
           <Text style={labelStyle}>厚薄</Text>
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {THICKNESSES.map((t) => (
               <View key={t} onClick={() => setThickness(t)}
                 style={chipStyle(thickness === t)}>
-                <Text style={{ fontSize: '22px' }}>{t}</Text>
+                <Text style={{ fontSize: '20px' }}>{t}</Text>
               </View>
             ))}
           </View>
@@ -244,16 +244,16 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Seasons */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>适用季节</Text>
-        <View style={{ display: 'flex', gap: '12px' }}>
+        <View style={{ display: 'flex', gap: '10px' }}>
           {ALL_SEASONS.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(seasons, s, setSeasons)}
               style={{
-                padding: '12px 24px', borderRadius: '24px',
-                backgroundColor: seasons.includes(s) ? '#3b82f6' : '#f3f4f6',
+                padding: '10px 20px', borderRadius: '24px',
+                backgroundColor: seasons.includes(s) ? '#0071e3' : '#e8e8ed',
                 color: seasons.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '26px', fontWeight: 500,
+                fontSize: '24px', fontWeight: 500,
               }}>
               <Text>{s}</Text>
             </View>
@@ -262,16 +262,16 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Scenarios */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>适用场景</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {ALL_SCENARIOS.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(scenarios, s, setScenarios)}
               style={{
-                padding: '10px 18px', borderRadius: '20px',
-                backgroundColor: scenarios.includes(s) ? '#22c55e' : '#f3f4f6',
+                padding: '8px 16px', borderRadius: '20px',
+                backgroundColor: scenarios.includes(s) ? '#22c55e' : '#e8e8ed',
                 color: scenarios.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
+                fontSize: '22px', fontWeight: 500,
               }}>
               <Text>{s}</Text>
             </View>
@@ -280,16 +280,16 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Styles */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>风格</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {ALL_STYLES.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(styles, s, setStyles)}
               style={{
-                padding: '10px 18px', borderRadius: '20px',
-                backgroundColor: styles.includes(s) ? '#8b5cf6' : '#f3f4f6',
+                padding: '8px 16px', borderRadius: '20px',
+                backgroundColor: styles.includes(s) ? '#5e5ce6' : '#e8e8ed',
                 color: styles.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
+                fontSize: '22px', fontWeight: 500,
               }}>
               <Text>{s}</Text>
             </View>
@@ -298,13 +298,13 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Temperature Range */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>
           适合温度区间：{temperatureMin}°C — {temperatureMax}°C
         </Text>
-        <View style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '12px' }}>
+        <View style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px' }}>
           <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
+            style={{ flex: 1, height: '60px', backgroundColor: '#e8e8ed', borderRadius: '12px', padding: '0 14px', fontSize: '26px', textAlign: 'center' }}
             type="number"
             value={String(temperatureMin)}
             onInput={(e) => {
@@ -312,9 +312,9 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
               setTemperatureMin(Math.min(v, temperatureMax));
             }}
           />
-          <Text style={{ fontSize: '24px', color: '#9ca3af' }}>至</Text>
+          <Text style={{ fontSize: '22px', color: '#9ca3af' }}>至</Text>
           <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
+            style={{ flex: 1, height: '60px', backgroundColor: '#e8e8ed', borderRadius: '12px', padding: '0 14px', fontSize: '26px', textAlign: 'center' }}
             type="number"
             value={String(temperatureMax)}
             onInput={(e) => {
@@ -326,16 +326,16 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Status */}
-      <View style={{ marginBottom: '24px' }}>
+      <View style={{ marginBottom: '20px' }}>
         <Text style={labelStyle}>状态</Text>
-        <View style={{ display: 'flex', gap: '12px' }}>
+        <View style={{ display: 'flex', gap: '10px' }}>
           {STATUSES.map((s) => (
             <View key={s} onClick={() => setStatus(s)}
               style={{
-                padding: '10px 20px', borderRadius: '20px',
-                backgroundColor: status === s ? '#1f2937' : '#f3f4f6',
+                padding: '8px 16px', borderRadius: '20px',
+                backgroundColor: status === s ? '#1f2937' : '#e8e8ed',
                 color: status === s ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
+                fontSize: '22px', fontWeight: 500,
               }}>
               <Text>{s}</Text>
             </View>
@@ -344,24 +344,24 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Note */}
-      <View style={{ marginBottom: '32px' }}>
+      <View style={{ marginBottom: '28px' }}>
         <Text style={labelStyle}>备注</Text>
         <Textarea
           style={{
-            width: '100%', minHeight: '100px', backgroundColor: '#f3f4f6',
-            borderRadius: '12px', padding: '16px', fontSize: '26px',
+            width: '100%', minHeight: '100px', backgroundColor: '#e8e8ed',
+            borderRadius: '12px', padding: '14px', fontSize: '24px',
             boxSizing: 'border-box',
           }}
           value={note}
           onInput={(e) => setNote(e.detail.value)}
           placeholder="例如：优衣库购入、适合通勤..."
-          placeholderStyle="color: #9ca3af; font-size: 24px"
+          placeholderStyle="color: #9ca3af; font-size: 22px"
           maxlength={200}
         />
       </View>
 
       {/* Buttons */}
-      <View style={{ display: 'flex', gap: '16px', paddingTop: '24px', borderTop: '1px solid #f3f4f6' }}>
+      <View style={{ display: 'flex', gap: '12px', paddingTop: '20px', borderTop: '1px solid #e8e8ed' }}>
         <View className="btn-outline" style={{ flex: 1 }} onClick={onCancel}>
           取消
         </View>
@@ -375,21 +375,21 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
 
 // -- 样式常量 --
 const labelStyle: React.CSSProperties = {
-  fontSize: '28px', fontWeight: 500, color: '#374151',
-  marginBottom: '12px', display: 'block',
+  fontSize: '26px', fontWeight: 500, color: '#374151',
+  marginBottom: '10px', display: 'block',
 };
 
 const pickerStyle: React.CSSProperties = {
-  padding: '16px 20px',
-  backgroundColor: '#f3f4f6',
+  padding: '14px 18px',
+  backgroundColor: '#e8e8ed',
   borderRadius: '12px',
-  fontSize: '28px',
+  fontSize: '26px',
   color: '#374151',
 };
 
 const chipStyle = (active: boolean): React.CSSProperties => ({
-  padding: '8px 16px',
+  padding: '6px 14px',
   borderRadius: '20px',
-  backgroundColor: active ? '#f97316' : '#f3f4f6',
+  backgroundColor: active ? '#0071e3' : '#e8e8ed',
   color: active ? '#fff' : '#6b7280',
 });

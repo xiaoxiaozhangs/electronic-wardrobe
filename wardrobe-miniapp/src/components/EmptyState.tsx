@@ -24,7 +24,7 @@ export default function EmptyState({
         <Text className="empty-state-desc">{description}</Text>
       )}
       {action && (
-        <View className="btn-primary" style={{ marginTop: '32px' }} onClick={action.onClick}>
+        <View className="btn-primary" style={{ marginTop: '24px' }} onClick={action.onClick}>
           {action.label}
         </View>
       )}

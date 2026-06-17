@@ -7,7 +7,7 @@ export default {
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
+    navigationBarBackgroundColor: '#f5f5f7',
     navigationBarTitleText: '智搭衣橱',
     navigationBarTextStyle: 'black',
   },
@@ -16,8 +16,8 @@ export default {
   /*
   tabBar: {
     color: '#9ca3af',
-    selectedColor: '#f97316',
-    backgroundColor: '#ffffff',
+    selectedColor: '#0071e3',
+    backgroundColor: '#f5f5f7',
     borderStyle: 'black',
     list: [
       {

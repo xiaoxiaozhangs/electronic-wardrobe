@@ -66,7 +66,7 @@ export default function OutfitPage() {
       <View className="container">
         <View className="loading-spinner">
           <Text className="loading-spinner-icon">⏳</Text>
-          <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px' }}>加载中...</Text>
+          <Text style={{ fontSize: '24px', color: '#9ca3af', marginTop: '12px' }}>加载中...</Text>
         </View>
       </View>
     );
@@ -78,16 +78,16 @@ export default function OutfitPage() {
 
       {/* Tab switcher */}
       <View style={{
-        display: 'flex', backgroundColor: '#f3f4f6',
-        borderRadius: '12px', padding: '4px', marginBottom: '24px',
+        display: 'flex', backgroundColor: '#e8e8ed',
+        borderRadius: '16px', padding: '4px', marginBottom: '20px',
       }}>
         <View
           onClick={() => setTab('generate')}
           style={{
-            flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
+            flex: 1, padding: '12px', textAlign: 'center', borderRadius: '12px',
             backgroundColor: tab === 'generate' ? '#fff' : 'transparent',
             boxShadow: tab === 'generate' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
-            fontSize: '26px', fontWeight: 500,
+            fontSize: '24px', fontWeight: 500,
             color: tab === 'generate' ? '#111827' : '#9ca3af',
           }}
         >
@@ -96,10 +96,10 @@ export default function OutfitPage() {
         <View
           onClick={() => setTab('history')}
           style={{
-            flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
+            flex: 1, padding: '12px', textAlign: 'center', borderRadius: '12px',
             backgroundColor: tab === 'history' ? '#fff' : 'transparent',
             boxShadow: tab === 'history' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
-            fontSize: '26px', fontWeight: 500,
+            fontSize: '24px', fontWeight: 500,
             color: tab === 'history' ? '#111827' : '#9ca3af',
           }}
         >
@@ -112,69 +112,69 @@ export default function OutfitPage() {
         <View>
           {/* Params form */}
           <View style={{
-            backgroundColor: '#f9fafb', borderRadius: '20px',
-            padding: '24px', marginBottom: '24px',
+            backgroundColor: '#f5f5f7', borderRadius: '24px',
+            padding: '20px', marginBottom: '20px',
           }}>
             {/* Scenario */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>场景</Text>
-              <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <View style={{ marginBottom: '16px' }}>
+              <Text style={{ fontSize: '22px', color: '#6b7280', marginBottom: '8px', display: 'block' }}>场景</Text>
+              <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {ALL_SCENARIOS.map((s) => (
                   <View key={s} onClick={() => setScenario(s)}
-                    style={optionChipStyle(scenario === s, '#f97316')}>
-                    <Text style={{ fontSize: '22px' }}>{SCENARIO_LABELS[s]}</Text>
+                    style={optionChipStyle(scenario === s, '#0071e3')}>
+                    <Text style={{ fontSize: '20px' }}>{SCENARIO_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Season */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>季节</Text>
-              <View style={{ display: 'flex', gap: '12px' }}>
+            <View style={{ marginBottom: '16px' }}>
+              <Text style={{ fontSize: '22px', color: '#6b7280', marginBottom: '8px', display: 'block' }}>季节</Text>
+              <View style={{ display: 'flex', gap: '10px' }}>
                 {ALL_SEASONS.map((s) => (
                   <View key={s} onClick={() => setSeason(s)}
-                    style={optionChipStyle(season === s, '#3b82f6')}>
-                    <Text style={{ fontSize: '26px' }}>{SEASON_LABELS[s]}</Text>
+                    style={optionChipStyle(season === s, '#0071e3')}>
+                    <Text style={{ fontSize: '24px' }}>{SEASON_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Style */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>风格</Text>
+            <View style={{ marginBottom: '16px' }}>
+              <Text style={{ fontSize: '22px', color: '#6b7280', marginBottom: '8px', display: 'block' }}>风格</Text>
               <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {ALL_STYLES.map((s) => (
                   <View key={s} onClick={() => setStyle(s)}
-                    style={optionChipStyle(style === s, '#8b5cf6')}>
-                    <Text style={{ fontSize: '22px' }}>{STYLE_LABELS[s]}</Text>
+                    style={optionChipStyle(style === s, '#5e5ce6')}>
+                    <Text style={{ fontSize: '20px' }}>{STYLE_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Specify item */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>
+            <View style={{ marginBottom: '16px' }}>
+              <Text style={{ fontSize: '22px', color: '#6b7280', marginBottom: '8px', display: 'block' }}>
                 指定单品（可选）
               </Text>
               {mustIncludeItem ? (
                 <View style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
+                  display: 'flex', alignItems: 'center', gap: '10px',
                   backgroundColor: '#fff', borderRadius: '12px',
-                  padding: '12px', border: '1px solid #e5e7eb',
+                  padding: '10px', border: '1px solid #e5e7eb',
                 }}>
                   <Image src={mustIncludeItem.imageBase64} mode="aspectFit"
-                    style={{ width: '64px', height: '64px', borderRadius: '8px', backgroundColor: '#f9fafb' }} />
+                    style={{ width: '56px', height: '56px', borderRadius: '8px', backgroundColor: '#f5f5f7' }} />
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: '26px', fontWeight: 500, display: 'block' }}>{mustIncludeItem.subCategory}</Text>
-                    <Text style={{ fontSize: '22px', color: '#9ca3af', display: 'block' }}>
+                    <Text style={{ fontSize: '24px', fontWeight: 500, display: 'block' }}>{mustIncludeItem.subCategory}</Text>
+                    <Text style={{ fontSize: '20px', color: '#9ca3af', display: 'block' }}>
                       {mustIncludeItem.category} · {mustIncludeItem.primaryColor}
                     </Text>
                   </View>
                   <View onClick={() => setMustIncludeItemId(null)}
-                    style={{ padding: '8px', color: '#9ca3af', fontSize: '28px' }}>
+                    style={{ padding: '6px', color: '#9ca3af', fontSize: '26px' }}>
                     <Text>✕</Text>
                   </View>
                 </View>
@@ -182,9 +182,9 @@ export default function OutfitPage() {
                 <View
                   onClick={() => setShowItemPicker(!showItemPicker)}
                   style={{
-                    width: '100%', padding: '24px', textAlign: 'center',
+                    width: '100%', padding: '20px', textAlign: 'center',
                     border: '2px dashed #d1d5db', borderRadius: '12px',
-                    backgroundColor: '#fff', fontSize: '26px', color: '#9ca3af',
+                    backgroundColor: '#fff', fontSize: '24px', color: '#9ca3af',
                   }}
                 >
                   <Text>+ 选择一件单品</Text>
@@ -192,18 +192,18 @@ export default function OutfitPage() {
               )}
 
               {showItemPicker && (
-                <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '12px', maxHeight: '300px', overflowY: 'auto' }}>
+                <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px', maxHeight: '300px', overflowY: 'auto' }}>
                   {availableItems.map((item) => (
                     <View key={item.id}
                       onClick={() => { setMustIncludeItemId(item.id); setShowItemPicker(false); }}
                       style={{
                         width: '30%', flexGrow: 1, textAlign: 'center',
                         backgroundColor: '#fff', borderRadius: '12px',
-                        border: '1px solid #e5e7eb', padding: '12px',
+                        border: '1px solid #e5e7eb', padding: '10px',
                       }}>
                       <Image src={item.imageBase64} mode="aspectFit"
                         style={{ width: '100%', aspectRatio: '1', borderRadius: '8px' }} />
-                      <Text style={{ fontSize: '22px', color: '#6b7280', marginTop: '6px', display: 'block' }}>{item.subCategory}</Text>
+                      <Text style={{ fontSize: '20px', color: '#6b7280', marginTop: '4px', display: 'block' }}>{item.subCategory}</Text>
                     </View>
                   ))}
                 </View>
@@ -213,7 +213,7 @@ export default function OutfitPage() {
             {/* Generate button */}
             <View
               className="btn-primary"
-              style={{ width: '100%', padding: '24px', fontSize: '30px' }}
+              style={{ width: '100%', padding: '20px', fontSize: '28px' }}
               onClick={handleGenerate}
             >
               {generating ? (
@@ -230,8 +230,8 @@ export default function OutfitPage() {
           {generating && (
             <View className="loading-spinner">
               <Text className="loading-spinner-icon">⏳</Text>
-              <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px', display: 'block' }}>正在分析你的衣橱...</Text>
-              <Text style={{ fontSize: '22px', color: '#d1d5db', marginTop: '8px', display: 'block' }}>
+              <Text style={{ fontSize: '24px', color: '#9ca3af', marginTop: '12px', display: 'block' }}>正在分析你的衣橱...</Text>
+              <Text style={{ fontSize: '20px', color: '#d1d5db', marginTop: '6px', display: 'block' }}>
                 根据场景、季节和风格匹配合适组合
               </Text>
             </View>
@@ -239,7 +239,7 @@ export default function OutfitPage() {
 
           {!generating && currentResults.length > 0 && (
             <View>
-              <Text style={{ fontSize: '28px', fontWeight: 700, color: '#111827', marginBottom: '20px', display: 'block' }}>
+              <Text style={{ fontSize: '26px', fontWeight: 700, color: '#111827', marginBottom: '16px', display: 'block' }}>
                 为你生成 {currentResults.length} 套搭配
               </Text>
               {currentResults.map((outfit) => (
@@ -257,9 +257,9 @@ export default function OutfitPage() {
           {!generating && currentResults.length === 0 && (
             <View style={{
               backgroundColor: '#fef9c3', borderRadius: '16px',
-              padding: '20px', border: '1px solid #fde68a',
+              padding: '16px', border: '1px solid #fde68a',
             }}>
-              <Text style={{ fontSize: '26px', color: '#a16207', display: 'block' }}>
+              <Text style={{ fontSize: '24px', color: '#a16207', display: 'block' }}>
                 💡 还没有生成搭配。选择场景、季节和风格，点击"生成搭配方案"开始。
               </Text>
             </View>
@@ -298,9 +298,9 @@ export default function OutfitPage() {
 
 // -- 样式辅助 --
 const optionChipStyle = (active: boolean, activeColor: string): React.CSSProperties => ({
-  padding: '10px 20px', borderRadius: '20px',
-  backgroundColor: active ? activeColor : '#fff',
+  padding: '8px 16px', borderRadius: '20px',
+  backgroundColor: active ? activeColor : '#e8e8ed',
   color: active ? '#fff' : '#6b7280',
-  border: active ? 'none' : '1px solid #e5e7eb',
+  border: active ? 'none' : '1px solid transparent',
   fontWeight: 500,
 });

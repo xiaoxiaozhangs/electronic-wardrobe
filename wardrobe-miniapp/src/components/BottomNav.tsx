@@ -27,31 +27,38 @@ export default function BottomNav({ activeKey }: BottomNavProps) {
   return (
     <View style={{
       position: 'fixed', bottom: 0, left: 0, right: 0,
-      backgroundColor: '#ffffff', borderTop: '1px solid #e5e7eb',
+      backgroundColor: 'rgba(245, 245, 247, 0.9)',
+      borderTop: '1px solid rgba(0,0,0,0.06)',
       display: 'flex', justifyContent: 'space-around',
       paddingBottom: 'env(safe-area-inset-bottom)',
       zIndex: 100,
     }}>
-      {navItems.map((item) => (
-        <View
-          key={item.key}
-          onClick={() => navigate(item)}
-          style={{
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            width: '25%', padding: '12px 0',
-            color: activeKey === item.key ? '#f97316' : '#9ca3af',
-          }}
-        >
-          <Text style={{ fontSize: '36px', lineHeight: 1 }}>{item.icon}</Text>
-          <Text style={{
-            fontSize: '20px', fontWeight: activeKey === item.key ? 600 : 400,
-            marginTop: '4px',
-          }}>
-            {item.label}
-          </Text>
-        </View>
-      ))}
+      {navItems.map((item) => {
+        const isActive = activeKey === item.key;
+        return (
+          <View
+            key={item.key}
+            onClick={() => navigate(item)}
+            style={{
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              width: '25%', padding: '10px 0',
+              color: isActive ? '#0071e3' : '#9ca3af',
+            }}
+          >
+            <Text style={{
+              fontSize: '28px', lineHeight: 1,
+              transform: isActive ? 'scale(1.1)' : 'scale(1)',
+            }}>{item.icon}</Text>
+            <Text style={{
+              fontSize: '18px', fontWeight: isActive ? 600 : 400,
+              marginTop: '2px',
+            }}>
+              {item.label}
+            </Text>
+          </View>
+        );
+      })}
     </View>
   );
 }
