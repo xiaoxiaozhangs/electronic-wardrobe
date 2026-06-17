@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import { ReactNode, useEffect, useState } from 'react';
+import { hapticLight } from '../utils/haptic';
 import styles from './ECModal.module.scss';
 
 export interface ECModalProps {
@@ -81,6 +82,7 @@ export default function ECModal({
               <View
                 className={`${styles.btn} ${styles.btnCancel}`}
                 onClick={() => {
+                  hapticLight();
                   onCancel?.();
                   onClose?.();
                 }}
@@ -92,6 +94,7 @@ export default function ECModal({
               <View
                 className={`${styles.btn} ${styles.btnConfirm}`}
                 onClick={() => {
+                  hapticLight();
                   onConfirm?.();
                   onClose?.();
                 }}

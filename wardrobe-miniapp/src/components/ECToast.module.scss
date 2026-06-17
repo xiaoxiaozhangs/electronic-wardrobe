@@ -21,7 +21,7 @@
   font-size: 28px;
   max-width: 70%;
   pointer-events: auto;
-  animation: ec-toast-in 0.18s ease;
+  animation: ec-toast-slide-in 0.25s ease;
 }
 
 .success {
@@ -61,3 +61,6 @@
     transform: scale(1);
   }
 }
+
+/* 复用全局 keyframes，无需重复定义 */
+.ec-toast-slide-in { animation: ec-toast-slide-in 0.25s ease; }

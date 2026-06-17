@@ -1,6 +1,7 @@
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { ReactNode } from 'react';
+import { hapticLight } from '../utils/haptic';
 import styles from './ECButton.module.scss';
 
 export type ECButtonVariant = 'primary' | 'secondary' | 'ghost';
@@ -36,7 +37,7 @@ export default function ECButton({
   const handleClick = () => {
     if (disabled || loading) return;
     if (haptic) {
-      Taro.vibrateShort({ type: 'light' }).catch(() => {});
+      hapticLight();
     }
     onClick?.();
   };

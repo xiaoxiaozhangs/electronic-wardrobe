@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { hapticLight } from '../../utils/haptic';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import OutfitCard from '../../components/OutfitCard';
 import EmptyState from '../../components/EmptyState';
@@ -26,6 +27,7 @@ export default function HomePage() {
   };
 
   const goToPage = (tab: string) => {
+    hapticLight();
     Taro.redirectTo({ url: `/pages/${tab}/${tab}` });
   };
 

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { View, Text, Image, Input, Picker, Textarea } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { hapticLight } from '../utils/haptic';
 import type {
   WardrobeItem, Category, SubCategory, ColorLabel,
   Pattern, Thickness, Season, Scenario, Style, ItemStatus,
@@ -90,6 +91,7 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       Taro.showToast({ title: '请上传衣物图片', icon: 'none' });
       return;
     }
+    hapticLight();
     onSubmit({
       imageBase64,
       category,

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
+import { hapticLight } from '../../utils/haptic';
 import type { Outfit, Scenario, Season, Style, Feedback } from '../../types';
 import {
   ALL_SCENARIOS, ALL_SEASONS, ALL_STYLES,
@@ -40,6 +41,7 @@ export default function OutfitPage() {
   );
 
   const handleGenerate = async () => {
+    hapticLight();
     setGenerating(true);
     // 延迟600ms让用户感知加载状态
     await new Promise((resolve) => setTimeout(resolve, 600));
@@ -82,7 +84,10 @@ export default function OutfitPage() {
         borderRadius: '12px', padding: '4px', marginBottom: '24px',
       }}>
         <View
-          onClick={() => setTab('generate')}
+          onClick={() => {
+            hapticLight();
+            setTab('generate');
+          }}
           style={{
             flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
             backgroundColor: tab === 'generate' ? '#fff' : 'transparent',
@@ -94,7 +99,10 @@ export default function OutfitPage() {
           <Text>✨ 生成搭配</Text>
         </View>
         <View
-          onClick={() => setTab('history')}
+          onClick={() => {
+            hapticLight();
+            setTab('history');
+          }}
           style={{
             flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
             backgroundColor: tab === 'history' ? '#fff' : 'transparent',
@@ -212,7 +220,7 @@ export default function OutfitPage() {
 
             {/* Generate button */}
             <View
-              className="btn-primary"
+              className="btn-primary btn-press"
               style={{ width: '100%', padding: '24px', fontSize: '30px' }}
               onClick={handleGenerate}
             >

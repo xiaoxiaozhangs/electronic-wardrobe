@@ -1,5 +1,6 @@
 import { View, Text, Input, Picker } from '@tarojs/components';
 import { useState } from 'react';
+import { hapticLight } from '../utils/haptic';
 import type { WardrobeFilter, Category, ColorLabel, Season, Scenario, Style } from '../types';
 import { ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS } from '../types';
 
@@ -139,7 +140,10 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
 
         {/* Favorite toggle */}
         <View
-          onClick={() => onChange({ favoriteOnly: !filter.favoriteOnly })}
+          onClick={() => {
+            hapticLight();
+            onChange({ favoriteOnly: !filter.favoriteOnly });
+          }}
           style={{
             padding: '10px 20px', borderRadius: '20px',
             border: filter.favoriteOnly ? '1px solid #fca5a5' : '1px solid #e5e7eb',
@@ -160,7 +164,10 @@ export default function FilterBar({ filter, onChange, onClear, totalCount, filte
             : `${filteredCount} / ${totalCount} 件衣物`}
         </Text>
         {hasActiveFilters && (
-          <View onClick={onClear}
+          <View onClick={() => {
+            hapticLight();
+            onClear();
+          }}
             style={{ padding: '8px 12px' }}>
             <Text style={{ fontSize: '24px', color: '#f97316', fontWeight: 500 }}>清除筛选</Text>
           </View>

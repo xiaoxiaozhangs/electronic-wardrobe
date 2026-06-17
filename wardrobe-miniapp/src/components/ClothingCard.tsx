@@ -1,4 +1,5 @@
 import { View, Text, Image } from '@tarojs/components';
+import { hapticLight } from '../utils/haptic';
 import type { WardrobeItem } from '../types';
 import { COLOR_MAP, CATEGORY_ICONS } from '../types';
 
@@ -26,8 +27,16 @@ export default function ClothingCard({
         border: '1px solid #f3f4f6',
         overflow: 'hidden',
         boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
       }}
-      onClick={onClick}
+      onClick={() => {
+        hapticLight();
+        onClick?.();
+      }}
+      hoverStyle={{
+        transform: 'scale(0.97)',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
+      }}
     >
       {/* Image */}
       <View style={{
@@ -128,7 +137,8 @@ export default function ClothingCard({
             <View
               onClick={(e) => {
                 e.stopPropagation?.();
-                onToggleFavorite();
+                hapticLight();
+                onToggleFavorite?.();
               }}
               style={{
                 width: '44px', height: '44px', display: 'flex',
@@ -144,7 +154,8 @@ export default function ClothingCard({
             <View
               onClick={(e) => {
                 e.stopPropagation?.();
-                onDelete();
+                hapticLight();
+                onDelete?.();
               }}
               style={{
                 width: '44px', height: '44px', display: 'flex',

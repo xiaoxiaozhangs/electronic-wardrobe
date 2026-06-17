@@ -1,5 +1,6 @@
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { hapticLight } from '../../utils/haptic';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import BottomNav from '../../components/BottomNav';
 
@@ -31,6 +32,7 @@ export default function SettingsPage() {
   const idleItems = availableItems.filter((i) => i.wearCount === 0);
 
   const handleReset = () => {
+    hapticLight();
     Taro.showModal({
       title: '重置数据',
       content: '确定要重置所有数据吗？这将删除你添加的所有衣物和搭配，恢复为示例数据。此操作不可撤销！',

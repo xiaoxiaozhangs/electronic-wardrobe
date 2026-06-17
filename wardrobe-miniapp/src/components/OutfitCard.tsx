@@ -1,4 +1,5 @@
 import { View, Text, Image } from '@tarojs/components';
+import { hapticLight } from '../utils/haptic';
 import type { Outfit, WardrobeItem, Feedback } from '../types';
 
 interface OutfitCardProps {
@@ -37,7 +38,10 @@ export default function OutfitCard({
         <View style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {onToggleFavorite && (
             <View
-              onClick={onToggleFavorite}
+              onClick={() => {
+                hapticLight();
+                onToggleFavorite?.();
+              }}
               style={{ fontSize: '32px', padding: '4px' }}
             >
               <Text>{outfit.isFavorite ? '❤️' : '🤍'}</Text>
@@ -103,7 +107,10 @@ export default function OutfitCard({
           {(['喜欢', '一般', '不合适'] as Feedback[]).map((fb) => (
             <View
               key={fb}
-              onClick={() => onFeedback(fb)}
+              onClick={() => {
+                hapticLight();
+                onFeedback(fb);
+              }}
               style={{
                 flex: 1, padding: '16px 0', textAlign: 'center',
                 fontSize: '24px', fontWeight: 500,

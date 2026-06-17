@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { hapticLight, hapticHeavy } from '../utils/haptic';
 import styles from './ECToast.module.scss';
 
 export type ECToastType = 'success' | 'warn' | 'error' | 'info';
@@ -56,6 +57,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
+    }
+    // 错误/警告类型给予重震动反馈
+    if (o.type === 'error') {
+      hapticHeavy();
+    } else if (o.type === 'warn') {
+      hapticLight();
     }
     setState((s) => ({
       visible: true,

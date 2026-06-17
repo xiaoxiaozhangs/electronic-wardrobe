@@ -1,4 +1,5 @@
 import { View, Text } from '@tarojs/components';
+import { hapticLight } from '../utils/haptic';
 
 interface EmptyStateProps {
   icon: string;
@@ -16,6 +17,13 @@ export default function EmptyState({
   description,
   action,
 }: EmptyStateProps) {
+  const handleAction = () => {
+    if (action) {
+      hapticLight();
+      action.onClick();
+    }
+  };
+
   return (
     <View className="empty-state">
       <Text className="empty-state-icon">{icon}</Text>
@@ -24,7 +32,7 @@ export default function EmptyState({
         <Text className="empty-state-desc">{description}</Text>
       )}
       {action && (
-        <View className="btn-primary" style={{ marginTop: '32px' }} onClick={action.onClick}>
+        <View className="btn-primary btn-press" style={{ marginTop: '32px' }} onClick={handleAction}>
           {action.label}
         </View>
       )}

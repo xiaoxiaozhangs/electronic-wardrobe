@@ -159,7 +159,225 @@ page {
   animation: spin 1s linear infinite;
 }
 
+/* ---- 品牌色旋转加载 ---- */
+.loading-dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: ec-loading-pulse 1.2s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ---- 骨架屏 ---- */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: ec-skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.skeleton-text {
+  height: 28px;
+  margin-bottom: 12px;
+}
+
+.skeleton-text-sm {
+  height: 22px;
+  width: 60%;
+  margin-bottom: 8px;
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+}
+
+.skeleton-card {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 16px;
+  border: 2px solid var(--color-border-light);
+}
+
+/* ---- 图片淡入 ---- */
+.image-fade-in {
+  opacity: 0;
+  animation: ec-fade-in 0.2s ease forwards;
+}
+
+/* ---- Toast 滑入动画 ---- */
+.toast-slide-in {
+  animation: ec-toast-slide-in 0.25s ease;
+}
+
+.toast-slide-out {
+  animation: ec-toast-slide-out 0.2s ease forwards;
+}
+
+/* ---- FAB 悬浮按钮 ---- */
+.fab-button {
+  position: fixed;
+  right: 32px;
+  bottom: 160px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
+  z-index: 99;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fab-button:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.5);
+}
+
+/* ---- 页面转场容器 ---- */
+.page-transition-enter {
+  animation: ec-page-push-in 0.3s ease-in-out;
+}
+
+.page-transition-exit {
+  animation: ec-page-pop-out 0.3s ease-in-out forwards;
+}
+
+/* ---- 按钮通用交互 ---- */
+.btn-press {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* ---- 列表项点击反馈 ---- */
+.list-item-press {
+  transition: background-color 0.15s ease;
+}
+
+.list-item-press:active {
+  background-color: var(--color-border-light);
+}
+
+/* ---- 标签选中态 ---- */
+.chip-select {
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip-select:active {
+  transform: scale(0.95);
+}
+
+/* ---- Tab Bar 选中态 ---- */
+.tab-item {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.tab-item-active {
+  transform: scale(1.05);
+}
+
+/* ---- Keyframes ---- */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes ec-loading-pulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ec-skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes ec-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ec-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ec-toast-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+}
+
+@keyframes ec-page-push-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ec-page-pop-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ec-bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ec-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
 }

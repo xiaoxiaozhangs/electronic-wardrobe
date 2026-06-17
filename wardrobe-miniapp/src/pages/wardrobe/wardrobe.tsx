@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { hapticLight } from '../../utils/haptic';
 import type { WardrobeItem, WardrobeFilter, Category, ColorLabel, Season, Scenario, Style, ItemStatus } from '../../types';
 import { ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS } from '../../types';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
@@ -61,6 +62,7 @@ export default function WardrobePage() {
   const handleFormSubmit = (
     data: Omit<WardrobeItem, 'id' | 'createdAt' | 'updatedAt' | 'wearCount' | 'lastWornAt'>
   ) => {
+    hapticLight();
     if (editingItem) {
       updateItem(editingItem.id, data);
     } else {
@@ -119,7 +121,10 @@ export default function WardrobePage() {
         <View style={{ marginBottom: '24px' }}>
           <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <Text style={{ fontSize: '36px', fontWeight: 700 }}>{selectedItem.subCategory}</Text>
-            <View onClick={() => toggleFavorite(selectedItem.id)} style={{ fontSize: '40px', padding: '8px' }}>
+            <View onClick={() => {
+          hapticLight();
+          toggleFavorite(selectedItem.id);
+        }} style={{ fontSize: '40px', padding: '8px' }}>
               <Text>{selectedItem.isFavorite ? '❤️' : '🤍'}</Text>
             </View>
           </View>
@@ -219,8 +224,11 @@ export default function WardrobePage() {
     <View className="container">
       <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <Text className="section-title" style={{ marginBottom: 0 }}>我的衣橱</Text>
-        <View className="btn-primary" style={{ padding: '12px 24px', fontSize: '26px' }}
-          onClick={() => setShowForm(true)}>
+        <View className="btn-primary btn-press" style={{ padding: '12px 24px', fontSize: '26px' }}
+          onClick={() => {
+            hapticLight();
+            setShowForm(true);
+          }}>
           + 添加衣物
         </View>
       </View>

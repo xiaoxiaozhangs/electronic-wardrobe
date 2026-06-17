@@ -1,5 +1,6 @@
 import { View, Text } from '@tarojs/components';
 import { useEffect, useState } from 'react';
+import { hapticLight } from '../utils/haptic';
 import styles from './ECActionSheet.module.scss';
 
 export interface ECActionSheetItem {
@@ -67,6 +68,7 @@ export default function ECActionSheet({
                 hoverStayTime={100}
                 onClick={() => {
                   if (item.disabled) return;
+                  hapticLight();
                   onSelect(item.key);
                 }}
               >
