@@ -319,8 +319,8 @@ export default function WardrobePage() {
           {/* 功能按钮行 */}
           <ActionBar
             onFilter={() => {
-              // 筛选逻辑：弹窗或展开筛选面板，当前简化处理
-              Taro.showToast({ title: '筛选功能开发中', icon: 'none' });
+              // V1 MVP: 筛选仅在衣物列表视图使用 FilterBar，子品类视图中无筛选
+              Taro.showToast({ title: '请在具体品类中筛选', icon: 'none' });
             }}
             onAdd={handleAdd}
             onOutfit={handleOutfit}
