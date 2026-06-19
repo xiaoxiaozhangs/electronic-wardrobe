@@ -41,6 +41,29 @@ page {
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
 
+  /* ---- iOS 极简风格新增 ---- */
+  --color-ios-sky-start: #E8F0FE;
+  --color-ios-sky-end: #F5F7FA;
+  --color-ios-cloud: #FFFFFF;
+  --color-ios-cityline: #D1D5DB;
+  --color-ios-card-bg: rgba(255, 255, 255, 0.72);
+  --color-ios-sidebar-active-bg: #F0F4FF;
+  --color-ios-sidebar-active-line: #3B82F6;
+  --color-ios-btn-shadow: rgba(0, 0, 0, 0.06);
+  --color-ios-card-shadow: rgba(0, 0, 0, 0.04);
+
+  /* 莫兰迪低饱和配色 */
+  --color-morandi-rose: #C4A3A3;
+  --color-morandi-sage: #B5C1B4;
+  --color-morandi-sky: #A3B5C7;
+  --color-morandi-cream: #E8DFD8;
+  --color-morandi-dust: #D5C4B4;
+
+  /* iOS 风格阴影 */
+  --shadow-ios-float: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --shadow-ios-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-ios-sidebar: 1px 0 4px rgba(0, 0, 0, 0.03);
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 28px;

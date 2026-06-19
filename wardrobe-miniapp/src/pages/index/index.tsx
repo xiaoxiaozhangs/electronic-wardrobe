@@ -1,151 +1,85 @@
-/* 首页 */
-import styles from './index.module.scss';
+/* 首页 - iOS 极简风格 */
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
-import OutfitCard from '../../components/OutfitCard';
-import EmptyState from '../../components/EmptyState';
 import BottomNav from '../../components/BottomNav';
+import styles from './index.module.scss';
 
 export default function HomePage() {
-  const {
-    items, outfits, loading,
-    toggleOutfitFavorite, setOutfitFeedback,
-  } = useWardrobeStore();
+  const { loading } = useWardrobeStore();
 
-  const availableItems = items.filter((i) => i.status === '正常');
-  const favoriteOutfits = outfits.filter((o) => o.isFavorite);
-  const recentOutfits = outfits.slice(0, 3);
+  // 天气状态（当前使用默认值，后续接入 API）
+  const cityName = '北京';
+  const weatherIcon = '☀️';
+  const temperature = '5℃';
+  const weatherError = false;
+  const userName = '用户';
+  const userAvatar = ''; // 空字符串表示使用默认头像
 
-  const stats = {
-    total: availableItems.length,
-    上衣: availableItems.filter((i) => i.category === '上衣').length,
-    下装: availableItems.filter((i) => i.category === '下装').length,
-    连衣裙: availableItems.filter((i) => i.category === '连衣裙').length,
-    外套: availableItems.filter((i) => i.category === '外套').length,
-    鞋: availableItems.filter((i) => i.category === '鞋').length,
-    包配饰: availableItems.filter((i) => i.category === '包' || i.category === '配饰').length,
-  };
-
-  const goToPage = (tab: string) => {
-    Taro.redirectTo({ url: `/pages/${tab}/${tab}` });
+  const goToWardrobe = () => {
+    Taro.redirectTo({ url: '/pages/wardrobe/wardrobe' });
   };
 
   if (loading) {
     return (
-      <View className="container">
-        <View className="loading-spinner">
-          <Text className="loading-spinner-icon">⏳</Text>
-          <Text className="loading-text">加载中...</Text>
-        </View>
+      <View className={styles.loadingWrap}>
+        <Text className={styles.loadingIcon}>⏳</Text>
+        <Text className={styles.loadingText}>加载中...</Text>
       </View>
     );
   }
 
   return (
-    <View className="container">
-      {/* Welcome */}
-      <View className={styles.welcomeBanner}>
-        <Text className={styles.welcomeTitle}>智搭衣橱</Text>
-        <Text className={styles.welcomeSubtitle}>
-          {stats.total > 0
-            ? `你有 ${stats.total} 件衣物，今天穿什么？`
-            : '开始添加你的第一件衣物吧'}
-        </Text>
-        <View className={styles.welcomeActions}>
-          <View className={styles.welcomeActionBtn} onClick={() => goToPage('outfit')}>
-            <Text>✨ 生成今日搭配</Text>
-          </View>
-          <View className={styles.welcomeActionBtnSmall} onClick={() => goToPage('wardrobe')}>
-            <Text>📷 添加衣物</Text>
-          </View>
+    <View className={styles.page}>
+      {/* 背景层 */}
+      <View className={styles.skyBg}>
+        <View className={styles.skyGradient} />
+        {/* 云朵装饰 */}
+        <View className={`${styles.cloud} ${styles.cloud1}`} />
+        <View className={`${styles.cloud} ${styles.cloud2}`} />
+        {/* 底部城市线描剪影 */}
+        <View className={styles.cityLine}>
+          <svg viewBox="0 0 375 100" className={styles.cityLineSvg}>
+            <polyline points="0,85 20,78 40,82 60,65 80,70 100,55 120,60 140,48 160,52 180,40 200,45 220,35 240,42 260,38 280,50 300,44 320,55 340,48 360,58 375,50" />
+            <polyline points="0,95 30,90 60,92 90,85 120,88 150,80 180,83 210,78 240,82 270,76 300,80 330,74 360,78 375,75" />
+          </svg>
         </View>
       </View>
 
-      {/* Wardrobe overview */}
-      <View className={styles.section}>
-        <View className={styles.sectionHeader}>
-          <Text className={styles.sectionTitle}>衣橱概览</Text>
-          <View onClick={() => goToPage('wardrobe')}>
-            <Text className={styles.sectionLink}>查看全部 →</Text>
-          </View>
+      {/* 顶部导航 */}
+      <View className={styles.topNav}>
+        <View className={styles.backBtn}>
+          <Text>←</Text>
         </View>
-
-        {stats.total > 0 ? (
-          <View className={styles.categoryGrid}>
-            {[
-              { label: '上衣', value: stats['上衣'], icon: '👔' },
-              { label: '下装', value: stats['下装'], icon: '👖' },
-              { label: '连衣裙', value: stats['连衣裙'], icon: '👗' },
-              { label: '外套', value: stats['外套'], icon: '🧥' },
-              { label: '鞋', value: stats['鞋'], icon: '👟' },
-              { label: '包/配饰', value: stats['包配饰'], icon: '💍' },
-            ].map((cat) => (
-              <View key={cat.label} className={styles.categoryItem}>
-                <Text className={styles.categoryIcon}>{cat.icon}</Text>
-                <Text className={styles.categoryLabel}>{cat.label}</Text>
-                <Text className={styles.categoryCount}>{cat.value}</Text>
-              </View>
-            ))}
-          </View>
-        ) : (
-          <View className={styles.emptyWardrobe}>
-            <Text className={styles.emptyIcon}>👗</Text>
-            <Text className={styles.emptyText}>还没有衣物，去添加吧</Text>
-            <View className="btn-primary" style={{ display: 'inline-flex' }}
-              onClick={() => goToPage('wardrobe')}>
-              添加第一件衣物
-            </View>
-          </View>
-        )}
-      </View>
-
-      {/* Recent outfits */}
-      {recentOutfits.length > 0 && (
-        <View className={styles.section}>
-          <View className={styles.sectionHeader}>
-            <Text className={styles.sectionTitle}>最近搭配</Text>
-            <View onClick={() => goToPage('outfit')}>
-              <Text className={styles.sectionLink}>更多搭配 →</Text>
-            </View>
-          </View>
-          {recentOutfits.map((outfit) => (
-            <OutfitCard
-              key={outfit.id}
-              outfit={outfit}
-              items={items}
-              onToggleFavorite={() => toggleOutfitFavorite(outfit.id)}
-              onFeedback={(fb) => setOutfitFeedback(outfit.id, fb)}
-            />
-          ))}
-        </View>
-      )}
-
-      {/* Favorite outfits */}
-      {favoriteOutfits.length > 0 && (
-        <View className={styles.section}>
-          <View style={{ marginBottom: '20px' }}>
-            <Text className={styles.sectionTitle}>❤️ 收藏搭配</Text>
-          </View>
-          {favoriteOutfits.slice(0, 2).map((outfit) => (
-            <OutfitCard
-              key={outfit.id}
-              outfit={outfit}
-              items={items}
-              onToggleFavorite={() => toggleOutfitFavorite(outfit.id)}
-            />
-          ))}
-        </View>
-      )}
-
-      {/* Tip */}
-      {stats.total > 0 && stats.total < 10 && (
-        <View className="tip-card tip-info">
-          <Text>
-            💡 你只有 {stats.total} 件衣物，建议至少添加 10 件以获得更好的搭配推荐效果。
+        <Text className={styles.cityName}>{cityName}</Text>
+        <View className={styles.weatherCard}>
+          <Text className={styles.weatherIcon}>
+            {weatherError ? '🌤️' : weatherIcon}
+          </Text>
+          <Text className={styles.weatherText}>
+            {weatherError ? '--℃' : temperature}
           </Text>
         </View>
-      )}
+      </View>
+
+      {/* 垂直居中：用户头像 + 昵称 */}
+      <View className={styles.userArea}>
+        <View className={styles.avatarWrap}>
+          {userAvatar ? (
+            <View style={{ width: '100%', height: '100%', background: '#E5E7EB' }} />
+          ) : (
+            <Text className={styles.avatarDefault}>👩</Text>
+          )}
+        </View>
+        <Text className={styles.userName}>{userName}</Text>
+      </View>
+
+      {/* 底部上传按钮 */}
+      <View className={styles.uploadArea}>
+        <View className={styles.uploadBtn} onClick={goToWardrobe}>
+          <Text>上传服饰</Text>
+        </View>
+      </View>
 
       <BottomNav activeKey="index" />
     </View>

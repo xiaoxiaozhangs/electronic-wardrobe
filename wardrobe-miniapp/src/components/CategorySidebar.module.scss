@@ -1,0 +1,65 @@
+/* 衣橱品类侧边栏样式 */
+
+.sidebar {
+  width: 160px;
+  flex-shrink: 0;
+  background: var(--color-white);
+  border-right: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-ios-sidebar);
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollArea {
+  flex: 1;
+  padding: 12px 0;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 8px;
+  cursor: pointer;
+  min-height: 72px;
+  transition: background 0.2s ease;
+  border-radius: 0;
+}
+
+.itemActive {
+  background: var(--color-ios-sidebar-active-bg);
+}
+
+.activeLine {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  background: var(--color-ios-sidebar-active-line);
+  border-radius: 0 2px 2px 0;
+}
+
+.itemIcon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 4px;
+  opacity: 0.5;
+}
+
+.itemIconActive {
+  opacity: 1;
+}
+
+.itemLabel {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.itemLabelActive {
+  color: var(--color-ios-sidebar-active-line);
+  font-weight: 600;
+}

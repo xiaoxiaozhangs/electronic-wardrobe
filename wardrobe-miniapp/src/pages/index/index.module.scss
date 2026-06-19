@@ -1,129 +1,220 @@
-/* 首页样式模块 */
+/* 首页 - iOS 极简风格 */
 
-.welcomeBanner {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  border-radius: var(--radius-2xl);
-  padding: 32px;
-  color: #ffffff;
-  margin-bottom: 28px;
-}
-
-.welcomeTitle {
-  font-size: 36px;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.welcomeSubtitle {
-  font-size: 26px;
-  color: rgba(255, 255, 255, 0.85);
-  display: block;
-}
-
-.welcomeActions {
+.page {
+  min-height: 100vh;
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
 
-.welcomeActionBtn {
-  flex: 1;
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.2);
-  text-align: center;
-  font-size: 26px;
-  font-weight: 500;
+/* ---- 背景 ---- */
+.skyBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
 }
 
-.welcomeActionBtnSmall {
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.2);
-  font-size: 26px;
-  font-weight: 500;
+.skyGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, var(--color-ios-sky-start) 0%, var(--color-ios-sky-end) 55%, #FFFFFF 100%);
 }
 
-.section {
-  margin-bottom: 28px;
+/* 云朵装饰 */
+.cloud {
+  position: absolute;
+  background: var(--color-ios-cloud);
+  border-radius: 50%;
+  opacity: 0.9;
 }
 
-.sectionHeader {
+.cloud1 {
+  width: 120px;
+  height: 60px;
+  top: 120px;
+  left: 40px;
+  animation: cloudDrift 20s ease-in-out infinite;
+}
+
+.cloud2 {
+  width: 80px;
+  height: 44px;
+  top: 200px;
+  right: 50px;
+  animation: cloudDrift 25s ease-in-out infinite reverse;
+}
+
+@keyframes cloudDrift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(16px); }
+}
+
+/* 底部城市线描剪影 */
+.cityLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  opacity: 0.18;
+}
+
+.cityLineSvg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-ios-cityline);
+  stroke-width: 1.5;
+}
+
+/* ---- 顶部导航 ---- */
+.topNav {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 40px 32px 0;
+  box-sizing: border-box;
 }
 
-.sectionTitle {
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.sectionLink {
-  font-size: 24px;
-  color: var(--color-primary);
-  font-weight: 500;
-}
-
-.categoryGrid {
+.backBtn {
+  width: 44px;
+  height: 44px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.categoryItem {
-  width: 30%;
-  flex-grow: 1;
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  text-align: center;
-}
-
-.categoryIcon {
-  font-size: 40px;
-  display: block;
-}
-
-.categoryLabel {
-  font-size: 22px;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
   color: var(--color-text-secondary);
-  margin-top: 6px;
-  display: block;
 }
 
-.categoryCount {
-  font-size: 30px;
+.cityName {
+  font-size: 34px;
   font-weight: 700;
   color: var(--color-text);
-  display: block;
+  letter-spacing: 2px;
 }
 
-.emptyWardrobe {
-  background: var(--color-bg-secondary);
+.weatherCard {
+  background: var(--color-ios-card-bg);
+  backdrop-filter: blur(10px);
   border-radius: var(--radius-xl);
-  padding: 40px;
-  text-align: center;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-ios-card);
 }
 
-.emptyIcon {
-  font-size: 56px;
-  display: block;
-  margin-bottom: 12px;
+.weatherIcon {
+  font-size: 28px;
 }
 
-.emptyText {
+.weatherText {
   font-size: 26px;
-  color: var(--color-text-secondary);
-  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* ---- 垂直居中：用户区 ---- */
+.userArea {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.avatarWrap {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarDefault {
+  font-size: 64px;
+}
+
+.userName {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 1px;
+}
+
+/* ---- 底部上传按钮 ---- */
+.uploadArea {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 140px;
+  box-sizing: border-box;
+}
+
+.uploadBtn {
+  width: 220px;
+  height: 64px;
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: var(--shadow-ios-float);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.uploadBtn:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-ios-card);
+}
+
+/* ---- 加载态 ---- */
+.loadingWrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ios-sky-end);
+}
+
+.loadingIcon {
+  font-size: 64px;
+  animation: spin 1s linear infinite;
 }
 
 .loadingText {
   font-size: 26px;
   color: var(--color-text-tertiary);
   margin-top: 16px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

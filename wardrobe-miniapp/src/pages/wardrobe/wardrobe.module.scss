@@ -1,22 +1,119 @@
-/* 衣橱页面样式模块 */
+/* 衣橱页面样式模块 - 左右分栏重构版 */
 
-/* ---- 列表头部 ---- */
-.listHeader {
+/* ---- 全屏容器 ---- */
+.pageWrap {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+/* ---- 左右分栏主体 ---- */
+.mainArea {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ---- 右侧内容区 ---- */
+.contentArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.contentScroll {
+  flex: 1;
+  padding: 0 12px 12px;
+}
+
+/* ---- 右上角导航图标 ---- */
+.topIcons {
+  display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  gap: 12px;
+  padding: 16px 16px 0;
+  justify-content: flex-end;
 }
 
-.listTitle {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 0;
+.iconBtn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  font-size: 24px;
 }
 
-.addBtn {
-  padding: 12px 24px;
+/* ---- 子品类网格（3列） ---- */
+.subCategoryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.subCategoryCard {
+  width: 30%;
+  flex-grow: 1;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 24px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-ios-card);
+  border: 1px solid var(--color-border-light);
+}
+
+.subCategoryIcon {
+  font-size: 44px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.subCategoryLabel {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.subCategoryCount {
+  font-size: 20px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+/* ---- 空状态 ---- */
+.emptyArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+}
+
+.emptyIcon {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.emptyText {
   font-size: 26px;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.emptySubText {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+  text-align: center;
 }
 
 /* ---- 返回按钮 ---- */
@@ -152,7 +249,7 @@
   width: 60px;
 }
 
-/* ---- 列表 ---- */
+/* ---- 列表（点击子品类后的衣物列表） ---- */
 .itemGrid {
   display: flex;
   flex-wrap: wrap;
@@ -164,9 +261,48 @@
   flex-grow: 1;
 }
 
+/* ---- 衣物列表视图的 Header ---- */
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0 16px;
+}
+
+.listTitle {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
 /* ---- 加载 ---- */
 .loadingText {
   font-size: 26px;
   color: var(--color-text-tertiary);
   margin-top: 16px;
+}
+
+/* ---- 面包屑导航 ---- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0 12px;
+}
+
+.breadcrumbBack {
+  font-size: 24px;
+  color: var(--color-ios-sidebar-active-line);
+  font-weight: 500;
+}
+
+.breadcrumbSep {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+}
+
+.breadcrumbCurrent {
+  font-size: 24px;
+  color: var(--color-text);
+  font-weight: 500;
 }
