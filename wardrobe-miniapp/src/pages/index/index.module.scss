@@ -1,23 +1,25 @@
-/* 首页样式模块 */
+/* 首页样式模块 - iOS 风格版 */
 
 .welcomeBanner {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(135deg, #E8F2FF, #FFFFFF);
   border-radius: var(--radius-2xl);
   padding: 32px;
-  color: #ffffff;
+  color: var(--color-text);
   margin-bottom: 28px;
+  box-shadow: var(--shadow-card);
 }
 
-.welcomeTitle {
-  font-size: 36px;
-  font-weight: 700;
+.welcomeGreeting {
+  font-size: 32px;
+  font-weight: 600;
   display: block;
   margin-bottom: 8px;
+  color: var(--color-text);
 }
 
 .welcomeSubtitle {
   font-size: 26px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-text-secondary);
   display: block;
 }
 
@@ -29,20 +31,18 @@
 
 .welcomeActionBtn {
   flex: 1;
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.2);
+  padding: 16px 20px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 122, 255, 0.1);
   text-align: center;
   font-size: 26px;
   font-weight: 500;
+  color: var(--color-primary);
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
-
-.welcomeActionBtnSmall {
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.2);
-  font-size: 26px;
-  font-weight: 500;
+.welcomeActionBtn:active {
+  transform: scale(0.97);
+  opacity: 0.8;
 }
 
 .section {
@@ -60,25 +60,19 @@
   font-size: 30px;
   font-weight: 700;
   color: var(--color-text);
-}
-
-.sectionLink {
-  font-size: 24px;
-  color: var(--color-primary);
-  font-weight: 500;
+  margin-bottom: 0;
 }
 
 .categoryGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
 .categoryItem {
-  width: 30%;
-  flex-grow: 1;
-  background: var(--color-bg-secondary);
+  background: var(--color-white);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   padding: 20px;
   text-align: center;
 }
@@ -120,6 +114,26 @@
   color: var(--color-text-secondary);
   display: block;
   margin-bottom: 20px;
+}
+
+.emptyTab {
+  font-size: 26px;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  display: block;
+  padding: 32px 0;
+}
+
+.tipBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-info-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  font-size: 24px;
+  border: none;
 }
 
 .loadingText {

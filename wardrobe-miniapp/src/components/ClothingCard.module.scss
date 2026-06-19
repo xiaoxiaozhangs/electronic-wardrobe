@@ -71,7 +71,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #D1D5DB;
+  border: 1px solid var(--color-border);
   display: inline-block;
 }
 
@@ -83,7 +83,7 @@
 
 .colorPlus {
   font-size: 20px;
-  color: #D1D5DB;
+  color: var(--color-border);
   margin-left: 4px;
 }
 
@@ -91,7 +91,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 1px solid #D1D5DB;
+  border: 1px solid var(--color-border);
   margin-left: 4px;
   display: inline-block;
 }

@@ -26,25 +26,27 @@
 
 .wrap {
   position: relative;
-  background: var(--color-white);
-  border-radius: 12px;
-  border: 2px solid var(--color-border-light);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: none;
   padding: 0 16px;
   display: flex;
   align-items: center;
-  transition: border-color 0.2s ease;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .focused {
-  border-color: var(--color-primary);
+  background: var(--color-info-light);
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
 }
 
 .error {
-  border-color: var(--color-danger);
+  background: var(--color-danger-light);
+  box-shadow: 0 0 0 2px rgba(255, 59, 48, 0.2);
 }
 
 .disabled {
-  background: var(--color-border-light);
+  background: var(--color-bg-secondary);
   opacity: 0.7;
 }
 

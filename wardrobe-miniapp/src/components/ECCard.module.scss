@@ -6,15 +6,33 @@
 }
 
 .rounded {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
 }
 
 .shadow {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
 }
 
+.glass {
+  background: rgba(255, 255, 255, 0.92);
+  border: 0.5px solid var(--color-glass-border);
+}
+@supports (backdrop-filter: blur(20px)) {
+  .glass {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(20px);
+  }
+}
+
+.radiusSm { border-radius: var(--radius-sm); }
+.radiusMd { border-radius: var(--radius-md); }
+.radiusLg { border-radius: var(--radius-lg); }
+.radiusXl { border-radius: var(--radius-xl); }
+.radius2xl { border-radius: var(--radius-2xl); }
+
 .active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+  opacity: 0.8;
 }
 
 .imageWrap {

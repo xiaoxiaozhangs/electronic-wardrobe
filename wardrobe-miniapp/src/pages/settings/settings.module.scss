@@ -1,46 +1,63 @@
-/* 我的页面样式模块 */
+/* 我的页面样式模块 - iOS 风格版 */
 
-/* ---- 页面标题 ---- */
-.pageTitle {
+/* ---- Profile Header（毛玻璃头像区）---- */
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px 28px;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #E8F2FF, #FFFFFF);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+.profileAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.profileAvatarIcon {
+  font-size: 40px;
+  color: var(--color-text-tertiary);
+}
+
+.profileName {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 24px;
-}
-
-/* ---- 统计卡片容器 ---- */
-.statCard {
-  composes: card from global;
-  padding: 24px;
-  margin-bottom: 20px;
-}
-
-.statCardTitle {
-  font-size: 28px;
-  font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 20px;
-  display: block;
 }
 
-/* ---- 统计数字网格 ---- */
+.profileDesc {
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+}
+
+/* ---- 统计卡片 2×2 网格 ---- */
 .statGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.statBox {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 20px;
+.statItem {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px 20px;
   text-align: center;
-  width: 45%;
-  flex-grow: 1;
 }
 
 .statValue {
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 700;
   color: var(--color-text);
   display: block;
@@ -50,18 +67,31 @@
   font-size: 22px;
   color: var(--color-text-secondary);
   display: block;
+  margin-top: 4px;
 }
 
 /* ---- 品类分布 ---- */
-.distributionSection {
+.distributionCard {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
   margin-bottom: 20px;
 }
 
 .distributionTitle {
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.distributionSubtitle {
+  font-size: 22px;
   font-weight: 500;
   color: var(--color-text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   display: block;
 }
 
@@ -79,16 +109,16 @@
 
 .progressBarBg {
   flex: 1;
-  height: 12px;
+  height: 8px;
   background: var(--color-border-light);
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .progressBarFill {
   height: 100%;
-  border-radius: 6px;
-  background: var(--color-primary);
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
 }
 
 .distributionCount {
@@ -99,6 +129,12 @@
 }
 
 /* ---- 常用颜色 ---- */
+.colorSection {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 0.5px solid var(--color-border);
+}
+
 .colorTags {
   display: flex;
   flex-wrap: wrap;
@@ -107,15 +143,17 @@
 
 .colorTag {
   padding: 6px 14px;
-  border-radius: var(--radius-xl);
-  background: var(--color-border-light);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-secondary);
   font-size: 22px;
   color: var(--color-text-secondary);
 }
 
-/* ---- 高频穿着 ---- */
+/* ---- 高频穿着（横向滚动卡片）---- */
 .topWornCard {
-  composes: card from global;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   padding: 24px;
   margin-bottom: 20px;
 }
@@ -128,61 +166,60 @@
   display: block;
 }
 
-.topWornItem {
+.topWornScroll {
   display: flex;
-  align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.topWornItem {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 .topWornThumb {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-sm);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
   background: var(--color-bg-secondary);
 }
 
-.topWornInfo {
-  flex: 1;
-}
-
 .topWornName {
-  font-size: 26px;
-  font-weight: 500;
-  display: block;
-}
-
-.topWornMeta {
   font-size: 22px;
-  color: var(--color-text-tertiary);
+  font-weight: 500;
+  margin-top: 8px;
   display: block;
 }
 
 .topWornCount {
-  font-size: 22px;
-  color: var(--color-text-secondary);
+  font-size: 20px;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
 }
 
-/* ---- 闲置衣物 ---- */
+/* ---- 闲置衣物（浅灰淡色）---- */
 .idleCard {
-  background: var(--color-warning-light);
+  background: var(--color-bg-secondary);
   border-radius: var(--radius-xl);
   padding: 24px;
   margin-bottom: 20px;
-  border: 1px solid #FED7AA;
 }
 
 .idleTitle {
   font-size: 28px;
   font-weight: 700;
-  color: #C2410C;
+  color: var(--color-text);
   margin-bottom: 12px;
   display: block;
 }
 
 .idleDesc {
   font-size: 24px;
-  color: #C2410C;
+  color: var(--color-text-secondary);
   margin-bottom: 12px;
   display: block;
 }
@@ -195,16 +232,17 @@
 
 .idleTag {
   padding: 6px 14px;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-full);
   background: var(--color-white);
-  border: 1px solid #FED7AA;
   font-size: 22px;
-  color: #C2410C;
+  color: var(--color-text-secondary);
 }
 
-/* ---- 关于 ---- */
+/* ---- 关于（iOS List 风格）---- */
 .aboutCard {
-  composes: card from global;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   padding: 24px;
   margin-bottom: 20px;
 }
@@ -213,38 +251,16 @@
   font-size: 28px;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 16px;
-  display: block;
-}
-
-.aboutText {
-  font-size: 26px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  display: block;
   margin-bottom: 8px;
-}
-
-.aboutInfoBox {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  margin-top: 8px;
-}
-
-.aboutInfoText {
-  font-size: 22px;
-  color: var(--color-text-tertiary);
-  line-height: 1.6;
   display: block;
 }
 
 /* ---- Danger Zone ---- */
 .dangerCard {
-  composes: card from global;
+  background: var(--color-danger-light);
+  border-radius: var(--radius-xl);
   padding: 24px;
   margin-bottom: 20px;
-  border: 1px solid var(--color-danger-border);
 }
 
 .dangerTitle {
@@ -265,10 +281,10 @@
 .dangerBtn {
   padding: 18px;
   text-align: center;
-  border: 1px solid var(--color-danger-border);
-  border-radius: var(--radius-md);
+  background: rgba(255, 59, 48, 0.1);
+  border-radius: var(--radius-lg);
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-danger);
 }
 

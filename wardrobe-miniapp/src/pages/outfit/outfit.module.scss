@@ -1,47 +1,35 @@
-/* 搭配页面样式模块 */
+/* 搭配页面样式模块 - iOS 风格版 */
 
 /* ---- 页面标题 ---- */
 .pageTitle {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
   margin-bottom: 24px;
 }
 
-/* ---- Tab 切换 ---- */
-.tabSwitcher {
-  display: flex;
-  background: var(--color-border-light);
-  border-radius: var(--radius-md);
-  padding: 4px;
-  margin-bottom: 24px;
-}
-
-.tabItem {
-  flex: 1;
-  padding: 14px;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 26px;
-  font-weight: 500;
-  color: var(--color-text-tertiary);
-}
-
-.tabItemActive {
-  background: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  color: var(--color-text);
-}
+/* ---- Segment Control 使用全局 segment-control 类，此处覆盖 ---- */
 
 /* ---- 参数表单 ---- */
 .paramCard {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
   padding: 24px;
   margin-bottom: 24px;
 }
 
 .paramGroup {
   margin-bottom: 20px;
+}
+
+.paramGroup:last-child {
+  margin-bottom: 0;
+}
+
+.paramDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 20px 0;
 }
 
 .paramLabel {
@@ -58,19 +46,22 @@
 }
 
 .chip {
-  padding: 10px 20px;
-  border-radius: var(--radius-xl);
-  background: var(--color-white);
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-secondary);
   color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-input);
+  border: none;
   font-weight: 500;
   font-size: 22px;
+  transition: transform 0.1s ease;
+}
+.chip:active {
+  transform: scale(0.97);
 }
 
 .chipActive {
   background: var(--color-primary);
   color: #ffffff;
-  border-color: var(--color-primary);
 }
 
 .seasonRow {
@@ -87,16 +78,16 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--color-white);
+  background: var(--color-bg-secondary);
   border-radius: var(--radius-md);
   padding: 12px;
-  border: 1px solid var(--color-border-input);
+  border: none;
 }
 
 .itemPickerThumb {
   width: 64px;
   height: 64px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background: var(--color-bg-secondary);
 }
 
@@ -126,9 +117,9 @@
   width: 100%;
   padding: 24px;
   text-align: center;
-  border: 2px dashed #D1D5DB;
+  border: 2px dashed var(--color-border);
   border-radius: var(--radius-md);
-  background: var(--color-white);
+  background: var(--color-bg-secondary);
   font-size: 26px;
   color: var(--color-text-tertiary);
 }
@@ -148,7 +139,7 @@
   text-align: center;
   background: var(--color-white);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-input);
+  box-shadow: var(--shadow-sm);
   padding: 12px;
 }
 
@@ -170,6 +161,28 @@
   width: 100%;
   padding: 24px;
   font-size: 30px;
+  margin-top: 20px;
+}
+
+.generateBtnContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.generateSpinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 12px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* ---- 加载 ---- */
@@ -182,7 +195,7 @@
 
 .loadingDesc {
   font-size: 22px;
-  color: #D1D5DB;
+  color: var(--color-text-tertiary);
   margin-top: 8px;
   display: block;
 }
@@ -198,11 +211,10 @@
 
 /* ---- 提示 ---- */
 .emptyTip {
-  background: #FEF9C3;
+  background: var(--color-info-light);
   border-radius: var(--radius-lg);
   padding: 20px;
-  border: 1px solid #FDE68A;
   font-size: 26px;
-  color: #A16207;
+  color: var(--color-primary);
   display: block;
 }

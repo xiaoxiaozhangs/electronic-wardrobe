@@ -1,11 +1,21 @@
-/* 首页 */
+/* 首页 - iOS 风格版 */
 import styles from './index.module.scss';
+import { useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import OutfitCard from '../../components/OutfitCard';
 import EmptyState from '../../components/EmptyState';
 import BottomNav from '../../components/BottomNav';
+
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 6) return '夜深了';
+  if (hour < 12) return '上午好';
+  if (hour < 14) return '中午好';
+  if (hour < 18) return '下午好';
+  return '晚上好';
+}
 
 export default function HomePage() {
   const {
@@ -16,6 +26,7 @@ export default function HomePage() {
   const availableItems = items.filter((i) => i.status === '正常');
   const favoriteOutfits = outfits.filter((o) => o.isFavorite);
   const recentOutfits = outfits.slice(0, 3);
+  const [outfitTab, setOutfitTab] = useState<'recent' | 'favorite'>('recent');
 
   const stats = {
     total: availableItems.length,
@@ -35,18 +46,20 @@ export default function HomePage() {
     return (
       <View className="container">
         <View className="loading-spinner">
-          <Text className="loading-spinner-icon">⏳</Text>
+          <View className="loading-spinner-icon" />
           <Text className="loading-text">加载中...</Text>
         </View>
       </View>
     );
   }
 
+  const displayOutfits = outfitTab === 'recent' ? recentOutfits : favoriteOutfits;
+
   return (
     <View className="container">
-      {/* Welcome */}
+      {/* Welcome Banner — iOS 浅蓝渐变 */}
       <View className={styles.welcomeBanner}>
-        <Text className={styles.welcomeTitle}>智搭衣橱</Text>
+        <Text className={styles.welcomeGreeting}>☀️ {getGreeting()}</Text>
         <Text className={styles.welcomeSubtitle}>
           {stats.total > 0
             ? `你有 ${stats.total} 件衣物，今天穿什么？`
@@ -56,20 +69,15 @@ export default function HomePage() {
           <View className={styles.welcomeActionBtn} onClick={() => goToPage('outfit')}>
             <Text>✨ 生成今日搭配</Text>
           </View>
-          <View className={styles.welcomeActionBtnSmall} onClick={() => goToPage('wardrobe')}>
+          <View className={styles.welcomeActionBtn} onClick={() => goToPage('wardrobe')}>
             <Text>📷 添加衣物</Text>
           </View>
         </View>
       </View>
 
-      {/* Wardrobe overview */}
+      {/* Wardrobe overview — 白色卡片 3×2 网格 */}
       <View className={styles.section}>
-        <View className={styles.sectionHeader}>
-          <Text className={styles.sectionTitle}>衣橱概览</Text>
-          <View onClick={() => goToPage('wardrobe')}>
-            <Text className={styles.sectionLink}>查看全部 →</Text>
-          </View>
-        </View>
+        <Text className={`section-title ${styles.sectionTitle}`}>衣橱概览</Text>
 
         {stats.total > 0 ? (
           <View className={styles.categoryGrid}>
@@ -100,50 +108,46 @@ export default function HomePage() {
         )}
       </View>
 
-      {/* Recent outfits */}
-      {recentOutfits.length > 0 && (
+      {/* 搭配区域 — 分段控制器 + 毛玻璃卡片 */}
+      {(recentOutfits.length > 0 || favoriteOutfits.length > 0) && (
         <View className={styles.section}>
           <View className={styles.sectionHeader}>
-            <Text className={styles.sectionTitle}>最近搭配</Text>
-            <View onClick={() => goToPage('outfit')}>
-              <Text className={styles.sectionLink}>更多搭配 →</Text>
+            <Text className={styles.sectionTitle}>搭配</Text>
+            <View className="segment-control" style={{ marginBottom: 0 }}>
+              <View
+                onClick={() => setOutfitTab('recent')}
+                className={`segment-item ${outfitTab === 'recent' ? 'segment-item-active' : ''}`}
+              >
+                <Text>最近</Text>
+              </View>
+              <View
+                onClick={() => setOutfitTab('favorite')}
+                className={`segment-item ${outfitTab === 'favorite' ? 'segment-item-active' : ''}`}
+              >
+                <Text>收藏</Text>
+              </View>
             </View>
           </View>
-          {recentOutfits.map((outfit) => (
-            <OutfitCard
-              key={outfit.id}
-              outfit={outfit}
-              items={items}
-              onToggleFavorite={() => toggleOutfitFavorite(outfit.id)}
-              onFeedback={(fb) => setOutfitFeedback(outfit.id, fb)}
-            />
-          ))}
+          {displayOutfits.length > 0 ? (
+            displayOutfits.map((outfit) => (
+              <OutfitCard
+                key={outfit.id}
+                outfit={outfit}
+                items={items}
+                onToggleFavorite={() => toggleOutfitFavorite(outfit.id)}
+                onFeedback={(fb) => setOutfitFeedback(outfit.id, fb)}
+              />
+            ))
+          ) : (
+            <Text className={styles.emptyTab}>暂无搭配</Text>
+          )}
         </View>
       )}
 
-      {/* Favorite outfits */}
-      {favoriteOutfits.length > 0 && (
-        <View className={styles.section}>
-          <View style={{ marginBottom: '20px' }}>
-            <Text className={styles.sectionTitle}>❤️ 收藏搭配</Text>
-          </View>
-          {favoriteOutfits.slice(0, 2).map((outfit) => (
-            <OutfitCard
-              key={outfit.id}
-              outfit={outfit}
-              items={items}
-              onToggleFavorite={() => toggleOutfitFavorite(outfit.id)}
-            />
-          ))}
-        </View>
-      )}
-
-      {/* Tip */}
+      {/* Tip — 轻量 banner 条 */}
       {stats.total > 0 && stats.total < 10 && (
-        <View className="tip-card tip-info">
-          <Text>
-            💡 你只有 {stats.total} 件衣物，建议至少添加 10 件以获得更好的搭配推荐效果。
-          </Text>
+        <View className={`tip-card tip-info ${styles.tipBanner}`}>
+          <Text>💡 建议至少添加 10 件衣物以获得更好的搭配推荐效果</Text>
         </View>
       )}
 

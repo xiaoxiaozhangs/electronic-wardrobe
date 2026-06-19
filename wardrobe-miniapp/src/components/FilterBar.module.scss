@@ -59,7 +59,7 @@
 }
 
 .chipFavActive {
-  border-color: #FCA5A5;
+  border-color: var(--color-danger-light);
   background: var(--color-danger-light);
   color: var(--color-danger);
 }

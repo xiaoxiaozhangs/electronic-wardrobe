@@ -1,6 +1,6 @@
-/* 衣橱页面 - 样式重构版 */
+/* 衣橱页面 - iOS 风格版 */
 import { useState, useMemo } from 'react';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import type { WardrobeItem, WardrobeFilter, Category, ColorLabel, Season, Scenario, Style, ItemStatus } from '../../types';
 import { ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS } from '../../types';
@@ -88,14 +88,14 @@ export default function WardrobePage() {
     return (
       <View className="container">
         <View className="loading-spinner">
-          <Text className="loading-spinner-icon">⏳</Text>
+          <View className="loading-spinner-icon" />
           <Text className={styles.loadingText}>加载中...</Text>
         </View>
       </View>
     );
   }
 
-  // Detail view
+  // Detail view — iOS List Row 风格
   if (selectedItem) {
     return (
       <View className="container">
@@ -111,68 +111,68 @@ export default function WardrobePage() {
           />
         </View>
 
-        <View className={styles.detailInfo}>
-          <View className={styles.detailHeader}>
-            <Text className={styles.detailName}>{selectedItem.subCategory}</Text>
-            <View onClick={() => toggleFavorite(selectedItem.id)} className={styles.detailFav}>
-              <Text>{selectedItem.isFavorite ? '❤️' : '🤍'}</Text>
-            </View>
+        <View className={styles.detailHeader}>
+          <Text className={styles.detailName}>{selectedItem.subCategory}</Text>
+          <View onClick={() => toggleFavorite(selectedItem.id)} className={styles.detailFav}>
+            <Text>{selectedItem.isFavorite ? '❤️' : '🤍'}</Text>
           </View>
+        </View>
 
-          <View className={styles.detailBadges}>
-            <View className={styles.detailBadge}>
-              <Text className={styles.detailBadgeLabel}>品类</Text>
-              <Text className={styles.detailBadgeValue}>{selectedItem.category} · {selectedItem.subCategory}</Text>
-            </View>
-            <View className={styles.detailBadge}>
-              <Text className={styles.detailBadgeLabel}>主色</Text>
-              <Text className={styles.detailBadgeValue}>{selectedItem.primaryColor}</Text>
-            </View>
-            <View className={styles.detailBadge}>
-              <Text className={styles.detailBadgeLabel}>季节</Text>
-              <Text className={styles.detailBadgeValue}>{selectedItem.seasons.join('、')}</Text>
-            </View>
-            <View className={styles.detailBadge}>
-              <Text className={styles.detailBadgeLabel}>厚薄</Text>
-              <Text className={styles.detailBadgeValue}>{selectedItem.thickness}</Text>
-            </View>
+        {/* iOS List Row 风格信息区 */}
+        <View className={styles.detailInfoCard}>
+          <View className="detail-row">
+            <Text className="detail-row-label">品类</Text>
+            <Text className="detail-row-value">{selectedItem.category} · {selectedItem.subCategory}</Text>
           </View>
-
-          <View className={styles.detailTags}>
-            {selectedItem.scenarios.map((s) => (
-              <Text key={s} className="tag tag-green">{s}</Text>
-            ))}
-            {selectedItem.styles.map((s) => (
-              <Text key={s} className="tag tag-purple">{s}</Text>
-            ))}
+          <View className="detail-row">
+            <Text className="detail-row-label">主色</Text>
+            <Text className="detail-row-value">{selectedItem.primaryColor}</Text>
           </View>
+          <View className="detail-row">
+            <Text className="detail-row-label">季节</Text>
+            <Text className="detail-row-value">{selectedItem.seasons.join('、')}</Text>
+          </View>
+          <View className="detail-row">
+            <Text className="detail-row-label">厚薄</Text>
+            <Text className="detail-row-value">{selectedItem.thickness}</Text>
+          </View>
+        </View>
 
-          {selectedItem.note && (
-            <Text className={styles.detailNote}>📝 {selectedItem.note}</Text>
+        <View className={styles.detailTags}>
+          {selectedItem.scenarios.map((s) => (
+            <Text key={s} className="tag tag-green">{s}</Text>
+          ))}
+          {selectedItem.styles.map((s) => (
+            <Text key={s} className="tag tag-purple">{s}</Text>
+          ))}
+        </View>
+
+        {selectedItem.note && (
+          <Text className={styles.detailNote}>📝 {selectedItem.note}</Text>
+        )}
+
+        <View className={styles.detailMeta}>
+          <Text className={styles.detailMetaText}>穿着 {selectedItem.wearCount} 次</Text>
+          {selectedItem.lastWornAt && (
+            <Text className={styles.detailMetaText}>
+              最近：{new Date(selectedItem.lastWornAt).toLocaleDateString('zh-CN')}
+            </Text>
           )}
+        </View>
 
-          <View className={styles.detailMeta}>
-            <Text className={styles.detailMetaText}>穿着 {selectedItem.wearCount} 次</Text>
-            {selectedItem.lastWornAt && (
-              <Text className={styles.detailMetaText}>
-                最近穿着：{new Date(selectedItem.lastWornAt).toLocaleDateString('zh-CN')}
-              </Text>
-            )}
+        {/* 底部固定操作栏 */}
+        <View className={styles.detailActionsBar}>
+          <View className={`btn-outline ${styles.detailEditBtn}`}
+            onClick={() => {
+              setEditingItem(selectedItem);
+              setShowForm(true);
+              setSelectedItem(null);
+            }}>
+            ✏️ 编辑
           </View>
-
-          <View className={styles.detailActions}>
-            <View className="btn-outline" style={{ flex: 1 }}
-              onClick={() => {
-                setEditingItem(selectedItem);
-                setShowForm(true);
-                setSelectedItem(null);
-              }}>
-              ✏️ 编辑
-            </View>
-            <View className={`btn-outline ${styles.detailDeleteBtn}`}
-              onClick={() => handleDeleteItem(selectedItem)}>
-              🗑️ 删除
-            </View>
+          <View className={`btn-outline ${styles.detailDeleteBtn}`}
+            onClick={() => handleDeleteItem(selectedItem)}>
+            🗑️ 删除
           </View>
         </View>
       </View>
@@ -205,7 +205,7 @@ export default function WardrobePage() {
   return (
     <View className="container">
       <View className={styles.listHeader}>
-        <Text className={`section-title ${styles.listTitle}`}>我的衣橱</Text>
+        <Text className={styles.listTitle}>我的衣橱</Text>
         <View className={`btn-primary ${styles.addBtn}`} onClick={() => setShowForm(true)}>
           + 添加衣物
         </View>

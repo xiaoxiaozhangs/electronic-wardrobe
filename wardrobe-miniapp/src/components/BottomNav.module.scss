@@ -1,16 +1,23 @@
-/* 底部导航组件样式模块 */
+/* 底部导航组件样式模块 - iOS 风格毛玻璃 */
 
 .nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--color-white);
-  border-top: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.92);
+  border-top: none;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.04);
   display: flex;
   justify-content: space-around;
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 100;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+  }
 }
 
 .navItem {
@@ -19,15 +26,16 @@
   align-items: center;
   justify-content: center;
   width: 25%;
-  padding: 12px 0;
+  padding: 8px 0;
+  transition: transform 0.15s ease;
 }
 
 .navIcon {
-  font-size: 36px;
+  font-size: 28px;
   line-height: 1;
 }
 
 .navLabel {
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 4px;
 }

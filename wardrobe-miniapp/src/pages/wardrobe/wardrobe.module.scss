@@ -1,4 +1,4 @@
-/* 衣橱页面样式模块 */
+/* 衣橱页面样式模块 - iOS 风格版 */
 
 /* ---- 列表头部 ---- */
 .listHeader {
@@ -9,9 +9,8 @@
 }
 
 .listTitle {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
-  margin-bottom: 0;
 }
 
 .addBtn {
@@ -27,16 +26,17 @@
 
 .backBtnText {
   font-size: 26px;
-  color: var(--color-text-secondary);
+  color: var(--color-primary);
 }
 
 /* ---- 详情页 ---- */
 .detailImageWrap {
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   overflow: hidden;
   background: var(--color-bg-secondary);
   aspect-ratio: 1;
   margin-bottom: 20px;
+  box-shadow: var(--shadow-card);
 }
 
 .detailImage {
@@ -44,19 +44,15 @@
   height: 100%;
 }
 
-.detailInfo {
-  margin-bottom: 24px;
-}
-
 .detailHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .detailName {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 700;
 }
 
@@ -65,29 +61,12 @@
   padding: 8px;
 }
 
-.detailBadges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+.detailInfoCard {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 4px 20px;
   margin-bottom: 16px;
-}
-
-.detailBadge {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  width: 45%;
-  flex-grow: 1;
-}
-
-.detailBadgeLabel {
-  font-size: 20px;
-  color: var(--color-text-tertiary);
-}
-
-.detailBadgeValue {
-  font-size: 24px;
-  font-weight: 500;
 }
 
 .detailTags {
@@ -117,17 +96,31 @@
   display: block;
 }
 
-.detailActions {
+.detailActionsBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   gap: 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-border-light);
+  padding: 16px 24px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  background: rgba(255, 255, 255, 0.92);
+  z-index: 50;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .detailActionsBar {
+    backdrop-filter: blur(20px);
+  }
+}
+
+.detailEditBtn {
+  flex: 1;
 }
 
 .detailDeleteBtn {
   flex: 1;
   color: var(--color-danger);
-  border-color: var(--color-danger-border);
 }
 
 /* ---- 表单页面 ---- */
@@ -140,11 +133,11 @@
 
 .formCancel {
   font-size: 26px;
-  color: var(--color-text-secondary);
+  color: var(--color-primary);
 }
 
 .formTitle {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
 }
 

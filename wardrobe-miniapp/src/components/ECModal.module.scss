@@ -9,7 +9,7 @@
   justify-content: center;
   z-index: 1000;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
@@ -29,18 +29,24 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .dialog {
   position: relative;
-  background: var(--color-white);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-xl);
   width: 80%;
   max-width: 600px;
-  transform: scale(0.9);
-  transition: transform 0.25s ease;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.17, 0.89, 0.45, 1);
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+@supports (backdrop-filter: blur(20px)) {
+  .dialog {
+    backdrop-filter: blur(20px);
+  }
 }
 
 .in .dialog {
@@ -51,11 +57,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 24px 16px;
+  padding: 28px 24px 16px;
 }
 
 .title {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 600;
   color: var(--color-text);
 }
@@ -69,7 +75,7 @@
 
 .footer {
   display: flex;
-  border-top: 1px solid var(--color-border-light);
+  border-top: 0.5px solid var(--color-border);
 }
 
 .btn {
@@ -77,18 +83,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 88px;
+  height: 56px;
   font-size: 30px;
   font-weight: 500;
 
   &:active {
-    background: var(--color-border-light);
+    background: var(--color-bg-secondary);
   }
 }
 
 .btnCancel {
   color: var(--color-text-secondary);
-  border-right: 1px solid var(--color-border-light);
+  border-right: 0.5px solid var(--color-border);
 }
 
 .btnConfirm {

@@ -10,6 +10,8 @@ export interface ECCardProps {
   ratio?: '3:4' | '1:1' | '4:3' | '16:9';
   rounded?: boolean;
   shadow?: boolean;
+  glass?: boolean;
+  radius?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   children?: ReactNode;
   footer?: ReactNode;
   onClick?: () => void;
@@ -25,16 +27,28 @@ export default function ECCard({
   ratio = '3:4',
   rounded = true,
   shadow = true,
+  glass = false,
+  radius,
   children,
   footer,
   onClick,
   className = '',
   style,
 }: ECCardProps) {
+  const radiusClsMap: Record<string, string> = {
+    sm: styles.radiusSm,
+    md: styles.radiusMd,
+    lg: styles.radiusLg,
+    xl: styles.radiusXl,
+    '2xl': styles.radius2xl,
+  };
+
   const cls = [
     styles.card,
-    rounded ? styles.rounded : '',
+    rounded && !radius ? styles.rounded : '',
     shadow ? styles.shadow : '',
+    glass ? styles.glass : '',
+    radius ? radiusClsMap[radius] : '',
     className,
   ]
     .filter(Boolean)

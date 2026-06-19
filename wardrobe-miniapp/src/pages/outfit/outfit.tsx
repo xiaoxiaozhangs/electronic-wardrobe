@@ -76,17 +76,17 @@ export default function OutfitPage() {
     <View className="container">
       <Text className={styles.pageTitle}>智能搭配</Text>
 
-      {/* Tab switcher */}
-      <View className={styles.tabSwitcher}>
+      {/* Tab switcher — iOS Segment Control */}
+      <View className="segment-control">
         <View
           onClick={() => setTab('generate')}
-          className={`${styles.tabItem} ${tab === 'generate' ? styles.tabItemActive : ''}`}
+          className={`segment-item ${tab === 'generate' ? 'segment-item-active' : ''}`}
         >
           <Text>✨ 生成搭配</Text>
         </View>
         <View
           onClick={() => setTab('history')}
-          className={`${styles.tabItem} ${tab === 'history' ? styles.tabItemActive : ''}`}
+          className={`segment-item ${tab === 'history' ? 'segment-item-active' : ''}`}
         >
           <Text>📋 搭配记录 {outfits.length > 0 ? `(${outfits.length})` : ''}</Text>
         </View>
@@ -176,7 +176,10 @@ export default function OutfitPage() {
             {/* Generate button */}
             <View className={`btn-primary ${styles.generateBtn}`} onClick={handleGenerate}>
               {generating ? (
-                <Text>⏳ 正在生成搭配...</Text>
+                <View className={styles.generateBtnContent}>
+                  <View className={styles.generateSpinner} />
+                  <Text>正在分析衣橱...</Text>
+                </View>
               ) : availableItems.length < 3 ? (
                 <Text>至少需要3件可用衣物才能生成搭配</Text>
               ) : (
@@ -188,7 +191,7 @@ export default function OutfitPage() {
           {/* Loading */}
           {generating && (
             <View className="loading-spinner">
-              <Text className="loading-spinner-icon">⏳</Text>
+              <View className="loading-spinner-icon" />
               <Text className={styles.loadingTitle}>正在分析你的衣橱...</Text>
               <Text className={styles.loadingDesc}>
                 根据场景、季节和风格匹配合适组合

@@ -11,10 +11,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { key: 'index', label: '首页', icon: '🏠', pagePath: '/pages/index/index' },
-  { key: 'wardrobe', label: '衣橱', icon: '👗', pagePath: '/pages/wardrobe/wardrobe' },
-  { key: 'outfit', label: '搭配', icon: '✨', pagePath: '/pages/outfit/outfit' },
-  { key: 'settings', label: '我的', icon: '👤', pagePath: '/pages/settings/settings' },
+  { key: 'index', label: '首页', icon: '⌂', pagePath: '/pages/index/index' },
+  { key: 'wardrobe', label: '衣橱', icon: '☐', pagePath: '/pages/wardrobe/wardrobe' },
+  { key: 'outfit', label: '搭配', icon: '✦', pagePath: '/pages/outfit/outfit' },
+  { key: 'settings', label: '我的', icon: '○', pagePath: '/pages/settings/settings' },
 ];
 
 interface BottomNavProps {
