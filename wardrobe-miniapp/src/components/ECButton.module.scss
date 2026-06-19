@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-weight: 600;
   transition: transform 0.1s ease, opacity 0.1s ease;
   min-height: 44px;
@@ -10,7 +10,7 @@
 }
 
 .primary {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  background: var(--color-primary);
   color: #ffffff;
 }
 
@@ -41,7 +41,7 @@
   height: 32px;
   font-size: 24px;
   padding: 0 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 }
 
 .disabled {

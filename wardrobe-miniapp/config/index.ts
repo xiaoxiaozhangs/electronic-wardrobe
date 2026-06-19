@@ -39,7 +39,7 @@ export default defineConfig<'webpack5'>(async (merge) => {
           },
         },
         cssModules: {
-          enable: false,
+          enable: true,
           config: {
             namingPattern: 'module',
             generateScopedName: '[name]__[local]___[hash:base64:5]',
@@ -58,7 +58,7 @@ export default defineConfig<'webpack5'>(async (merge) => {
           config: {},
         },
         cssModules: {
-          enable: false,
+          enable: true,
           config: {
             namingPattern: 'module',
             generateScopedName: '[name]__[local]___[hash:base64:5]',

@@ -1,3 +1,4 @@
+/* 搭配页面 - 样式重构版 */
 import { useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import type { Outfit, Scenario, Season, Style, Feedback } from '../../types';
@@ -9,8 +10,8 @@ import { useWardrobeStore } from '../../hooks/useWardrobeStore';
 import OutfitCard from '../../components/OutfitCard';
 import EmptyState from '../../components/EmptyState';
 import BottomNav from '../../components/BottomNav';
+import styles from './outfit.module.scss';
 
-/** 根据当前月份推断季节 */
 function getCurrentSeason(): Season {
   const month = new Date().getMonth();
   if (month >= 2 && month <= 4) return '春';
@@ -41,7 +42,6 @@ export default function OutfitPage() {
 
   const handleGenerate = async () => {
     setGenerating(true);
-    // 延迟600ms让用户感知加载状态
     await new Promise((resolve) => setTimeout(resolve, 600));
     try {
       const results = await generateAndSaveOutfits({
@@ -66,7 +66,7 @@ export default function OutfitPage() {
       <View className="container">
         <View className="loading-spinner">
           <Text className="loading-spinner-icon">⏳</Text>
-          <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px' }}>加载中...</Text>
+          <Text className="loading-text">加载中...</Text>
         </View>
       </View>
     );
@@ -74,34 +74,19 @@ export default function OutfitPage() {
 
   return (
     <View className="container">
-      <Text className="section-title">智能搭配</Text>
+      <Text className={styles.pageTitle}>智能搭配</Text>
 
       {/* Tab switcher */}
-      <View style={{
-        display: 'flex', backgroundColor: '#f3f4f6',
-        borderRadius: '12px', padding: '4px', marginBottom: '24px',
-      }}>
+      <View className={styles.tabSwitcher}>
         <View
           onClick={() => setTab('generate')}
-          style={{
-            flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
-            backgroundColor: tab === 'generate' ? '#fff' : 'transparent',
-            boxShadow: tab === 'generate' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
-            fontSize: '26px', fontWeight: 500,
-            color: tab === 'generate' ? '#111827' : '#9ca3af',
-          }}
+          className={`${styles.tabItem} ${tab === 'generate' ? styles.tabItemActive : ''}`}
         >
           <Text>✨ 生成搭配</Text>
         </View>
         <View
           onClick={() => setTab('history')}
-          style={{
-            flex: 1, padding: '14px', textAlign: 'center', borderRadius: '10px',
-            backgroundColor: tab === 'history' ? '#fff' : 'transparent',
-            boxShadow: tab === 'history' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
-            fontSize: '26px', fontWeight: 500,
-            color: tab === 'history' ? '#111827' : '#9ca3af',
-          }}
+          className={`${styles.tabItem} ${tab === 'history' ? styles.tabItemActive : ''}`}
         >
           <Text>📋 搭配记录 {outfits.length > 0 ? `(${outfits.length})` : ''}</Text>
         </View>
@@ -111,99 +96,77 @@ export default function OutfitPage() {
       {tab === 'generate' && (
         <View>
           {/* Params form */}
-          <View style={{
-            backgroundColor: '#f9fafb', borderRadius: '20px',
-            padding: '24px', marginBottom: '24px',
-          }}>
+          <View className={styles.paramCard}>
             {/* Scenario */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>场景</Text>
-              <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <View className={styles.paramGroup}>
+              <Text className={styles.paramLabel}>场景</Text>
+              <View className={styles.chipRow}>
                 {ALL_SCENARIOS.map((s) => (
                   <View key={s} onClick={() => setScenario(s)}
-                    style={optionChipStyle(scenario === s, '#f97316')}>
-                    <Text style={{ fontSize: '22px' }}>{SCENARIO_LABELS[s]}</Text>
+                    className={`${styles.chip} ${scenario === s ? styles.chipActive : ''}`}>
+                    <Text>{SCENARIO_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Season */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>季节</Text>
-              <View style={{ display: 'flex', gap: '12px' }}>
+            <View className={styles.paramGroup}>
+              <Text className={styles.paramLabel}>季节</Text>
+              <View className={styles.seasonRow}>
                 {ALL_SEASONS.map((s) => (
                   <View key={s} onClick={() => setSeason(s)}
-                    style={optionChipStyle(season === s, '#3b82f6')}>
-                    <Text style={{ fontSize: '26px' }}>{SEASON_LABELS[s]}</Text>
+                    className={`${styles.chip} ${styles.seasonChip} ${season === s ? styles.chipActive : ''}`}>
+                    <Text>{SEASON_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Style */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>风格</Text>
-              <View style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            <View className={styles.paramGroup}>
+              <Text className={styles.paramLabel}>风格</Text>
+              <View className={styles.chipRow}>
                 {ALL_STYLES.map((s) => (
                   <View key={s} onClick={() => setStyle(s)}
-                    style={optionChipStyle(style === s, '#8b5cf6')}>
-                    <Text style={{ fontSize: '22px' }}>{STYLE_LABELS[s]}</Text>
+                    className={`${styles.chip} ${style === s ? styles.chipActive : ''}`}>
+                    <Text>{STYLE_LABELS[s]}</Text>
                   </View>
                 ))}
               </View>
             </View>
 
             {/* Specify item */}
-            <View style={{ marginBottom: '20px' }}>
-              <Text style={{ fontSize: '24px', color: '#6b7280', marginBottom: '10px', display: 'block' }}>
-                指定单品（可选）
-              </Text>
+            <View className={styles.paramGroup}>
+              <Text className={styles.paramLabel}>指定单品（可选）</Text>
               {mustIncludeItem ? (
-                <View style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  backgroundColor: '#fff', borderRadius: '12px',
-                  padding: '12px', border: '1px solid #e5e7eb',
-                }}>
+                <View className={styles.itemPickerSelected}>
                   <Image src={mustIncludeItem.imageBase64} mode="aspectFit"
-                    style={{ width: '64px', height: '64px', borderRadius: '8px', backgroundColor: '#f9fafb' }} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: '26px', fontWeight: 500, display: 'block' }}>{mustIncludeItem.subCategory}</Text>
-                    <Text style={{ fontSize: '22px', color: '#9ca3af', display: 'block' }}>
+                    className={styles.itemPickerThumb} />
+                  <View className={styles.itemPickerInfo}>
+                    <Text className={styles.itemPickerName}>{mustIncludeItem.subCategory}</Text>
+                    <Text className={styles.itemPickerMeta}>
                       {mustIncludeItem.category} · {mustIncludeItem.primaryColor}
                     </Text>
                   </View>
-                  <View onClick={() => setMustIncludeItemId(null)}
-                    style={{ padding: '8px', color: '#9ca3af', fontSize: '28px' }}>
+                  <View onClick={() => setMustIncludeItemId(null)} className={styles.itemPickerRemove}>
                     <Text>✕</Text>
                   </View>
                 </View>
               ) : (
-                <View
-                  onClick={() => setShowItemPicker(!showItemPicker)}
-                  style={{
-                    width: '100%', padding: '24px', textAlign: 'center',
-                    border: '2px dashed #d1d5db', borderRadius: '12px',
-                    backgroundColor: '#fff', fontSize: '26px', color: '#9ca3af',
-                  }}
-                >
+                <View onClick={() => setShowItemPicker(!showItemPicker)} className={styles.itemPickerPlaceholder}>
                   <Text>+ 选择一件单品</Text>
                 </View>
               )}
 
               {showItemPicker && (
-                <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '12px', maxHeight: '300px', overflowY: 'auto' }}>
+                <View className={styles.itemPickerGrid}>
                   {availableItems.map((item) => (
                     <View key={item.id}
                       onClick={() => { setMustIncludeItemId(item.id); setShowItemPicker(false); }}
-                      style={{
-                        width: '30%', flexGrow: 1, textAlign: 'center',
-                        backgroundColor: '#fff', borderRadius: '12px',
-                        border: '1px solid #e5e7eb', padding: '12px',
-                      }}>
-                      <Image src={item.imageBase64} mode="aspectFit"
-                        style={{ width: '100%', aspectRatio: '1', borderRadius: '8px' }} />
-                      <Text style={{ fontSize: '22px', color: '#6b7280', marginTop: '6px', display: 'block' }}>{item.subCategory}</Text>
+                      className={styles.itemPickerItem}>
+                      <Image src={item.imageBase64} mode="aspectFit" className={styles.itemPickerImg} />
+                      <Text className={styles.itemPickerLabel}>{item.subCategory}</Text>
                     </View>
                   ))}
                 </View>
@@ -211,11 +174,7 @@ export default function OutfitPage() {
             </View>
 
             {/* Generate button */}
-            <View
-              className="btn-primary"
-              style={{ width: '100%', padding: '24px', fontSize: '30px' }}
-              onClick={handleGenerate}
-            >
+            <View className={`btn-primary ${styles.generateBtn}`} onClick={handleGenerate}>
               {generating ? (
                 <Text>⏳ 正在生成搭配...</Text>
               ) : availableItems.length < 3 ? (
@@ -226,20 +185,21 @@ export default function OutfitPage() {
             </View>
           </View>
 
-          {/* Results */}
+          {/* Loading */}
           {generating && (
             <View className="loading-spinner">
               <Text className="loading-spinner-icon">⏳</Text>
-              <Text style={{ fontSize: '26px', color: '#9ca3af', marginTop: '16px', display: 'block' }}>正在分析你的衣橱...</Text>
-              <Text style={{ fontSize: '22px', color: '#d1d5db', marginTop: '8px', display: 'block' }}>
+              <Text className={styles.loadingTitle}>正在分析你的衣橱...</Text>
+              <Text className={styles.loadingDesc}>
                 根据场景、季节和风格匹配合适组合
               </Text>
             </View>
           )}
 
+          {/* Results */}
           {!generating && currentResults.length > 0 && (
             <View>
-              <Text style={{ fontSize: '28px', fontWeight: 700, color: '#111827', marginBottom: '20px', display: 'block' }}>
+              <Text className={styles.resultTitle}>
                 为你生成 {currentResults.length} 套搭配
               </Text>
               {currentResults.map((outfit) => (
@@ -254,15 +214,11 @@ export default function OutfitPage() {
             </View>
           )}
 
+          {/* Empty tip */}
           {!generating && currentResults.length === 0 && (
-            <View style={{
-              backgroundColor: '#fef9c3', borderRadius: '16px',
-              padding: '20px', border: '1px solid #fde68a',
-            }}>
-              <Text style={{ fontSize: '26px', color: '#a16207', display: 'block' }}>
-                💡 还没有生成搭配。选择场景、季节和风格，点击"生成搭配方案"开始。
-              </Text>
-            </View>
+            <Text className={styles.emptyTip}>
+              💡 还没有生成搭配。选择场景、季节和风格，点击"生成搭配方案"开始。
+            </Text>
           )}
         </View>
       )}
@@ -295,12 +251,3 @@ export default function OutfitPage() {
     </View>
   );
 }
-
-// -- 样式辅助 --
-const optionChipStyle = (active: boolean, activeColor: string): React.CSSProperties => ({
-  padding: '10px 20px', borderRadius: '20px',
-  backgroundColor: active ? activeColor : '#fff',
-  color: active ? '#fff' : '#6b7280',
-  border: active ? 'none' : '1px solid #e5e7eb',
-  fontWeight: 500,
-});

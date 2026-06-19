@@ -1,0 +1,172 @@
+/* 衣橱页面样式模块 */
+
+/* ---- 列表头部 ---- */
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.listTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.addBtn {
+  padding: 12px 24px;
+  font-size: 26px;
+}
+
+/* ---- 返回按钮 ---- */
+.backBtn {
+  margin-bottom: 24px;
+  padding: 8px 0;
+}
+
+.backBtnText {
+  font-size: 26px;
+  color: var(--color-text-secondary);
+}
+
+/* ---- 详情页 ---- */
+.detailImageWrap {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+}
+
+.detailImage {
+  width: 100%;
+  height: 100%;
+}
+
+.detailInfo {
+  margin-bottom: 24px;
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.detailName {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.detailFav {
+  font-size: 40px;
+  padding: 8px;
+}
+
+.detailBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detailBadge {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  width: 45%;
+  flex-grow: 1;
+}
+
+.detailBadgeLabel {
+  font-size: 20px;
+  color: var(--color-text-tertiary);
+}
+
+.detailBadgeValue {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.detailTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.detailNote {
+  font-size: 26px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.detailMeta {
+  margin-bottom: 12px;
+}
+
+.detailMetaText {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+  display: block;
+}
+
+.detailActions {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.detailDeleteBtn {
+  flex: 1;
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+/* ---- 表单页面 ---- */
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.formCancel {
+  font-size: 26px;
+  color: var(--color-text-secondary);
+}
+
+.formTitle {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.formSpacer {
+  width: 60px;
+}
+
+/* ---- 列表 ---- */
+.itemGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.itemGridCell {
+  width: 47%;
+  flex-grow: 1;
+}
+
+/* ---- 加载 ---- */
+.loadingText {
+  font-size: 26px;
+  color: var(--color-text-tertiary);
+  margin-top: 16px;
+}

@@ -1,0 +1,208 @@
+/* 搭配页面样式模块 */
+
+/* ---- 页面标题 ---- */
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ---- Tab 切换 ---- */
+.tabSwitcher {
+  display: flex;
+  background: var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.tabItem {
+  flex: 1;
+  padding: 14px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.tabItemActive {
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text);
+}
+
+/* ---- 参数表单 ---- */
+.paramCard {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.paramGroup {
+  margin-bottom: 20px;
+}
+
+.paramLabel {
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 10px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-input);
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.chipActive {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.seasonRow {
+  display: flex;
+  gap: 12px;
+}
+
+.seasonChip {
+  font-size: 26px;
+}
+
+/* ---- 指定单品 ---- */
+.itemPickerSelected {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid var(--color-border-input);
+}
+
+.itemPickerThumb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+}
+
+.itemPickerInfo {
+  flex: 1;
+}
+
+.itemPickerName {
+  font-size: 26px;
+  font-weight: 500;
+  display: block;
+}
+
+.itemPickerMeta {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+  display: block;
+}
+
+.itemPickerRemove {
+  padding: 8px;
+  color: var(--color-text-tertiary);
+  font-size: 28px;
+}
+
+.itemPickerPlaceholder {
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  border: 2px dashed #D1D5DB;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  font-size: 26px;
+  color: var(--color-text-tertiary);
+}
+
+.itemPickerGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.itemPickerItem {
+  width: 30%;
+  flex-grow: 1;
+  text-align: center;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-input);
+  padding: 12px;
+}
+
+.itemPickerImg {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+}
+
+.itemPickerLabel {
+  font-size: 22px;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+  display: block;
+}
+
+/* ---- 生成按钮 ---- */
+.generateBtn {
+  width: 100%;
+  padding: 24px;
+  font-size: 30px;
+}
+
+/* ---- 加载 ---- */
+.loadingTitle {
+  font-size: 26px;
+  color: var(--color-text-tertiary);
+  margin-top: 16px;
+  display: block;
+}
+
+.loadingDesc {
+  font-size: 22px;
+  color: #D1D5DB;
+  margin-top: 8px;
+  display: block;
+}
+
+/* ---- 结果 ---- */
+.resultTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* ---- 提示 ---- */
+.emptyTip {
+  background: #FEF9C3;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid #FDE68A;
+  font-size: 26px;
+  color: #A16207;
+  display: block;
+}

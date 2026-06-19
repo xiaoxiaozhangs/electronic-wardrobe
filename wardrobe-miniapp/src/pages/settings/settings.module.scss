@@ -1,0 +1,280 @@
+/* 我的页面样式模块 */
+
+/* ---- 页面标题 ---- */
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ---- 统计卡片容器 ---- */
+.statCard {
+  composes: card from global;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.statCardTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* ---- 统计数字网格 ---- */
+.statGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.statBox {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  width: 45%;
+  flex-grow: 1;
+}
+
+.statValue {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text);
+  display: block;
+}
+
+.statLabel {
+  font-size: 22px;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+/* ---- 品类分布 ---- */
+.distributionSection {
+  margin-bottom: 20px;
+}
+
+.distributionTitle {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.distributionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.distributionLabel {
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  width: 100px;
+}
+
+.progressBarBg {
+  flex: 1;
+  height: 12px;
+  background: var(--color-border-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--color-primary);
+}
+
+.distributionCount {
+  font-size: 22px;
+  color: var(--color-text-secondary);
+  width: 50px;
+  text-align: right;
+}
+
+/* ---- 常用颜色 ---- */
+.colorTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colorTag {
+  padding: 6px 14px;
+  border-radius: var(--radius-xl);
+  background: var(--color-border-light);
+  font-size: 22px;
+  color: var(--color-text-secondary);
+}
+
+/* ---- 高频穿着 ---- */
+.topWornCard {
+  composes: card from global;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.topWornTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.topWornItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.topWornThumb {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+}
+
+.topWornInfo {
+  flex: 1;
+}
+
+.topWornName {
+  font-size: 26px;
+  font-weight: 500;
+  display: block;
+}
+
+.topWornMeta {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+  display: block;
+}
+
+.topWornCount {
+  font-size: 22px;
+  color: var(--color-text-secondary);
+}
+
+/* ---- 闲置衣物 ---- */
+.idleCard {
+  background: var(--color-warning-light);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #FED7AA;
+}
+
+.idleTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #C2410C;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.idleDesc {
+  font-size: 24px;
+  color: #C2410C;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.idleTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.idleTag {
+  padding: 6px 14px;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  border: 1px solid #FED7AA;
+  font-size: 22px;
+  color: #C2410C;
+}
+
+/* ---- 关于 ---- */
+.aboutCard {
+  composes: card from global;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.aboutTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.aboutText {
+  font-size: 26px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.aboutInfoBox {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.aboutInfoText {
+  font-size: 22px;
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+  display: block;
+}
+
+/* ---- Danger Zone ---- */
+.dangerCard {
+  composes: card from global;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--color-danger-border);
+}
+
+.dangerTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-danger);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.dangerDesc {
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.dangerBtn {
+  padding: 18px;
+  text-align: center;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-md);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--color-danger);
+}
+
+/* ---- 加载 ---- */
+.loadingText {
+  font-size: 26px;
+  color: var(--color-text-tertiary);
+  margin-top: 16px;
+}

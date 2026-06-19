@@ -1,3 +1,5 @@
+/* 衣物表单 - 样式重构版 */
+import styles from './ClothingForm.module.scss';
 import { useState, useCallback } from 'react';
 import { View, Text, Image, Input, Picker, Textarea } from '@tarojs/components';
 import Taro from '@tarojs/taro';
@@ -9,7 +11,6 @@ import {
   ALL_CATEGORIES, ALL_COLORS, ALL_SEASONS, ALL_SCENARIOS, ALL_STYLES, COLOR_MAP,
 } from '../types';
 
-// ---- 子品类映射 ----
 const SUB_CATEGORY_MAP: Record<Category, SubCategory[]> = {
   '上衣': ['T恤', '衬衫', '卫衣', '针织衫', '毛衣', '背心', '其他'],
   '下装': ['牛仔裤', '休闲裤', '西裤', '短裤', '半身裙', '长裙', '短裙', '其他'],
@@ -49,7 +50,6 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
   const [status, setStatus] = useState<ItemStatus>(initialData?.status ?? '正常');
   const [note, setNote] = useState(initialData?.note ?? '');
 
-  // 图片选择
   const handleChooseImage = useCallback(() => {
     Taro.chooseImage({
       count: 1,
@@ -57,7 +57,6 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       sourceType: ['album', 'camera'],
       success: (res) => {
         const filePath = res.tempFilePaths[0];
-        // 读取为 Base64
         Taro.getFileSystemManager().readFile({
           filePath,
           encoding: 'base64',
@@ -67,7 +66,6 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
             setImageBase64(`data:${mimeType};base64,${readRes.data}`);
           },
           fail: () => {
-            // 如果读取失败，临时使用文件路径
             Taro.showToast({ title: '图片读取失败，请重试', icon: 'none' });
           },
         });
@@ -75,7 +73,6 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
     });
   }, []);
 
-  // 多选切换
   const toggleArrayItem = <T,>(arr: T[], item: T, setter: (val: T[]) => void) => {
     if (arr.includes(item)) {
       setter(arr.filter((i) => i !== item));
@@ -84,7 +81,6 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
     }
   };
 
-  // 提交
   const handleSubmit = () => {
     if (!imageBase64) {
       Taro.showToast({ title: '请上传衣物图片', icon: 'none' });
@@ -110,39 +106,29 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
   };
 
   return (
-    <View style={{ padding: '0 0 120px' }}>
+    <View className={styles.container}>
       {/* Image Upload */}
-      <View style={{ marginBottom: '32px' }}>
-        <Text style={{ fontSize: '28px', fontWeight: 500, color: '#374151', marginBottom: '16px', display: 'block' }}>
-          衣物图片 <Text style={{ color: '#ef4444' }}>*</Text>
+      <View className={styles.imageSection}>
+        <Text className={styles.imageSectionLabel}>
+          衣物图片 <Text className={styles.required}>*</Text>
         </Text>
-        <View
-          onClick={handleChooseImage}
-          style={{
-            width: '100%', aspectRatio: '1', borderRadius: '20px',
-            border: '2px dashed #d1d5db', backgroundColor: '#f9fafb',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            overflow: 'hidden',
-          }}
-        >
+        <View onClick={handleChooseImage} className={styles.imageUpload}>
           {imageBase64 ? (
-            <Image src={imageBase64} mode="aspectFit" style={{ width: '100%', height: '100%' }} />
+            <Image src={imageBase64} mode="aspectFit" className={styles.imagePreview} />
           ) : (
-            <View style={{ textAlign: 'center', color: '#9ca3af' }}>
-              <Text style={{ fontSize: '64px', display: 'block', marginBottom: '12px' }}>📷</Text>
-              <Text style={{ fontSize: '26px', display: 'block' }}>点击拍照或选择图片</Text>
+            <View className={styles.imagePlaceholder}>
+              <Text className={styles.imagePlaceholderIcon}>📷</Text>
+              <Text className={styles.imagePlaceholderText}>点击拍照或选择图片</Text>
             </View>
           )}
         </View>
-        <Text style={{ fontSize: '22px', color: '#9ca3af', marginTop: '8px', display: 'block' }}>
-          支持拍照或相册选择
-        </Text>
+        <Text className={styles.imageHint}>支持拍照或相册选择</Text>
       </View>
 
       {/* Category & SubCategory */}
-      <View style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
-        <View style={{ flex: 1 }}>
-          <Text style={labelStyle}>品类</Text>
+      <View className={`${styles.pickerRow} form-section`}>
+        <View className={styles.pickerCol}>
+          <Text className={styles.fieldLabel}>品类</Text>
           <Picker
             mode="selector"
             range={ALL_CATEGORIES}
@@ -153,90 +139,79 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
               setSubCategory(SUB_CATEGORY_MAP[cat][0]);
             }}
           >
-            <View style={pickerStyle}><Text>{category}</Text></View>
+            <View className={styles.pickerField}><Text>{category}</Text></View>
           </Picker>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={labelStyle}>子品类</Text>
+        <View className={styles.pickerCol}>
+          <Text className={styles.fieldLabel}>子品类</Text>
           <Picker
             mode="selector"
             range={SUB_CATEGORY_MAP[category]}
             value={SUB_CATEGORY_MAP[category].indexOf(subCategory)}
             onChange={(e) => setSubCategory(SUB_CATEGORY_MAP[category][Number(e.detail.value)])}
           >
-            <View style={pickerStyle}><Text>{subCategory}</Text></View>
+            <View className={styles.pickerField}><Text>{subCategory}</Text></View>
           </Picker>
         </View>
       </View>
 
       {/* Primary Color */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>主色</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>主色</Text>
+        <View className={styles.colorGrid}>
           {ALL_COLORS.map((c) => (
             <View
               key={c}
               onClick={() => setPrimaryColor(c)}
-              style={{
-                width: '56px', height: '56px', borderRadius: '50%',
-                border: primaryColor === c ? '3px solid #f97316' : '2px solid #e5e7eb',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transform: primaryColor === c ? 'scale(1.1)' : 'scale(1)',
-              }}
+              className={`${styles.colorOption} ${primaryColor === c ? styles.colorOptionActive : ''}`}
             >
-              <View style={{
-                width: '40px', height: '40px', borderRadius: '50%',
-                backgroundColor: COLOR_MAP[c],
-              }} />
+              <View className={styles.colorSwatch}
+                style={{ backgroundColor: COLOR_MAP[c] }} />
             </View>
           ))}
         </View>
       </View>
 
       {/* Secondary Colors */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>辅色（可选）</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-          {ALL_COLORS.filter((c) => c !== primaryColor).map((c) => (
-            <View
-              key={c}
-              onClick={() => toggleArrayItem(secondaryColors, c, setSecondaryColors)}
-              style={{
-                width: '48px', height: '48px', borderRadius: '50%',
-                border: secondaryColors.includes(c) ? '3px solid #f97316' : '2px solid #e5e7eb',
-                opacity: secondaryColors.includes(c) ? 1 : 0.5,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}
-            >
-              <View style={{
-                width: '34px', height: '34px', borderRadius: '50%',
-                backgroundColor: COLOR_MAP[c],
-              }} />
-            </View>
-          ))}
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>辅色（可选）</Text>
+        <View className={styles.colorGrid}>
+          {ALL_COLORS.filter((c) => c !== primaryColor).map((c) => {
+            const isActive = secondaryColors.includes(c);
+            return (
+              <View
+                key={c}
+                onClick={() => toggleArrayItem(secondaryColors, c, setSecondaryColors)}
+                className={`${styles.colorOptionSm} ${isActive ? styles.colorOptionSmActive : styles.colorOptionSmInactive}`}
+              >
+                <View className={styles.colorSwatchSm}
+                  style={{ backgroundColor: COLOR_MAP[c] }} />
+              </View>
+            );
+          })}
         </View>
       </View>
 
       {/* Pattern & Thickness */}
-      <View style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
-        <View style={{ flex: 1 }}>
-          <Text style={labelStyle}>花纹</Text>
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      <View className={`${styles.pickerRow} form-section`}>
+        <View className={styles.pickerCol}>
+          <Text className={styles.fieldLabel}>花纹</Text>
+          <View className={styles.chipRow}>
             {PATTERNS.map((p) => (
               <View key={p} onClick={() => setPattern(p)}
-                style={chipStyle(pattern === p)}>
-                <Text style={{ fontSize: '22px' }}>{p}</Text>
+                className={`${styles.chip} ${pattern === p ? styles.chipActive : ''}`}>
+                <Text>{p}</Text>
               </View>
             ))}
           </View>
         </View>
-        <View style={{ flex: 1 }}>
-          <Text style={labelStyle}>厚薄</Text>
-          <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <View className={styles.pickerCol}>
+          <Text className={styles.fieldLabel}>厚薄</Text>
+          <View className={styles.chipRow}>
             {THICKNESSES.map((t) => (
               <View key={t} onClick={() => setThickness(t)}
-                style={chipStyle(thickness === t)}>
-                <Text style={{ fontSize: '22px' }}>{t}</Text>
+                className={`${styles.chip} ${thickness === t ? styles.chipActive : ''}`}>
+                <Text>{t}</Text>
               </View>
             ))}
           </View>
@@ -244,17 +219,12 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Seasons */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>适用季节</Text>
-        <View style={{ display: 'flex', gap: '12px' }}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>适用季节</Text>
+        <View className={styles.seasonRow}>
           {ALL_SEASONS.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(seasons, s, setSeasons)}
-              style={{
-                padding: '12px 24px', borderRadius: '24px',
-                backgroundColor: seasons.includes(s) ? '#3b82f6' : '#f3f4f6',
-                color: seasons.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '26px', fontWeight: 500,
-              }}>
+              className={`${styles.seasonBtn} ${seasons.includes(s) ? styles.seasonBtnActive : ''}`}>
               <Text>{s}</Text>
             </View>
           ))}
@@ -262,17 +232,12 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Scenarios */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>适用场景</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>适用场景</Text>
+        <View className={styles.scenarioRow}>
           {ALL_SCENARIOS.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(scenarios, s, setScenarios)}
-              style={{
-                padding: '10px 18px', borderRadius: '20px',
-                backgroundColor: scenarios.includes(s) ? '#22c55e' : '#f3f4f6',
-                color: scenarios.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
-              }}>
+              className={`${styles.scenarioBtn} ${scenarios.includes(s) ? styles.scenarioBtnActive : ''}`}>
               <Text>{s}</Text>
             </View>
           ))}
@@ -280,17 +245,12 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Styles */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>风格</Text>
-        <View style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>风格</Text>
+        <View className={styles.styleRow}>
           {ALL_STYLES.map((s) => (
             <View key={s} onClick={() => toggleArrayItem(styles, s, setStyles)}
-              style={{
-                padding: '10px 18px', borderRadius: '20px',
-                backgroundColor: styles.includes(s) ? '#8b5cf6' : '#f3f4f6',
-                color: styles.includes(s) ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
-              }}>
+              className={`${styles.styleBtn} ${styles.includes(s) ? styles.styleBtnActive : ''}`}>
               <Text>{s}</Text>
             </View>
           ))}
@@ -298,13 +258,13 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Temperature Range */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>
           适合温度区间：{temperatureMin}°C — {temperatureMax}°C
         </Text>
-        <View style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '12px' }}>
+        <View className={styles.tempRow}>
           <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
+            className={styles.tempInput}
             type="number"
             value={String(temperatureMin)}
             onInput={(e) => {
@@ -312,9 +272,9 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
               setTemperatureMin(Math.min(v, temperatureMax));
             }}
           />
-          <Text style={{ fontSize: '24px', color: '#9ca3af' }}>至</Text>
+          <Text className={styles.tempSeparator}>至</Text>
           <Input
-            style={{ flex: 1, height: '64px', backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '0 16px', fontSize: '28px', textAlign: 'center' }}
+            className={styles.tempInput}
             type="number"
             value={String(temperatureMax)}
             onInput={(e) => {
@@ -326,17 +286,12 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
       </View>
 
       {/* Status */}
-      <View style={{ marginBottom: '24px' }}>
-        <Text style={labelStyle}>状态</Text>
-        <View style={{ display: 'flex', gap: '12px' }}>
+      <View className={styles.colorSection}>
+        <Text className={styles.fieldLabel}>状态</Text>
+        <View className={styles.statusRow}>
           {STATUSES.map((s) => (
             <View key={s} onClick={() => setStatus(s)}
-              style={{
-                padding: '10px 20px', borderRadius: '20px',
-                backgroundColor: status === s ? '#1f2937' : '#f3f4f6',
-                color: status === s ? '#fff' : '#6b7280',
-                fontSize: '24px', fontWeight: 500,
-              }}>
+              className={`${styles.statusBtn} ${status === s ? styles.statusBtnActive : ''}`}>
               <Text>{s}</Text>
             </View>
           ))}
@@ -345,51 +300,26 @@ export default function ClothingForm({ initialData, onSubmit, onCancel }: Clothi
 
       {/* Note */}
       <View style={{ marginBottom: '32px' }}>
-        <Text style={labelStyle}>备注</Text>
+        <Text className={styles.fieldLabel}>备注</Text>
         <Textarea
-          style={{
-            width: '100%', minHeight: '100px', backgroundColor: '#f3f4f6',
-            borderRadius: '12px', padding: '16px', fontSize: '26px',
-            boxSizing: 'border-box',
-          }}
+          className={styles.textarea}
           value={note}
           onInput={(e) => setNote(e.detail.value)}
           placeholder="例如：优衣库购入、适合通勤..."
-          placeholderStyle="color: #9ca3af; font-size: 24px"
+          placeholderStyle="color: #94A3B8; font-size: 24px"
           maxlength={200}
         />
       </View>
 
       {/* Buttons */}
-      <View style={{ display: 'flex', gap: '16px', paddingTop: '24px', borderTop: '1px solid #f3f4f6' }}>
-        <View className="btn-outline" style={{ flex: 1 }} onClick={onCancel}>
+      <View className={styles.actions}>
+        <View className={`btn-outline ${styles.actionBtn}`} onClick={onCancel}>
           取消
         </View>
-        <View className="btn-primary" style={{ flex: 1 }} onClick={handleSubmit}>
+        <View className={`btn-primary ${styles.actionBtn}`} onClick={handleSubmit}>
           保存衣物
         </View>
       </View>
     </View>
   );
 }
-
-// -- 样式常量 --
-const labelStyle: React.CSSProperties = {
-  fontSize: '28px', fontWeight: 500, color: '#374151',
-  marginBottom: '12px', display: 'block',
-};
-
-const pickerStyle: React.CSSProperties = {
-  padding: '16px 20px',
-  backgroundColor: '#f3f4f6',
-  borderRadius: '12px',
-  fontSize: '28px',
-  color: '#374151',
-};
-
-const chipStyle = (active: boolean): React.CSSProperties => ({
-  padding: '8px 16px',
-  borderRadius: '20px',
-  backgroundColor: active ? '#f97316' : '#f3f4f6',
-  color: active ? '#fff' : '#6b7280',
-});
