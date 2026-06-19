@@ -32,6 +32,7 @@ import {
   buildCategoryMaps,
   uploadImage,
   uploadBase64Image,
+  getTempFileURL,
   wardrobeItemToCreateData,
   // 本地存储降级
   localGetItems,
@@ -42,6 +43,7 @@ import {
   localSetInitialized,
   localClearAll,
 } from '../cloud';
+import { setImageUrls } from '../stores/cacheStore';
 import type { OutfitApiItem } from '../cloud';
 
 // ---- 辅助函数 ----
@@ -68,6 +70,9 @@ async function loadFromCloud(): Promise<{ items: WardrobeItem[]; outfits: Outfit
       const items = (itemsData.list || []).map(apiItemToWardrobeItem);
       const outfits = (outfitsData.list || []).map(apiOutfitToOutfit);
 
+      // 批量转换 cloud:// fileID → 临时 HTTPS URL
+      await resolveCloudImageUrls(items);
+
       // 同步到本地存储作为缓存
       localSetItems(items);
       localSetOutfits(outfits);
@@ -80,6 +85,73 @@ async function loadFromCloud(): Promise<{ items: WardrobeItem[]; outfits: Outfit
     console.warn('[Store] 云端加载失败，降级到本地存储:', err);
   }
   return null;
+}
+
+/**
+ * 批量将 WardrobeItem 中的 cloud:// fileID 转换为临时 HTTPS URL
+ * - 非 cloud:// 开头的值（base64、http URL、空字符串）不做处理
+ * - 转换结果写入 imageUrlCache 供后续使用
+ * - 转换失败时保留原始值，不阻塞数据加载
+ */
+async function resolveCloudImageUrls(items: WardrobeItem[]): Promise<void> {
+  const cloudFileIds: string[] = [];
+  const indexMap: Map<string, number[]> = new Map(); // fileID → items 中的索引列表
+
+  items.forEach((item, idx) => {
+    if (item.imageBase64 && item.imageBase64.startsWith('cloud://')) {
+      const existing = indexMap.get(item.imageBase64);
+      if (existing) {
+        existing.push(idx);
+      } else {
+        indexMap.set(item.imageBase64, [idx]);
+        cloudFileIds.push(item.imageBase64);
+      }
+    }
+  });
+
+  if (cloudFileIds.length === 0) return;
+
+  try {
+    // 批量获取临时 URL（每次最多 50 个）
+    const batchSize = 50;
+    const urlMap: Record<string, string> = {};
+
+    for (let i = 0; i < cloudFileIds.length; i += batchSize) {
+      const batch = cloudFileIds.slice(i, i + batchSize);
+      try {
+        const results = await Promise.all(
+          batch.map(async (fileId) => {
+            try {
+              const url = await getTempFileURL(fileId);
+              return { fileId, url };
+            } catch {
+              return { fileId, url: fileId }; // 失败保留原始值
+            }
+          })
+        );
+        results.forEach(({ fileId, url }) => {
+          urlMap[fileId] = url;
+        });
+      } catch {
+        // 单批次失败不阻塞整体
+        console.warn('[Store] 批量获取临时 URL 失败，跳过本批次');
+      }
+    }
+
+    // 写入 imageUrlCache
+    if (Object.keys(urlMap).length > 0) {
+      setImageUrls(urlMap);
+    }
+
+    // 更新 items 中的 imageBase64 为临时 URL
+    items.forEach((item) => {
+      if (item.imageBase64 && urlMap[item.imageBase64]) {
+        item.imageBase64 = urlMap[item.imageBase64];
+      }
+    });
+  } catch (err) {
+    console.warn('[Store] cloud:// URL 转换失败，保留原始值:', err);
+  }
 }
 
 /**
