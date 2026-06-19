@@ -1,0 +1,295 @@
+<!-- @dsCard group="衣橱" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>电子衣橱 - 衣橱页左右分栏</title>
+<style>
+  :root {
+    --color-white: #FFFFFF;
+    --color-bg-secondary: #F9F9FB;
+    --color-text: #0F172A;
+    --color-text-secondary: #64748B;
+    --color-text-tertiary: #94A3B8;
+    --color-border-light: #FBF1F5;
+    --color-ios-sidebar-active-bg: #F0F4FF;
+    --color-ios-sidebar-active-line: #3B82F6;
+    --color-ios-cityline: #D1D5DB;
+    --shadow-ios-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-ios-sidebar: 1px 0 4px rgba(0, 0, 0, 0.03);
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #F0F0F5;
+    gap: 20px; flex-wrap: wrap; padding: 20px;
+  }
+  .phone-frame {
+    width: 375px; height: 812px; background: var(--color-white);
+    border-radius: 40px; overflow: hidden; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 2px #1a1a1a;
+    display: flex; flex-direction: column;
+  }
+  .label-badge {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.7); color: #FFF; font-size: 11px;
+    padding: 4px 12px; border-radius: 20px; z-index: 10; white-space: nowrap;
+  }
+  .page-wrap { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .main-area { display: flex; flex: 1; overflow: hidden; }
+  /* Sidebar */
+  .sidebar {
+    width: 90px; flex-shrink: 0; background: var(--color-white);
+    border-right: 1px solid var(--color-border-light);
+    box-shadow: var(--shadow-ios-sidebar);
+    display: flex; flex-direction: column; padding: 8px 0;
+  }
+  .sidebar-item {
+    position: relative; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 24px 4px; cursor: pointer; min-height: 64px;
+    transition: background 0.2s ease;
+  }
+  .sidebar-item.active { background: var(--color-ios-sidebar-active-bg); }
+  .active-line {
+    position: absolute; left: 0; top: 12px; bottom: 12px;
+    width: 4px; background: var(--color-ios-sidebar-active-line); border-radius: 0 2px 2px 0;
+  }
+  .sidebar-icon { font-size: 22px; display: block; margin-bottom: 4px; opacity: 0.7; }
+  .sidebar-item.active .sidebar-icon { opacity: 1; }
+  .sidebar-label { font-size: 12px; font-weight: 400; color: var(--color-text-secondary); }
+  .sidebar-item.active .sidebar-label { color: var(--color-ios-sidebar-active-line); font-weight: 600; }
+  /* Content */
+  .content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .top-icons {
+    display: flex; align-items: center; gap: 8px; padding: 12px 12px 0; justify-content: flex-end;
+  }
+  .icon-btn {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; background: var(--color-bg-secondary); font-size: 16px; cursor: pointer;
+  }
+  /* Action bar */
+  .action-bar { display: flex; gap: 8px; padding: 12px; }
+  .action-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px;
+    padding: 10px 0; background: var(--color-white);
+    border: 1px solid var(--color-ios-cityline); border-radius: var(--radius-lg);
+    font-size: 13px; color: var(--color-text-secondary); cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .action-btn:hover { background: var(--color-bg-secondary); }
+  .action-btn:active { background: var(--color-bg-secondary); }
+  /* Grid */
+  .content-scroll { flex: 1; padding: 0 8px 8px; overflow-y: auto; }
+  .subcategory-grid { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+  .subcategory-card {
+    width: 30%; flex-grow: 1; background: var(--color-white);
+    border-radius: var(--radius-lg); padding: 20px 6px 14px;
+    display: flex; flex-direction: column; align-items: center;
+    box-shadow: var(--shadow-ios-card);
+    border: 1px solid var(--color-border-light); cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .subcategory-card:hover { transform: scale(1.02); }
+  .subcategory-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+  .subcategory-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+  .subcategory-count { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  /* Empty */
+  .empty-area {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 24px;
+  }
+  .empty-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+  .empty-text { font-size: 15px; color: var(--color-text-secondary); }
+  .empty-sub { font-size: 12px; color: var(--color-text-tertiary); margin-top: 4px; text-align: center; }
+  /* Breadcrumb */
+  .breadcrumb { display: flex; align-items: center; gap: 4px; padding: 8px 12px; }
+  .breadcrumb-back { font-size: 13px; color: var(--color-ios-sidebar-active-line); font-weight: 500; cursor: pointer; }
+  .breadcrumb-sep { font-size: 12px; color: var(--color-text-tertiary); }
+  .breadcrumb-current { font-size: 13px; color: var(--color-text); font-weight: 500; }
+  /* List items */
+  .item-grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 4px; }
+  .item-cell { width: 47%; flex-grow: 1; }
+  .clothing-card {
+    background: var(--color-white); border-radius: var(--radius-md);
+    overflow: hidden; box-shadow: var(--shadow-ios-card); cursor: pointer;
+    border: 1px solid var(--color-border-light);
+  }
+  .card-img {
+    width: 100%; height: 100px; background: var(--color-bg-secondary);
+    display: flex; align-items: center; justify-content: center; font-size: 36px;
+  }
+  .card-info { padding: 8px 10px; }
+  .card-name { font-size: 12px; font-weight: 500; color: var(--color-text); }
+  .card-meta { font-size: 10px; color: var(--color-text-tertiary); margin-top: 2px; }
+  /* Tab bar */
+  .tab-bar {
+    height: 80px; background: var(--color-white); border-top: 1px solid #F1F5F9;
+    display: flex; align-items: center; justify-content: space-around; padding-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .tab-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .tab-icon { font-size: 22px; }
+  .tab-label { font-size: 10px; color: #94A3B8; }
+  .tab-label.active { color: #BE185D; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- 衣橱 - 上衣子品类（默认态） -->
+<div class="phone-frame">
+  <span class="label-badge">衣橱 · 上衣子品类</span>
+  <div class="page-wrap">
+    <div class="main-area">
+      <div class="sidebar">
+        <div class="sidebar-item active">
+          <div class="active-line"></div>
+          <span class="sidebar-icon">👔</span>
+          <span class="sidebar-label">上衣</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">👖</span>
+          <span class="sidebar-label">下装</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🧥</span>
+          <span class="sidebar-label">外套</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">💍</span>
+          <span class="sidebar-label">配饰</span>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="top-icons">
+          <div class="icon-btn">✕</div>
+        </div>
+        <div class="action-bar">
+          <div class="action-btn">🔍 筛选</div>
+          <div class="action-btn">+ 添加衣物</div>
+          <div class="action-btn">✨ 搭配</div>
+        </div>
+        <div class="content-scroll">
+          <div class="subcategory-grid">
+            <div class="subcategory-card"><span class="subcategory-icon">👕</span><span class="subcategory-label">T恤</span><span class="subcategory-count">3 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">👔</span><span class="subcategory-label">衬衫</span><span class="subcategory-count">2 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">🧥</span><span class="subcategory-label">卫衣</span><span class="subcategory-count">1 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">🧶</span><span class="subcategory-label">针织衫</span><span class="subcategory-count">0 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">🧣</span><span class="subcategory-label">毛衣</span><span class="subcategory-count">2 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">🎽</span><span class="subcategory-label">背心</span><span class="subcategory-count">1 件</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span class="tab-icon">🏠</span><span class="tab-label">首页</span></div>
+      <div class="tab-item"><span class="tab-icon">👗</span><span class="tab-label active">衣橱</span></div>
+      <div class="tab-item"><span class="tab-icon">✨</span><span class="tab-label">搭配</span></div>
+      <div class="tab-item"><span class="tab-icon">👤</span><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 衣橱 - 下装选中态 -->
+<div class="phone-frame">
+  <span class="label-badge">衣橱 · 下装选中态</span>
+  <div class="page-wrap">
+    <div class="main-area">
+      <div class="sidebar">
+        <div class="sidebar-item">
+          <span class="sidebar-icon">👔</span>
+          <span class="sidebar-label">上衣</span>
+        </div>
+        <div class="sidebar-item active">
+          <div class="active-line"></div>
+          <span class="sidebar-icon">👖</span>
+          <span class="sidebar-label">下装</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🧥</span>
+          <span class="sidebar-label">外套</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">💍</span>
+          <span class="sidebar-label">配饰</span>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="top-icons">
+          <div class="icon-btn">✕</div>
+        </div>
+        <div class="action-bar">
+          <div class="action-btn">🔍 筛选</div>
+          <div class="action-btn">+ 添加衣物</div>
+          <div class="action-btn">✨ 搭配</div>
+        </div>
+        <div class="content-scroll">
+          <div class="subcategory-grid">
+            <div class="subcategory-card"><span class="subcategory-icon">👖</span><span class="subcategory-label">牛仔裤</span><span class="subcategory-count">5 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">👖</span><span class="subcategory-label">休闲裤</span><span class="subcategory-count">3 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">👔</span><span class="subcategory-label">西裤</span><span class="subcategory-count">1 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">🩳</span><span class="subcategory-label">短裤</span><span class="subcategory-count">2 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">👗</span><span class="subcategory-label">半身裙</span><span class="subcategory-count">0 件</span></div>
+            <div class="subcategory-card"><span class="subcategory-icon">👗</span><span class="subcategory-label">长裙</span><span class="subcategory-count">1 件</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span class="tab-icon">🏠</span><span class="tab-label">首页</span></div>
+      <div class="tab-item"><span class="tab-icon">👗</span><span class="tab-label active">衣橱</span></div>
+      <div class="tab-item"><span class="tab-icon">✨</span><span class="tab-label">搭配</span></div>
+      <div class="tab-item"><span class="tab-icon">👤</span><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 衣橱 - 空状态 -->
+<div class="phone-frame">
+  <span class="label-badge">衣橱 · 空状态</span>
+  <div class="page-wrap">
+    <div class="main-area">
+      <div class="sidebar">
+        <div class="sidebar-item active">
+          <div class="active-line"></div>
+          <span class="sidebar-icon">👔</span>
+          <span class="sidebar-label">上衣</span>
+        </div>
+        <div class="sidebar-item"><span class="sidebar-icon">👖</span><span class="sidebar-label">下装</span></div>
+        <div class="sidebar-item"><span class="sidebar-icon">🧥</span><span class="sidebar-label">外套</span></div>
+        <div class="sidebar-item"><span class="sidebar-icon">💍</span><span class="sidebar-label">配饰</span></div>
+      </div>
+
+      <div class="content-area">
+        <div class="top-icons">
+          <div class="icon-btn">✕</div>
+        </div>
+        <div class="action-bar">
+          <div class="action-btn">🔍 筛选</div>
+          <div class="action-btn">+ 添加衣物</div>
+          <div class="action-btn">✨ 搭配</div>
+        </div>
+        <div class="content-scroll">
+          <div class="empty-area">
+            <span class="empty-icon">📦</span>
+            <span class="empty-text">暂无子品类</span>
+            <span class="empty-sub">该品类暂未配置子品类</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span class="tab-icon">🏠</span><span class="tab-label">首页</span></div>
+      <div class="tab-item"><span class="tab-icon">👗</span><span class="tab-label active">衣橱</span></div>
+      <div class="tab-item"><span class="tab-icon">✨</span><span class="tab-label">搭配</span></div>
+      <div class="tab-item"><span class="tab-icon">👤</span><span class="tab-label">我的</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

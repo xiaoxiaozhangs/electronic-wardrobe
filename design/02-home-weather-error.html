@@ -1,0 +1,174 @@
+<!-- @dsCard group="首页" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>电子衣橱 - 首页天气异常态</title>
+<style>
+  :root {
+    --color-ios-sky-start: #E8F0FE;
+    --color-ios-sky-end: #F5F7FA;
+    --color-ios-cloud: #FFFFFF;
+    --color-ios-cityline: #D1D5DB;
+    --color-ios-card-bg: rgba(255, 255, 255, 0.72);
+    --shadow-ios-float: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --shadow-ios-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #F0F0F5;
+  }
+  .phone-frame {
+    width: 375px; height: 812px; background: var(--color-ios-sky-start);
+    border-radius: 40px; overflow: hidden; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 2px #1a1a1a;
+  }
+  .page {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between; position: relative; overflow: hidden;
+  }
+  .sky-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; }
+  .sky-gradient {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, var(--color-ios-sky-start) 0%, var(--color-ios-sky-end) 55%, #FFFFFF 100%);
+  }
+  .cloud {
+    position: absolute; background: var(--color-ios-cloud); border-radius: 50%; opacity: 0.9;
+  }
+  .cloud1 {
+    width: 120px; height: 60px; top: 120px; left: 40px;
+    animation: cloudDrift 20s ease-in-out infinite;
+    box-shadow: -30px 10px 0 -10px rgba(255,255,255,0.8), 40px -5px 0 -5px rgba(255,255,255,0.7);
+  }
+  .cloud2 {
+    width: 90px; height: 48px; top: 200px; right: 50px;
+    animation: cloudDrift 25s ease-in-out infinite reverse;
+    box-shadow: -20px 8px 0 -8px rgba(255,255,255,0.8), 30px -4px 0 -4px rgba(255,255,255,0.7);
+  }
+  @keyframes cloudDrift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(16px); }
+  }
+  .city-line {
+    position: absolute; bottom: 80px; left: 0; right: 0; height: 100px; opacity: 0.18;
+  }
+  .city-line svg { width: 100%; height: 100%; }
+  .top-nav {
+    position: relative; z-index: 2; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 48px 24px 0;
+  }
+  .back-btn {
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #64748B;
+  }
+  .city-name { font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: 2px; }
+  .weather-card {
+    background: var(--color-ios-card-bg); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl); padding: 10px 16px;
+    display: flex; align-items: center; gap: 6px;
+    box-shadow: var(--shadow-ios-card);
+  }
+  .weather-icon { font-size: 20px; }
+  .weather-text { font-size: 15px; font-weight: 500; color: #94A3B8; }
+  .user-area {
+    position: relative; z-index: 2; display: flex; flex-direction: column;
+    align-items: center; flex: 1; justify-content: center; padding-bottom: 40px;
+  }
+  .avatar-wrap {
+    width: 110px; height: 110px; border-radius: 50%; overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.9);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 16px; background: #F3F4F6;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .avatar-default { font-size: 56px; }
+  .user-name { font-size: 18px; font-weight: 600; color: #0F172A; letter-spacing: 1px; }
+  .upload-area {
+    position: relative; z-index: 2; width: 100%; display: flex;
+    justify-content: center; padding-bottom: 100px;
+  }
+  .upload-btn {
+    width: 220px; height: 64px; background: #FFFFFF; border-radius: var(--radius-2xl);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 600; color: #0F172A;
+    box-shadow: var(--shadow-ios-float); cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .upload-btn:active { transform: scale(0.97); }
+  .tab-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+    background: #FFFFFF; border-top: 1px solid #F1F5F9;
+    display: flex; align-items: center; justify-content: space-around;
+    padding-bottom: 20px; z-index: 5;
+  }
+  .tab-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .tab-icon { font-size: 22px; }
+  .tab-label { font-size: 10px; color: #94A3B8; }
+  .tab-label.active { color: #BE185D; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- 首页 - 天气异常态 -->
+<div class="phone-frame">
+  <div class="page">
+    <div class="sky-bg">
+      <div class="sky-gradient"></div>
+      <div class="cloud cloud1"></div>
+      <div class="cloud cloud2"></div>
+      <div class="city-line">
+        <svg viewBox="0 0 375 100" fill="none">
+          <polyline stroke="#D1D5DB" stroke-width="1.5" points="0,85 20,78 40,82 60,65 80,70 100,55 120,60 140,48 160,52 180,40 200,45 220,35 240,42 260,38 280,50 300,44 320,55 340,48 360,58 375,50"/>
+          <polyline stroke="#D1D5DB" stroke-width="1.5" points="0,95 30,90 60,92 90,85 120,88 150,80 180,83 210,78 240,82 270,76 300,80 330,74 360,78 375,75"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="top-nav">
+      <div class="back-btn">←</div>
+      <div class="city-name">北京</div>
+      <div class="weather-card">
+        <span class="weather-icon">🌤️</span>
+        <span class="weather-text">--℃</span>
+      </div>
+    </div>
+
+    <div class="user-area">
+      <div class="avatar-wrap">
+        <span class="avatar-default">👩</span>
+      </div>
+      <div class="user-name">用户</div>
+    </div>
+
+    <div class="upload-area">
+      <div class="upload-btn">上传服饰</div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab-item">
+        <span class="tab-icon">🏠</span>
+        <span class="tab-label active">首页</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">👗</span>
+        <span class="tab-label">衣橱</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">✨</span>
+        <span class="tab-label">搭配</span>
+      </div>
+      <div class="tab-item">
+        <span class="tab-icon">👤</span>
+        <span class="tab-label">我的</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
